@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{41277CDB-2851-E5CC-E3FD-3A9ACD8810BB}</ProjectGuid>
+    <ProjectGuid>{491C6469-441B-A936-EB93-CE2F92EB5034}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -57,80 +57,83 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Photon\PhotonRealtime\Demos\DemoLoadBalancing\ConnectAndJoinRandomLb.cs" />
-    <Compile Include="Assets\TRASH\[PH]\[PH] Buffer\PanelControl.cs" />
+    <Compile Include="Assets\Scripts\PanelControl.cs" />
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\SocketWebTcp.cs" />
-    <Compile Include="Assets\TRASH\[PH]\[PH] Buffer\StatsType.cs" />
+    <Compile Include="Assets\Scripts\StatsType.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatAppIdCheckerUI.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\AppSettingsExtensions.cs" />
+    <Compile Include="Assets\Scripts\Inventory.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChannelSelector.cs" />
     <Compile Include="Assets\PATHFINDING\Heap.cs" />
     <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\EventSystemSpawner.cs" />
-    <Compile Include="Assets\TRASH\Spin\Slots.cs" />
+    <Compile Include="Assets\Scripts\Slots.cs" />
     <Compile Include="Assets\PATHFINDING\Path.cs" />
-    <Compile Include="Assets\TRASH\[PH]\[PH] Buffer\HealthPresentor.cs" />
+    <Compile Include="Assets\Scripts\HealthPresentor.cs" />
     <Compile Include="Assets\PATHFINDING\PathRequestManager.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickPlayerExample.cs" />
     <Compile Include="Assets\PATHFINDING\Node.cs" />
     <Compile Include="Assets\Scripts\Projectile.cs" />
-    <Compile Include="Assets\TRASH\Spin\Reel.cs" />
-    <Compile Include="Assets\TRASH\PlayerInput.cs" />
+    <Compile Include="Assets\Scripts\Reel.cs" />
+    <Compile Include="Assets\Scripts\PlayerInput.cs" />
     <Compile Include="Assets\Presets\CameraFollow.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\DynamicJoystick.cs" />
-    <Compile Include="Assets\TRASH\[PH]\[PH]Town\LocatPresent\LocationPresentor.cs" />
+    <Compile Include="Assets\Scripts\LocationPresentor.cs" />
+    <Compile Include="Assets\Scripts\SlotType.cs" />
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\WebSocket.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\TextButtonTransition.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
-    <Compile Include="Assets\TRASH\[PH]\[PH] Buffer\CollectableType.cs" />
-    <Compile Include="Assets\TRASH\[PH]\[PH] Buffer\Item.cs" />
+    <Compile Include="Assets\Scripts\CollectableType.cs" />
+    <Compile Include="Assets\Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\IDamageable.cs" />
+    <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\NamePickGui.cs" />
     <Compile Include="Assets\PATHFINDING\Line.cs" />
-    <Compile Include="Assets\TRASH\LootMovement.cs" />
-    <Compile Include="Assets\TRASH\Server.cs" />
+    <Compile Include="Assets\Scripts\LootMovement.cs" />
+    <Compile Include="Assets\Scripts\Server.cs" />
+    <Compile Include="Assets\Scripts\Slot.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickSetterExample.cs" />
-    <Compile Include="Assets\TRASH\[PH]Traps\Trap.cs" />
+    <Compile Include="Assets\Scripts\Trap.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\IgnoreUiRaycastWhenInactive.cs" />
-    <Compile Include="Assets\TRASH\[PH]\[PH] Buffer\CollectableItem.cs" />
+    <Compile Include="Assets\Scripts\CollectableItem.cs" />
     <Compile Include="Assets\PATHFINDING\Grid.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\FriendItem.cs" />
-    <Compile Include="Assets\TRASH\Lobby.cs" />
+    <Compile Include="Assets\Scripts\Lobby.cs" />
     <Compile Include="Assets\PATHFINDING\Pathfinding.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatGui.cs" />
     <Compile Include="Assets\PATHFINDING\Unit.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\TextToggleIsOnTransition.cs" />
     <Compile Include="Assets\Scripts\Lootbox.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\OnStartDelete.cs" />
-    <Compile Include="Assets\TRASH\[PH]\[PH]Town\Message.cs" />
-    <Compile Include="Assets\TRASH\[PH]\[PH] Buffer\ItemClick.cs" />
+    <Compile Include="Assets\Scripts\Message.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
-    <None Include="Assets\TRASH\UnlitMetaPass.hlsl" />
-    <None Include="Assets\TRASH\Depth\UnlitMetaPass.hlsl" />
+    <None Include="Assets\Shaders\UnlitMetaPass.hlsl" />
+    <None Include="Assets\Shaders\Depth\UnlitMetaPass.hlsl" />
     <None Include="Assets\Photon\PhotonUnityNetworking\changelog.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
-    <None Include="Assets\TRASH\Depth\UnlitInput.hlsl" />
-    <None Include="Assets\TRASH\Depth\DepthOnlyPass.hlsl" />
+    <None Include="Assets\Shaders\Depth\UnlitInput.hlsl" />
+    <None Include="Assets\Shaders\Depth\DepthOnlyPass.hlsl" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\Photon\PhotonLibs\WebSocket\websocket-sharp.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
-    <None Include="Assets\TRASH\DepthOnlyPass.hlsl" />
-    <None Include="Assets\TRASH\SHADERS\TestShader.shader" />
+    <None Include="Assets\Shaders\DepthOnlyPass.hlsl" />
+    <None Include="Assets\Shaders\TestShader.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
-    <None Include="Assets\TRASH\Sprites-Bumped-Diffuse.shader" />
-    <None Include="Assets\TRASH\SurfaceInput.hlsl" />
+    <None Include="Assets\Shaders\Sprites-Bumped-Diffuse.shader" />
+    <None Include="Assets\Shaders\SurfaceInput.hlsl" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
-    <None Include="Assets\TRASH\Depth\UnlitSprite.shader" />
+    <None Include="Assets\Shaders\Depth\UnlitSprite.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
@@ -139,21 +142,21 @@
     <None Include="Assets\Photon\PhotonLibs\Photon3Unity3D.dll" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\Photon\PhotonLibs\Metro\Photon3Unity3D.dll" />
-    <None Include="Assets\TRASH\Depth\SurfaceInput.hlsl" />
-    <None Include="Assets\TRASH\SHADERS\SpriteShadow.shader" />
+    <None Include="Assets\Shaders\Depth\SurfaceInput.hlsl" />
+    <None Include="Assets\Shaders\SpriteShadow.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
-    <None Include="Assets\TRASH\Fractal.shader" />
+    <None Include="Assets\Shaders\Fractal.shader" />
     <None Include="Assets\Photon\PhotonLibs\Photon3Unity3D.xml" />
-    <None Include="Assets\TRASH\SHADERS\RightSpriteShadow.shader" />
+    <None Include="Assets\Shaders\RightSpriteShadow.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
-    <None Include="Assets\TRASH\UnlitInput.hlsl" />
+    <None Include="Assets\Shaders\UnlitInput.hlsl" />
     <None Include="Assets\Photon\PhotonUnityNetworking\link.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
-    <None Include="Assets\TRASH\[PH]\[PH] Buffer\ThrowShader.shader" />
+    <None Include="Assets\Shaders\ThrowShader.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
-    <None Include="Assets\TRASH\DepthOnlyPass 1.hlsl" />
+    <None Include="Assets\Shaders\DepthOnlyPass 1.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -813,43 +816,43 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="PhotonChat.csproj">
-      <Project>{5AB44B38-8DA3-A108-ACEA-C7BD03499307}</Project>
+      <Project>{E95A1D59-34FC-6A45-B7A6-633C0C07602A}</Project>
       <Name>PhotonChat</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Editor.csproj">
-      <Project>{666FF52A-C011-F55F-A11F-AE53B9CB6733}</Project>
+      <Project>{44B4DB4C-C08F-2E90-5927-709A71CFD2A8}</Project>
       <Name>PhotonUnityNetworking.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.csproj">
-      <Project>{480E01BA-4268-98DE-DB38-C496947141C5}</Project>
+      <Project>{F78CDAC6-4741-4886-2144-3DBBF8E080E5}</Project>
       <Name>PhotonUnityNetworking.Utilities.PhotonPlayer.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="PunDemos.DemoHubEditor.csproj">
-      <Project>{A98BA9FA-066D-9B0D-9135-3B432D16E810}</Project>
+      <Project>{F722C098-935F-AB88-878B-9E9D7CEDA7CC}</Project>
       <Name>PunDemos.DemoHubEditor</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonRealtime.csproj">
-      <Project>{57AF16CC-3762-9AA3-51E2-07F10D3F4F93}</Project>
+      <Project>{230A73F9-9308-E260-E65D-F11B2D41520B}</Project>
       <Name>PhotonRealtime</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.csproj">
-      <Project>{3549024E-ADB6-AF1F-1ABC-0FB0B80E5EF4}</Project>
+      <Project>{D501EDD9-763A-85CB-B44E-1141B469ED85}</Project>
       <Name>PhotonUnityNetworking.Utilities</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.csproj">
-      <Project>{56003577-715D-CE4C-73E5-D8E8F30143C6}</Project>
+      <Project>{5C69C193-DD24-D6F7-D247-D2DDB337334D}</Project>
       <Name>PhotonUnityNetworking</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Demos.csproj">
-      <Project>{1F9187EB-BB4B-F572-C171-7D01E680E6C9}</Project>
+      <Project>{20D85E56-BBF1-5220-3B36-AB21EE7BF8DF}</Project>
       <Name>PhotonUnityNetworking.Demos</Name>
     </ProjectReference>
     <ProjectReference Include="PunDemos.DemoSlotcarEditor.csproj">
-      <Project>{12E1917D-A35E-8FB1-110E-897FAC8778D9}</Project>
+      <Project>{98249190-A863-7099-754B-C73B32542382}</Project>
       <Name>PunDemos.DemoSlotcarEditor</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.Culling.Editor.csproj">
-      <Project>{038D894B-13E3-92BA-FD1B-90FE7743250F}</Project>
+      <Project>{690280CD-66A2-C614-1CA3-475A290D0682}</Project>
       <Name>PhotonUnityNetworking.Utilities.Culling.Editor</Name>
     </ProjectReference>
   </ItemGroup>

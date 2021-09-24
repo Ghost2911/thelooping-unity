@@ -140,9 +140,9 @@ public class Unit : MonoBehaviour, IDamageable
 	private void SpriteFlip(Vector3 movement)
 	{
 		if (movement.x < 0)
-			transform.localScale = new Vector3(-1f, 1f, 1f);
-		else if (movement.x > 0)
 			transform.localScale = new Vector3(1f, 1f, 1f);
+		else if (movement.x > 0)
+			transform.localScale = new Vector3(-1f, 1f, 1f);
 	}
 
 	private void Attack()

@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.11f1 (99c7afb366b3) revision 10078127'; Using compiler version '192528614'; Build Type 'Release'
-OS: 'Windows 10 Pro; OS build 19043.1165; Version 2009; 64bit' Language: 'ru' Physical Memory: 16365 MB
+OS: 'Windows 10 Pro; OS build 19043.1237; Version 2009; 64bit' Language: 'ru' Physical Memory: 16365 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
  COMMAND LINE ARGUMENTS:
@@ -15,11 +15,19 @@ C:/Users/Ghost2911/Desktop/sources/autumn2021/thelooping-home-edition
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
+<<<<<<< HEAD
+3969
+Successfully changed project path to: C:/Users/Ghost2911/Documents/GitHub/thelooping-unity
+C:/Users/Ghost2911/Documents/GitHub/thelooping-unity
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 113.68 ms, found 2 plugins.
+=======
 11825
 Successfully changed project path to: C:/Users/Ghost2911/Desktop/sources/autumn2021/thelooping-home-edition
 C:/Users/Ghost2911/Desktop/sources/autumn2021/thelooping-home-edition
 Using Asset Import Pipeline V2.
 Refreshing native plugins compatible for Editor in 109.27 ms, found 2 plugins.
+>>>>>>> parent of 84472eff (Revert "Nature and items")
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.11f1 (99c7afb366b3)
 [Subsystems] Discovering subsystems at path D:/UnityShit/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
@@ -36,6 +44,21 @@ Initialize mono
 Mono path[0] = 'D:/UnityShit/2020.3.11f1/Editor/Data/Managed'
 Mono path[1] = 'D:/UnityShit/2020.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'D:/UnityShit/2020.3.11f1/Editor/Data/MonoBleedingEdge/etc'
+<<<<<<< HEAD
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56816
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: D:/UnityShit/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.001856 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 107.99 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.619 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.012515 seconds.
+=======
 Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56392
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
@@ -49,17 +72,127 @@ Mono: successfully reloaded assembly
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
 Registered in 0.011024 seconds.
+>>>>>>> parent of 84472eff (Revert "Nature and items")
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\Ghost2911\Desktop\sources\autumn2021\thelooping-home-edition\Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll
 Native extension for WindowsStandalone target not found
+<<<<<<< HEAD
+Refreshing native plugins compatible for Editor in 105.30 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.045 seconds
+=======
 Refreshing native plugins compatible for Editor in 122.41 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
 - Completed reload, in  2.080 seconds
+>>>>>>> parent of 84472eff (Revert "Nature and items")
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+<<<<<<< HEAD
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.11 seconds
+Refreshing native plugins compatible for Editor in 1.08 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3024 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 141.4 MB.
+System memory in use after: 141.6 MB.
+
+Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 3461.
+Total: 4.086700 ms (FindLiveObjects: 0.585900 ms CreateObjectMapping: 0.153500 ms MarkObjects: 3.090500 ms  DeleteObjects: 0.255200 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/TRASH/[PH]Town/LocatPresent
+  artifactKey: Guid(15e2c0d064bdc4344bae3a60c8df3e51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH]Town/LocatPresent using Guid(15e2c0d064bdc4344bae3a60c8df3e51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3af759f2e12a1a18c73e3c444d945a72') in 0.049834 seconds
+  Import took 0.060346 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001302 seconds.
+  path: Assets/TRASH/[PH]Town/Villagers/Animation
+  artifactKey: Guid(dcf1ec7144505ca42ae0bc175a23c902) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH]Town/Villagers/Animation using Guid(dcf1ec7144505ca42ae0bc175a23c902) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dfe9bc5b50484c3321ec01e08b6714b9') in 0.009348 seconds
+  Import took 0.018556 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.869427 seconds.
+  path: Assets/TRASH/[PH]Town/LocatPresent/LocationPresentor.cs
+  artifactKey: Guid(86796f4a23e79004fbc1639a7186be10) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH]Town/LocatPresent/LocationPresentor.cs using Guid(86796f4a23e79004fbc1639a7186be10) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dcf2996782b2d0a6242b30e1d4add73a') in 0.059535 seconds
+  Import took 0.067395 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.017586 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\Ghost2911\Documents\GitHub\thelooping-unity\Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.21 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.781 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.10 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2890 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 132.0 MB.
+System memory in use after: 132.2 MB.
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 3465.
+Total: 3.999400 ms (FindLiveObjects: 0.587700 ms CreateObjectMapping: 0.158100 ms MarkObjects: 3.193100 ms  DeleteObjects: 0.058100 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 25.230645 seconds.
+  path: Assets/TRASH/[PH]Town/Message.cs
+  artifactKey: Guid(d723362da54c81541b06f587e292dd82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH]Town/Message.cs using Guid(d723362da54c81541b06f587e292dd82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1eeca8c815c27c1c8d6a5dfcbc0ae50e') in 0.014582 seconds
+  Import took 0.023261 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.011573 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\Ghost2911\Documents\GitHub\thelooping-unity\Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.07 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.757 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.06 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2890 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 132.1 MB.
+System memory in use after: 132.3 MB.
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 3469.
+Total: 3.440300 ms (FindLiveObjects: 0.541500 ms CreateObjectMapping: 0.149000 ms MarkObjects: 2.714400 ms  DeleteObjects: 0.034000 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.603561 seconds.
+  path: Assets/TRASH/[PH] Buffer/PanelControl.cs
+  artifactKey: Guid(9d3fa7b1ef95d4f40b0f49144a69c804) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH] Buffer/PanelControl.cs using Guid(9d3fa7b1ef95d4f40b0f49144a69c804) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '360d6da2208602b70804387b802270e8') in 0.017687 seconds
+  Import took 0.026074 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000968 seconds.
+  path: Assets/TRASH/[PH] Buffer/CollectableType.cs
+  artifactKey: Guid(f42c2dd86e7eeee4092b08377c6cf16f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH] Buffer/CollectableType.cs using Guid(f42c2dd86e7eeee4092b08377c6cf16f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4f914fda83c42dceed4a5d7aae99d98f') in 0.010704 seconds
+  Import took 0.034321 seconds .
+=======
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
 Refreshing native plugins compatible for Editor in 1.05 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
@@ -166,10 +299,159 @@ Received Import Request.
   artifactKey: Guid(295833e199a34474a8395e2ac25b25fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/TRASH/[PH]/[PH] Buffer/EquipItem.cs using Guid(295833e199a34474a8395e2ac25b25fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9735942ca8633b9b286ed265e8f9e4a0') in 0.009707 seconds
   Import took 0.016549 seconds .
+>>>>>>> parent of 84472eff (Revert "Nature and items")
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
+<<<<<<< HEAD
+Registered in 0.011594 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\Ghost2911\Documents\GitHub\thelooping-unity\Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.04 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.757 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.05 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2890 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 132.1 MB.
+System memory in use after: 132.3 MB.
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 3473.
+Total: 4.360900 ms (FindLiveObjects: 0.582100 ms CreateObjectMapping: 0.197100 ms MarkObjects: 3.542400 ms  DeleteObjects: 0.037100 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 39.824221 seconds.
+  path: Assets/TRASH/[PH]Town/Villagers/Sprites/villager_01.png
+  artifactKey: Guid(dcf889bfdc83b7c45b5fc8ad5d338bc6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH]Town/Villagers/Sprites/villager_01.png using Guid(dcf889bfdc83b7c45b5fc8ad5d338bc6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '26674f9d803a526ff4d63940de6ff630') in 0.293725 seconds
+  Import took 0.303031 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001112 seconds.
+  path: Assets/TRASH/[PH]Town/Villagers/Sprites/witch.png
+  artifactKey: Guid(c908c1491a6423b4ea5650e86e243ccc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH]Town/Villagers/Sprites/witch.png using Guid(c908c1491a6423b4ea5650e86e243ccc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3f84c1fdc48755c04709f7a7b54d40c3') in 0.031725 seconds
+  Import took 0.039331 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 22.892244 seconds.
+  path: Assets/TRASH/[PH]Town/Villagers/Animation/Controllers
+  artifactKey: Guid(94ef5b103f84d864c81888453cb67042) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH]Town/Villagers/Animation/Controllers using Guid(94ef5b103f84d864c81888453cb67042) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0967b5b4043497bbc85d3caffb2ae424') in 0.014107 seconds
+  Import took 0.029837 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.503335 seconds.
+  path: Assets/TRASH/[PH]Town/Villagers/Controllers/Barkeep.overrideController
+  artifactKey: Guid(785a613ca358c044da1b74125509816f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH]Town/Villagers/Controllers/Barkeep.overrideController using Guid(785a613ca358c044da1b74125509816f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e7479371025734463a944e0c247c5aa6') in 0.024871 seconds
+  Import took 0.034609 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001096 seconds.
+  path: Assets/TRASH/[PH]Town/Villagers/Controllers/Witch.overrideController
+  artifactKey: Guid(2f8f101fcb21b3d44942df78b92c6edf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH]Town/Villagers/Controllers/Witch.overrideController using Guid(2f8f101fcb21b3d44942df78b92c6edf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1ab8eb4fc3aed3687bf4a3611ad431c8') in 0.012146 seconds
+  Import took 0.019758 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001095 seconds.
+  path: Assets/TRASH/[PH]Town/Villagers/Controllers/Beggar.overrideController
+  artifactKey: Guid(218ef1ceb356e4240b97d0694f4f36b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH]Town/Villagers/Controllers/Beggar.overrideController using Guid(218ef1ceb356e4240b97d0694f4f36b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '138bf17735dee8e73b5902b1b8203d40') in 0.010866 seconds
+  Import took 0.018730 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001027 seconds.
+  path: Assets/TRASH/[PH]Town/Villagers/Controllers/Barmaid.overrideController
+  artifactKey: Guid(cd54ede127a0d2e40a87ef8835c1a6fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH]Town/Villagers/Controllers/Barmaid.overrideController using Guid(cd54ede127a0d2e40a87ef8835c1a6fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5fc7562c1e0a525ae587a2a37efc9c4a') in 0.014183 seconds
+  Import took 0.023566 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000916 seconds.
+  path: Assets/TRASH/[PH]Town/Villagers/Controllers/Cleaner.overrideController
+  artifactKey: Guid(4b577b44e5d57e648865405fce44a20a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH]Town/Villagers/Controllers/Cleaner.overrideController using Guid(4b577b44e5d57e648865405fce44a20a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6cdda724e859d2b674ab089446498b40') in 0.011142 seconds
+  Import took 0.018934 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001010 seconds.
+  path: Assets/TRASH/[PH]Town/Villagers/Controllers/Gypsy.overrideController
+  artifactKey: Guid(ebf40366955103e47a5c18d807eeda28) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH]Town/Villagers/Controllers/Gypsy.overrideController using Guid(ebf40366955103e47a5c18d807eeda28) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e8238dda1da9a07c698a65c3dd89e43') in 0.010932 seconds
+  Import took 0.019201 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001004 seconds.
+  path: Assets/TRASH/[PH]Town/Villagers/Controllers/Cleaner.overrideController
+  artifactKey: Guid(4b577b44e5d57e648865405fce44a20a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH]Town/Villagers/Controllers/Cleaner.overrideController using Guid(4b577b44e5d57e648865405fce44a20a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6cdda724e859d2b674ab089446498b40') in 0.006261 seconds
+  Import took 0.013896 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001001 seconds.
+  path: Assets/TRASH/[PH]Town/Villagers/Controllers/King.overrideController
+  artifactKey: Guid(830e30315e32b054c98c6c01cf39865c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH]Town/Villagers/Controllers/King.overrideController using Guid(830e30315e32b054c98c6c01cf39865c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c3967d055707bf253c948881a9e2e8b6') in 0.010310 seconds
+  Import took 0.018029 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 19.704084 seconds.
+  path: Assets/ANIMATOR/viking
+  artifactKey: Guid(0f0683943007209458151ec9d331e36d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ANIMATOR/viking using Guid(0f0683943007209458151ec9d331e36d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dd3ed93475890c560d63d9b51199fec5') in 0.012270 seconds
+  Import took 0.028460 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.102839 seconds.
+  path: Assets/ANIMATOR/Villagers
+  artifactKey: Guid(cc924368e7dec464195eba327f9e9066) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ANIMATOR/Villagers using Guid(cc924368e7dec464195eba327f9e9066) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8a0996222ee5dae35fbb3497ff0a4852') in 0.011464 seconds
+  Import took 0.024843 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 15.345795 seconds.
+  path: Assets/TRASH/[PH]Town/Dialogue.controller
+  artifactKey: Guid(ff72c381e5514ac4887d2b0914984a06) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH]Town/Dialogue.controller using Guid(ff72c381e5514ac4887d2b0914984a06) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b58edaa1cfba4d052168d6a0c2d66f43') in 0.015250 seconds
+  Import took 0.023818 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.267822 seconds.
+  path: Assets/TRASH/[PH]Traps/BearTrap.anim
+  artifactKey: Guid(e441d325cbaffd1409c5273c82c133f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH]Traps/BearTrap.anim using Guid(e441d325cbaffd1409c5273c82c133f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7a9bb0e97b4a5c01d5d9ea1e99e6cf0e') in 0.014601 seconds
+  Import took 0.022625 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.027066 seconds.
+  path: Assets/TRASH/[PH]Traps/BearTrap.anim
+  artifactKey: Guid(e441d325cbaffd1409c5273c82c133f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH]Traps/BearTrap.anim using Guid(e441d325cbaffd1409c5273c82c133f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7a9bb0e97b4a5c01d5d9ea1e99e6cf0e') in 0.004040 seconds
+  Import took 0.010496 seconds .
+=======
 Registered in 0.011683 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\Ghost2911\Desktop\sources\autumn2021\thelooping-home-edition\Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll
@@ -418,10 +700,55 @@ System memory in use after: 154.5 MB.
 
 Unloading 20 unused Assets to reduce memory usage. Loaded Objects now: 3611.
 Total: 4.817200 ms (FindLiveObjects: 0.829100 ms CreateObjectMapping: 0.194500 ms MarkObjects: 3.378600 ms  DeleteObjects: 0.413000 ms)
+>>>>>>> parent of 84472eff (Revert "Nature and items")
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
+<<<<<<< HEAD
+Registered in 0.013105 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\Ghost2911\Documents\GitHub\thelooping-unity\Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.05 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.733 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.06 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2890 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 135.1 MB.
+System memory in use after: 135.3 MB.
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 3484.
+Total: 4.315600 ms (FindLiveObjects: 0.854600 ms CreateObjectMapping: 0.267700 ms MarkObjects: 3.162200 ms  DeleteObjects: 0.029900 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 47.539710 seconds.
+  path: Assets/TRASH/Lobby.cs
+  artifactKey: Guid(ad06454f734e881429d7d4767868210e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/Lobby.cs using Guid(ad06454f734e881429d7d4767868210e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc61c4a3aaad69ccaafbfa20648a8d34') in 0.014499 seconds
+  Import took 0.023425 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.035717 seconds.
+  path: Assets/TRASH/Lobby.cs
+  artifactKey: Guid(ad06454f734e881429d7d4767868210e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/Lobby.cs using Guid(ad06454f734e881429d7d4767868210e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc61c4a3aaad69ccaafbfa20648a8d34') in 0.005382 seconds
+  Import took 0.013276 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.938866 seconds.
+  path: Assets/TRASH/PlayerInput.cs
+  artifactKey: Guid(cc148c973681f7340901116f464b7bd5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/PlayerInput.cs using Guid(cc148c973681f7340901116f464b7bd5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b61758457bb165782f9109f64c04daa') in 0.019535 seconds
+  Import took 0.027286 seconds .
+=======
 Registered in 0.011779 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\Ghost2911\Desktop\sources\autumn2021\thelooping-home-edition\Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll
@@ -506,17 +833,45 @@ System memory in use after: 154.5 MB.
 
 Unloading 20 unused Assets to reduce memory usage. Loaded Objects now: 3627.
 Total: 4.719100 ms (FindLiveObjects: 0.638500 ms CreateObjectMapping: 0.195000 ms MarkObjects: 3.607600 ms  DeleteObjects: 0.276100 ms)
+>>>>>>> parent of 84472eff (Revert "Nature and items")
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
+<<<<<<< HEAD
+Registered in 0.012688 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\Ghost2911\Documents\GitHub\thelooping-unity\Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll
+=======
 Registered in 0.093926 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\Ghost2911\Desktop\sources\autumn2021\thelooping-home-edition\Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll
+>>>>>>> parent of 84472eff (Revert "Nature and items")
 Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 1.13 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
+<<<<<<< HEAD
+- Completed reload, in  1.755 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.09 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2890 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 135.1 MB.
+System memory in use after: 135.3 MB.
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 3488.
+Total: 4.463300 ms (FindLiveObjects: 0.630900 ms CreateObjectMapping: 0.179200 ms MarkObjects: 3.615400 ms  DeleteObjects: 0.036000 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 14.102853 seconds.
+  path: Assets/Scripts/HealthPresentor.cs
+  artifactKey: Guid(88d9fcad55f7a6449b9614c01d3f2b42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/HealthPresentor.cs using Guid(88d9fcad55f7a6449b9614c01d3f2b42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b07d5c96b11ce7c475db4fd0832d8339') in 0.014407 seconds
+  Import took 0.024747 seconds .
+=======
 - Completed reload, in  2.159 seconds
 Platform modules already initialized, skipping
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
@@ -550,10 +905,257 @@ System memory in use after: 154.6 MB.
 
 Unloading 20 unused Assets to reduce memory usage. Loaded Objects now: 3635.
 Total: 5.642300 ms (FindLiveObjects: 0.646000 ms CreateObjectMapping: 0.267200 ms MarkObjects: 4.367300 ms  DeleteObjects: 0.360200 ms)
+>>>>>>> parent of 84472eff (Revert "Nature and items")
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
+<<<<<<< HEAD
+Registered in 0.012721 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\Ghost2911\Documents\GitHub\thelooping-unity\Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.11 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.739 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.05 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2888 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 135.1 MB.
+System memory in use after: 135.3 MB.
+
+Unloading 21 unused Assets to reduce memory usage. Loaded Objects now: 3490.
+Total: 4.444900 ms (FindLiveObjects: 0.896900 ms CreateObjectMapping: 0.278700 ms MarkObjects: 3.230100 ms  DeleteObjects: 0.037400 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 25.070607 seconds.
+  path: Assets/Scripts/ItemClick.cs
+  artifactKey: Guid(361e0cecee2a93f4faf93bec136d22b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/ItemClick.cs using Guid(361e0cecee2a93f4faf93bec136d22b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '924b5d59c2c296e8222ff916bb5060df') in 0.014268 seconds
+  Import took 0.023139 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.014755 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\Ghost2911\Documents\GitHub\thelooping-unity\Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.09 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.708 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.06 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2887 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 135.1 MB.
+System memory in use after: 135.3 MB.
+
+Unloading 20 unused Assets to reduce memory usage. Loaded Objects now: 3493.
+Total: 5.028800 ms (FindLiveObjects: 0.785400 ms CreateObjectMapping: 0.208600 ms MarkObjects: 3.991900 ms  DeleteObjects: 0.041200 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 26.693084 seconds.
+  path: Assets/TRASH/sources
+  artifactKey: Guid(be8ac73f13499f944a9189da98571e25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/sources using Guid(be8ac73f13499f944a9189da98571e25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '886ab310155bb4c0f49ee5e0e1abda16') in 0.024985 seconds
+  Import took 0.032829 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 37.017063 seconds.
+  path: Assets/TRASH/Spin/Reel.cs
+  artifactKey: Guid(8ce897afb6aca5c479b94319ece20da1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/Spin/Reel.cs using Guid(8ce897afb6aca5c479b94319ece20da1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b795d573be54875e433cf93e0f312f5b') in 0.008561 seconds
+  Import took 0.023244 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.028074 seconds.
+  path: Assets/TRASH/Spin/Reel.cs
+  artifactKey: Guid(8ce897afb6aca5c479b94319ece20da1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/Spin/Reel.cs using Guid(8ce897afb6aca5c479b94319ece20da1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b795d573be54875e433cf93e0f312f5b') in 0.003827 seconds
+  Import took 0.011239 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 19.541070 seconds.
+  path: Assets/Sprites
+  artifactKey: Guid(333906324b4265b47b72091153f3988f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites using Guid(333906324b4265b47b72091153f3988f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b6ad4411290ab78dac25601401c3db1e') in 0.011432 seconds
+  Import took 0.025212 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.759764 seconds.
+  path: Assets/Sprites/Villagers
+  artifactKey: Guid(2db2cbfe78962f549b43350813b4fdfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Villagers using Guid(2db2cbfe78962f549b43350813b4fdfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1f7b89fcb821a71ea17c8e13ea819c4e') in 0.006440 seconds
+  Import took 0.026277 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.573745 seconds.
+  path: Assets/Sprites/Town
+  artifactKey: Guid(2db2cbfe78962f549b43350813b4fdfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Town using Guid(2db2cbfe78962f549b43350813b4fdfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '67804cd8e75808c5225177dca2651fd8') in 0.012667 seconds
+  Import took 0.030330 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 13.163978 seconds.
+  path: Assets/TRASH/[PH] Buffer/hp_active.anim
+  artifactKey: Guid(8ff3e6f66efe79640b62dc1acb928535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/[PH] Buffer/hp_active.anim using Guid(8ff3e6f66efe79640b62dc1acb928535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '90a0a3284517543a896911757b8357c9') in 0.057904 seconds
+  Import took 0.066591 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.623433 seconds.
+  path: Assets/Fonts
+  artifactKey: Guid(a0b18913aeb4f6645bb007f64449f98e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Fonts using Guid(a0b18913aeb4f6645bb007f64449f98e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f7e2af99ebda09ed85f69f2b1fd401f8') in 0.013473 seconds
+  Import took 0.026531 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 37.469809 seconds.
+  path: Assets/Sprites/UI
+  artifactKey: Guid(101150b807ec3a54ba0ea62a7e6de85d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/UI using Guid(101150b807ec3a54ba0ea62a7e6de85d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e04ccab9e6bc5f094955e1eb8fcb9a8c') in 0.016023 seconds
+  Import took 0.026747 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 43.210950 seconds.
+  path: Assets/TRASH/Depth/DepthOnlyPass.hlsl
+  artifactKey: Guid(d213acb29e0efe940ae2acc8e106021b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/Depth/DepthOnlyPass.hlsl using Guid(d213acb29e0efe940ae2acc8e106021b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7bafe4af3a7383bd06006964f6561e51') in 0.020153 seconds
+  Import took 0.028731 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 49.684762 seconds.
+  path: Assets/TRASH/PREF_ENVIROMENT/barrel_destroy.anim
+  artifactKey: Guid(a046aa9ec33c1ce4197905b709a7ad18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/PREF_ENVIROMENT/barrel_destroy.anim using Guid(a046aa9ec33c1ce4197905b709a7ad18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '38397281fa7097f52d5fc8894a99b5d0') in 0.013114 seconds
+  Import took 0.023418 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001771 seconds.
+  path: Assets/TRASH/PREF_ENVIROMENT/barrel_destroy.anim
+  artifactKey: Guid(a046aa9ec33c1ce4197905b709a7ad18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/PREF_ENVIROMENT/barrel_destroy.anim using Guid(a046aa9ec33c1ce4197905b709a7ad18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '38397281fa7097f52d5fc8894a99b5d0') in 0.007093 seconds
+  Import took 0.014312 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 30.227210 seconds.
+  path: Assets/TRASH/Spin/Slots.cs
+  artifactKey: Guid(f0441109f684d8f48a795e6d4a8943fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/Spin/Slots.cs using Guid(f0441109f684d8f48a795e6d4a8943fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8de8fa08f7c78712be77a006d988241d') in 0.017852 seconds
+  Import took 0.026044 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.012327 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\Ghost2911\Documents\GitHub\thelooping-unity\Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.19 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.777 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.10 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2887 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 135.1 MB.
+System memory in use after: 135.3 MB.
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 3497.
+Total: 4.561800 ms (FindLiveObjects: 0.581900 ms CreateObjectMapping: 0.151400 ms MarkObjects: 3.791000 ms  DeleteObjects: 0.036100 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 35.006577 seconds.
+  path: Assets/TRASH/blood.anim
+  artifactKey: Guid(95b9c0b5dac1bd24b9caddd04aa2de11) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/blood.anim using Guid(95b9c0b5dac1bd24b9caddd04aa2de11) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f05ec697b901934431bf452540f869bc') in 0.050181 seconds
+  Import took 0.059316 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.804814 seconds.
+  path: Assets/TRASH/Sprites-Bumped-Diffuse.shader
+  artifactKey: Guid(186ee405bc48aa646ad5627b4ba408fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TRASH/Sprites-Bumped-Diffuse.shader using Guid(186ee405bc48aa646ad5627b4ba408fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a256a5b8ea360fa83fcedfea48de3c5') in 0.019389 seconds
+  Import took 0.027603 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 160.371061 seconds.
+  path: Assets/impDub_attack.anim
+  artifactKey: Guid(3062354afd8df084a873608d6fa10fef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/impDub_attack.anim using Guid(3062354afd8df084a873608d6fa10fef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a64b4b7a5b96785e550d26d47e6956e7') in 0.012973 seconds
+  Import took 0.022329 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.005300 seconds.
+  path: Assets/impDub_attack.anim
+  artifactKey: Guid(3062354afd8df084a873608d6fa10fef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/impDub_attack.anim using Guid(3062354afd8df084a873608d6fa10fef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a64b4b7a5b96785e550d26d47e6956e7') in 0.004320 seconds
+  Import took 0.011602 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.012372 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\Ghost2911\Documents\GitHub\thelooping-unity\Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.06 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.886 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.15 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2887 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 135.1 MB.
+System memory in use after: 135.3 MB.
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 3501.
+Total: 4.252800 ms (FindLiveObjects: 0.594000 ms CreateObjectMapping: 0.187000 ms MarkObjects: 3.433600 ms  DeleteObjects: 0.036500 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 15.004154 seconds.
+  path: Assets/SG_Bilboard.shadergraph
+  artifactKey: Guid(ebddc23feca26cf43a9dc6c4a085fcb5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SG_Bilboard.shadergraph using Guid(ebddc23feca26cf43a9dc6c4a085fcb5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e893f8008e236fcda44f020bbb80fcce') in 0.042743 seconds
+  Import took 0.125309 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 27.965555 seconds.
+  path: Assets/Terrain/NewLayer10.terrainlayer
+  artifactKey: Guid(04e4d8235554b8b449ce9bd7e247c53b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Terrain/NewLayer10.terrainlayer using Guid(04e4d8235554b8b449ce9bd7e247c53b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '610e59d85524ff3c6fa67abb4029a723') in 0.046749 seconds
+  Import took 0.059187 seconds .
+=======
 Registered in 0.011680 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\Ghost2911\Desktop\sources\autumn2021\thelooping-home-edition\Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll
@@ -910,5 +1512,6 @@ System memory in use after: 154.7 MB.
 
 Unloading 20 unused Assets to reduce memory usage. Loaded Objects now: 3694.
 Total: 3.990200 ms (FindLiveObjects: 0.554700 ms CreateObjectMapping: 0.178400 ms MarkObjects: 2.983500 ms  DeleteObjects: 0.272400 ms)
+>>>>>>> parent of 84472eff (Revert "Nature and items")
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file
