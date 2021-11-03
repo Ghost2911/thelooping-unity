@@ -9,16 +9,16 @@ public class Reel : MonoBehaviour {
     public bool spin;
     public int spinResult;
 
-    public int step = 150;
-    public int offset = -150;
-    //Speed That Reel Will Spin
-    int speed;
-  
+    public float offset = -368;
+    public float speed = 1500;
+
+    private float step;
+
     // Use this for initialization
     void Start()
     {
         spin = false;
-        speed = 1500;
+        step =  transform.GetComponentInChildren<RectTransform>().rect.height;
     }
  
     // Update is called once per frame
@@ -29,10 +29,10 @@ public class Reel : MonoBehaviour {
             foreach (Transform image in transform)//This Targets All Children Objects Of The Main Parent Object
             {
                 //Direction And Speed Of Movement
-                image.transform.Translate(Vector3.down * Time.smoothDeltaTime * speed, Space.World);
+                image.transform.Translate(-image.up * Time.smoothDeltaTime * speed, Space.World);
  
                 //Once The Image Moves Below A Certain Point, Reset Its Position To The Top
-                if (image.transform.position.y <= 0) { image.transform.position = new Vector3(image.transform.position.x, image.transform.position.y + 600, image.transform.position.z); }
+                if (image.transform.localPosition.y <= -step) { image.transform.localPosition = new Vector3(image.transform.localPosition.x, step, 0); }
             }
         }
     }
@@ -58,10 +58,8 @@ public class Reel : MonoBehaviour {
 
         spinResult = transform.GetChild(notUsed[resNum]).GetSiblingIndex();
 
-        transform.GetChild(notUsed[resNum]).position = new Vector3(transform.GetChild(notUsed[resNum]).position.x, parts[1] * step + offset + transform.parent.GetComponent<RectTransform>().transform.position.y,
-                transform.GetChild(notUsed[resNum]).position.z);
+        transform.GetChild(notUsed[resNum]).localPosition = new Vector3(transform.GetChild(notUsed[resNum]).localPosition.x, parts[1] * step + offset + transform.parent.GetComponent<RectTransform>().transform.localPosition.y, 0);
         parts.Remove(parts[1]);
-
 
         //остальное распределение
 
@@ -75,8 +73,7 @@ public class Reel : MonoBehaviour {
                 continue;
             }
 
-            transform.GetChild(i).position = new Vector3(transform.GetChild(i).position.x, parts[rand]*step+offset + transform.parent.GetComponent<RectTransform>().transform.position.y, 
-                transform.GetChild(i).position.z);
+            transform.GetChild(i).localPosition = new Vector3(transform.GetChild(i).localPosition.x, parts[rand]*step+offset + transform.parent.GetComponent<RectTransform>().transform.localPosition.y, 0);
             parts.RemoveAt(rand);
         }
 

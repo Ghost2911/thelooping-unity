@@ -1,45 +1,68 @@
-Shader "Sprites/ThrowShader"
+Shader "Unlit/ThrowShader"
 {
-    Properties
-    {
-        [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
-        _Color ("Tint", Color) = (1,1,1,1)
-        [MaterialToggle] PixelSnap ("Pixel snap", Float) = 0
-        [HideInInspector] _RendererColor ("RendererColor", Color) = (1,1,1,1)
-        [HideInInspector] _Flip ("Flip", Vector) = (1,1,1,1)
-        [PerRendererData] _AlphaTex ("External Alpha", 2D) = "white" {}
-        [PerRendererData] _EnableExternalAlpha ("Enable External Alpha", Float) = 0
-    }
- 
-    SubShader
-    {
-        ZWrite Off
-        ZTest Always
-        Tags
-        {
-            "Queue"="Transparent"
-            "IgnoreProjector"="True"
-            "RenderType"="Overlay"
-            "PreviewType"="Plane"
-            "CanUseSpriteAtlas"="True"
-        }
- 
-        Cull Off
-        Lighting Off
-        ZWrite Off
-        Blend One OneMinusSrcAlpha
- 
-        Pass
-        {
-        CGPROGRAM
-            #pragma vertex SpriteVert
-            #pragma fragment SpriteFrag
-            #pragma target 2.0
-            #pragma multi_compile_instancing
-            #pragma multi_compile _ PIXELSNAP_ON
-            #pragma multi_compile _ ETC1_EXTERNAL_ALPHA
-            #include "UnitySprites.cginc"
-        ENDCG
-        }
-    }
+	Properties
+	{
+		_MainTex ("Sprite Texture", 2D) = "white" {}
+	}
+	SubShader
+	{
+		Tags{ "Queue" = "Geometry" "RenderType" = "TransparentCutout" "DisableBatching" = "True" "CanUseSpriteAtlas"="True" }
+
+		Blend SrcAlpha OneMinusSrcAlpha
+		Cull Off
+		Lighting Off
+		Pass
+		{
+			CGPROGRAM
+			#pragma vertex vert
+			#pragma fragment frag
+			#pragma multi_compile_fog
+
+			#include "UnityCG.cginc"
+
+			struct appdata
+			{
+				float4 vertex : POSITION;
+				float2 uv : TEXCOORD0;
+			};
+
+			struct v2f
+			{
+				float2 uv : TEXCOORD0;
+				UNITY_FOG_COORDS(1)
+				float4 pos : SV_POSITION;
+			};
+
+			sampler2D _MainTex;
+			float4 _MainTex_ST;
+			
+			v2f vert (appdata v)
+			{
+				v2f o;
+				o.pos = UnityObjectToClipPos(v.vertex);
+				o.uv = v.uv.xy;
+
+				// billboard mesh towards camera
+				float3 vpos = mul((float3x3)unity_ObjectToWorld, v.vertex.xyz);
+				float4 worldCoord = float4(unity_ObjectToWorld._m03, unity_ObjectToWorld._m13, unity_ObjectToWorld._m23, 1);
+				float4 viewPos = mul(UNITY_MATRIX_V, worldCoord) + float4(vpos, 0);
+				float4 outPos = mul(UNITY_MATRIX_P, viewPos);
+
+				o.pos = outPos;
+
+				UNITY_TRANSFER_FOG(o,o.vertex);
+				return o;
+			}
+
+			fixed4 frag (v2f i) : SV_Target
+			{
+				// sample the texture
+				fixed4 col = tex2D(_MainTex, i.uv);
+				// apply fog
+				UNITY_APPLY_FOG(i.fogCoord, col);
+				return col;
+			}
+			ENDCG
+		}
+	}
 }

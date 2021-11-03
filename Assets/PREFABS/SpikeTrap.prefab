@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1126708084756716975}
   - component: {fileID: 5021403736166016806}
   - component: {fileID: 6633365458733403750}
-  - component: {fileID: 5420855088177760000}
+  - component: {fileID: 1129439389930449477}
   m_Layer: 0
   m_Name: SpikeTrap
   m_TagString: Untagged
@@ -117,7 +117,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5420855088177760000
+--- !u!114 &1129439389930449477
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,8 +126,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6730677148496687211}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90ca970323872344a90ddeb34c3c9b85, type: 3}
+  m_Script: {fileID: 11500000, guid: 78328e86fd8f7f245a93f12450dde4ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 3
+  cooldown: 5
+  trapDamage: 5
   trapTargets: []

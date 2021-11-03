@@ -3,12 +3,6 @@ using UnityEngine;
 public class HealthPresentor : MonoBehaviour
 {
     public Animator[] hpAnimator;
-
-    void Awake()
-    {
-        PlayerInput.instance.HealthChangeEvent.AddListener(ChangeValuePresentor);
-    }
-
     public void ChangeValuePresentor(int value)
     {
         int fullHeart = value / 2, halfHeart = value % 2;

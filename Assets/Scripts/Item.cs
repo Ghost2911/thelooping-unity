@@ -3,22 +3,13 @@ using TMPro;
 
 public class Item : MonoBehaviour
 {
-    [Header("Main info")]
-    public SlotType slotType;
-    public Sprite icon;
-    [Header("Item stats")]
-    public StatsType stats;
-    public int additiveValue;
-    [Header("Item cost")]
-    public CollectableItem costItem;
-    public int costPrice;
-
-   
+    public ItemStats stats;
     public bool inMarket = false;
     public bool isShow = false;
 
     private Animator _animator;
     private TextMeshPro _textMesh;
+    private GameObject _player;
 
     void Start()
     {
@@ -26,25 +17,15 @@ public class Item : MonoBehaviour
         _animator = childText.GetComponent<Animator>();
         _textMesh = childText.GetComponent<TextMeshPro>();
         _textMesh.text = string.Format("{0} <sprite name=\"icon_collect_{1}\">\n\n{2} <sprite name=\"icon_collect_{3}\">",
-            additiveValue, stats.ToString(), costPrice, costItem.type.ToString());
-        GetComponent<SpriteRenderer>().sprite = icon;
-        
+            stats.additiveValue, stats.type.ToString(), stats.costPrice, stats.costItem.type.ToString());
+        GetComponent<SpriteRenderer>().sprite = stats.icon;
     }
 
     private void OnMouseUp()
     {
-        Debug.Log("Click - text");
         if (isShow)
         {
-            Slot[] slots = PlayerInput.instance.inventory.slots;
-            foreach (Slot slot in slots)
-            {
-                if (slot.type == slotType)
-                {
-                    slot.Equip(this);
-                    break;
-                }
-            }
+            _player.GetComponent<PlayerInput>().inventory.Equip(stats);
             Destroy(gameObject); 
         }
         else
@@ -52,13 +33,21 @@ public class Item : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        _animator.SetTrigger("ShowText");
-        isShow = true;
+        if (other.tag == "Player")
+        {
+            _player = other.gameObject;
+            _animator.SetTrigger("ShowText");
+            isShow = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        _animator.SetTrigger("HideText");
-        isShow = false;
+        if (other.tag == "Player")
+        {
+            _player = null;
+            _animator.SetTrigger("HideText");
+            isShow = false;
+        }
     }
 }

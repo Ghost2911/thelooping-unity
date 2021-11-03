@@ -1,11 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public int maxCount = 3;
-    private Transform target;
+    public Transform target;
     const float randomRange = 3f;
     
     void Start()
@@ -27,7 +26,7 @@ public class Spawner : MonoBehaviour
         enemyPrefab.GetComponent<Unit>().target = target;
         Vector3 enemyPosition = transform.position + (transform.position - target.position);
 
-        for (int i=0; i<maxCount; i++)
+        for (int i=transform.childCount; i<maxCount; i++)
             Instantiate(enemyPrefab, enemyPosition + new Vector3(Random.Range(-randomRange, randomRange), 0, Random.Range(-randomRange, randomRange)),new Quaternion(0,0,0,0),transform);
     }
 
@@ -40,8 +39,6 @@ public class Spawner : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
-        {
             target = null;
-        }
     }
 }

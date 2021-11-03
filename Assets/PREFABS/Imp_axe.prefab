@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6677499488698444471}
   - component: {fileID: 4892793387623024912}
   - component: {fileID: 4343356368763855894}
-  - component: {fileID: 5559512764367076868}
   - component: {fileID: 2011205331746627952}
   m_Layer: 0
   m_Name: Imp_axe
@@ -54,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bb559cbc7543aaf4e9a584f3b8169893, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,28 +118,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5559512764367076868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6677499488698444465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &2011205331746627952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,13 +130,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc442766580b93c4e8297af95fc2b52e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   speed: 20
   turnSpeed: 3
   turnDst: 5
   stoppingDst: 10
   attackRange: 1
   affectedArea: 3
+  isDead: 0
   followingPath: 0
   drops:
   - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
@@ -167,4 +144,5 @@ MonoBehaviour:
   - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
   - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
   - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
+  target: {fileID: 0}
   health: 10

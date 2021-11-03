@@ -1,15 +1,17 @@
 using UnityEngine;
-using Photon.Pun;
-
 public class Projectile : MonoBehaviour
 {
+    public int damage;
     public float range;
     public Vector3 destination;
     public float speed = 10f;
+    public float offset = 2f;
+    public Transform owner;
 
     void Start()
     {
-        destination = transform.position + transform.up * range;
+        transform.position += new Vector3(0,offset,0);
+        destination = transform.position + transform.right * range;
     }
 
     void Update()
@@ -20,10 +22,13 @@ public class Projectile : MonoBehaviour
             Destroy(this.gameObject);
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && other.transform.root != transform)
-            other.GetComponent<PhotonView>().RPC("DealDamage", RpcTarget.All, 5);
+        if (other.transform != owner && !other.isTrigger)
+        {
+            if (other.GetComponent<IDamageable>()!=null) 
+                other.GetComponent<IDamageable>().Damage(damage);
+            Destroy(this.gameObject);
+        }
     }
 }

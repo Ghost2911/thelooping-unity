@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
 public class Trap : MonoBehaviour
 {
     public float cooldown = 5f;
-    
+    public int trapDamage = 5;
     private Animator _anim;
     public List<GameObject> trapTargets;
     private bool isActive = false;
@@ -37,21 +36,24 @@ public class Trap : MonoBehaviour
     {
         foreach (GameObject target in trapTargets)
         {
-            target.GetComponent<IDamageable>().Damage(5);
+            if (target != null)
+                target.GetComponent<IDamageable>().Damage(trapDamage);
+            else
+                trapTargets.Remove(target);
         }
     }
 
-    IEnumerator Attack()
+    private IEnumerator Attack()
     {
         while (true)
         {
-        _anim.SetTrigger("Attack");
-        yield return new WaitForSeconds(cooldown);
-        if (trapTargets.Count == 0)
-        {
-            isActive = false;
-            break;
-        }
+            _anim.SetTrigger("Attack");
+            yield return new WaitForSeconds(cooldown);
+            if (trapTargets.Count == 0)
+            {
+                isActive = false;
+                break;
+            }
         }
     }
 }

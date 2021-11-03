@@ -1,29 +1,44 @@
 using UnityEngine;
-using Photon.Pun;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class Server : MonoBehaviour
 {
-    public GameObject[] spawns;
     public FloatingJoystick joystick;
     public Button btnAttack;
+    public Button btnFlip;
     public GameObject revive;
+    public HealthPresentor healthPresentor;
+    public List<GameObject> characters;
 
     void Awake()
     {
-        CreateCharacter();
+        FindAllPlayableCharacters();
     }
 
     public void CreateCharacter()
     {
-        //GameObject character = Instantiate(Resources.Load("character") as GameObject,spawns[Random.Range(0,spawns.Length)].transform.position, Quaternion.Euler(0, 0, 0));
-        //Camera.main.GetComponent<CameraFollow>().target = character.transform;
-        GameObject character = PlayerInput.instance.gameObject;
-        character.GetComponent<PlayerInput>().joystick = joystick;
-        character.GetComponent<PlayerInput>().btnAttack = btnAttack;
-        character.GetComponent<PlayerInput>().revive = revive;
+        int characterNum = Random.Range(0, characters.Count);
+
+        PlayerInput player = characters[characterNum].GetComponent<PlayerInput>();
+        Camera.main.GetComponent<CameraFollow>().target = player.transform;
+        player.enabled = true;
+        player.joystick = joystick;
+        player.btnAttack = btnAttack;
+        player.btnFlip = btnFlip;
+        player.revive = revive;
+        player.HealthChangeEvent.AddListener(healthPresentor.ChangeValuePresentor);
         revive.SetActive(false);
+
+        characters.RemoveAt(characterNum);
+    }
+
+    public void FindAllPlayableCharacters()
+    {
+        characters.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        foreach (GameObject playableCharacter in characters)
+            playableCharacter.GetComponent<PlayerInput>().enabled = false;
     }
 
     public void Leave()

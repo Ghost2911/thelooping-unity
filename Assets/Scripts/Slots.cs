@@ -1,35 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Events;
  
 public class Slots : MonoBehaviour {
  
     public Reel[] reel;
     bool startSpin;
     List<int> results = new List<int>();
- 
-    // Use this for initialization
+    public UnityEvent SpinEndEvent;
+    public float timeShowResult = 2f;
+
     void Start ()
     {
         startSpin = false;
     }
-     
-    // Update is called once per frame
-    void Update ()
+
+    void OnMouseDown()
     {
-        if (!startSpin)//Prevents Interference If The Reels Are Still Spinning
+        if (!startSpin)
         {
-            if (Input.GetKeyDown(KeyCode.K))//The Input That Starts The Slot Machine
-            {
-                startSpin = true;
-                results.Clear();
-                StartCoroutine(Spinning());
-            }
+            startSpin = true;
+            results.Clear();
+            StartCoroutine(Spinning());
         }
     }
- 
-    IEnumerator Spinning()
+
+        IEnumerator Spinning()
     {
         foreach (Reel spinner in reel)
         {
@@ -46,6 +43,8 @@ public class Slots : MonoBehaviour {
             int rollResult = reel[i].RandomPosition(results);
             results.Add(rollResult);
         }
+        yield return new WaitForSeconds(timeShowResult);
+        SpinEndEvent.Invoke();
         //Allows The Machine To Be Started Again
         startSpin = false;
     }

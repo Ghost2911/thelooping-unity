@@ -5,25 +5,25 @@ public class Unit : MonoBehaviour, IDamageable
 	const float minPathUpdateTime = .2f;
 	const float pathUpdateMoveThreshold = .1f;
 
-	public Transform target;
 	public float speed = 20;
 	public float turnSpeed = 3;
 	public float turnDst = 5;
 	public float stoppingDst = 10;
 
-	SpriteRenderer _sprite;
-	Animator _animator;
 	public float attackRange = 1f;
 	public float affectedArea = 3f;
-	bool isDead = false;
+	public bool isDead = false;
 	public bool followingPath;
 	public static float attackCooldown = 2f;
-	Vector3 direction;
-
 	public GameObject[] drops;
 
-	Vector3[] path;
-	int targetIndex;
+	private Vector3 direction;
+	private Vector3[] path;
+	
+	private SpriteRenderer _renderer;
+	private Animator _animator;
+	public Transform target;
+	private int targetIndex;
 
 	public int health = 10;
 	public int Health
@@ -50,9 +50,8 @@ public class Unit : MonoBehaviour, IDamageable
 
 	void Start()
 	{
-		_sprite = GetComponent<SpriteRenderer>();
+		_renderer = GetComponent<SpriteRenderer>();
 		_animator = GetComponent<Animator>();
-		target = PlayerInput.instance.transform;
 		StartCoroutine("UpdatePath");
 	}
 
@@ -106,8 +105,11 @@ public class Unit : MonoBehaviour, IDamageable
 			StopCoroutine("Attacking");
 			_animator.SetBool("isRun", true);
 			Vector3 currentWaypoint = path[0];
+			if (target == null)
+				Destroy(gameObject);
 			while (true)
 			{
+				
 				if (transform.position == currentWaypoint)
 				{
 					targetIndex++;
@@ -132,6 +134,8 @@ public class Unit : MonoBehaviour, IDamageable
 	{
 		while (true)
 		{
+			if (target == null)
+				Destroy(gameObject);
 			_animator.SetTrigger("isAttack");
 			yield return new WaitForSeconds(attackCooldown);
 		}
@@ -152,7 +156,7 @@ public class Unit : MonoBehaviour, IDamageable
 			if (enemy.tag == "Player" && enemy.transform.root != transform)
 				enemy.GetComponent<IDamageable>().Damage(5);
 	}
-
+	
 	private void RangeAttack()
 	{
 		GameObject bullet = Instantiate(Resources.Load("bullet"), transform.position, Quaternion.LookRotation(transform.position, target.position)) as GameObject;
@@ -176,9 +180,9 @@ public class Unit : MonoBehaviour, IDamageable
 
 	IEnumerator DamageColor()
 	{
-		_sprite.color = new Color32(153, 0, 0, 255);
-		yield return new WaitForSeconds(0.1f);
-		_sprite.color = Color.white;
+        _renderer.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        _renderer.material.color = Color.white;
 	}
 
 	void OnDrawGizmosSelected()
