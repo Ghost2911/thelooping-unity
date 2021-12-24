@@ -74,23 +74,29 @@
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\EventSystemSpawner.cs" />
     <Compile Include="Assets\Scripts\Slots.cs" />
     <Compile Include="Assets\PATHFINDING\Path.cs" />
+    <Compile Include="Assets\ANIMATOR\BOSSES\mecha\AreaDamage.cs" />
     <Compile Include="Assets\Scripts\HealthPresentor.cs" />
+    <Compile Include="Assets\ANIMATOR\BOSSES\mecha\MechaBoss.cs" />
     <Compile Include="Assets\PATHFINDING\PathRequestManager.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickPlayerExample.cs" />
     <Compile Include="Assets\PATHFINDING\Node.cs" />
     <Compile Include="Assets\Scripts\Projectile.cs" />
     <Compile Include="Assets\Scripts\Reel.cs" />
     <Compile Include="Assets\Scripts\Puzzles\PuzzleActivateByOrder.cs" />
+    <Compile Include="Assets\Scripts\Turret.cs" />
     <Compile Include="Assets\Scripts\ItemStats.cs" />
     <Compile Include="Assets\Scripts\PlayerInput.cs" />
     <Compile Include="Assets\Presets\CameraFollow.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\DynamicJoystick.cs" />
-    <Compile Include="Assets\Scripts\LocationPresentor.cs" />
+    <Compile Include="Assets\Scripts\BossPresentor.cs" />
     <Compile Include="Assets\Scripts\SlotType.cs" />
+    <Compile Include="Assets\Scripts\MechaArm.cs" />
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\WebSocket.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\TextButtonTransition.cs" />
+    <Compile Include="Assets\Scripts\RingAOE.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
     <Compile Include="Assets\Scripts\CollectableType.cs" />
+    <Compile Include="Assets\Scripts\DemonBoss.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\IDamageable.cs" />
     <Compile Include="Assets\Scripts\TargetPresentor.cs" />
@@ -101,6 +107,7 @@
     <Compile Include="Assets\Scripts\Server.cs" />
     <Compile Include="Assets\Scripts\Slot.cs" />
     <Compile Include="Assets\Scripts\Stats.cs" />
+    <Compile Include="Assets\Scripts\LaserLine.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickSetterExample.cs" />
     <Compile Include="Assets\Scripts\Trap.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\IgnoreUiRaycastWhenInactive.cs" />
@@ -110,6 +117,7 @@
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\FriendItem.cs" />
     <Compile Include="Assets\Scripts\Puzzles\PuzzleActivateSwap.cs" />
     <Compile Include="Assets\Scripts\Lobby.cs" />
+    <Compile Include="Assets\DarkForest.cs" />
     <Compile Include="Assets\PATHFINDING\Pathfinding.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatGui.cs" />
     <Compile Include="Assets\PATHFINDING\Unit.cs" />
@@ -117,6 +125,7 @@
     <Compile Include="Assets\Scripts\Lootbox.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\OnStartDelete.cs" />
     <Compile Include="Assets\Scripts\Message.cs" />
+    <Compile Include="Assets\MapGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

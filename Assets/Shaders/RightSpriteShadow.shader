@@ -13,6 +13,7 @@ Shader "Custom/RightSpriteShadow" {
 		LOD 200
 
 		Cull Off
+		Lighting Off
 
 		CGPROGRAM
 
@@ -31,7 +32,8 @@ Shader "Custom/RightSpriteShadow" {
 
 		void vert (inout appdata_full v, out Input o) {
 			UNITY_INITIALIZE_OUTPUT(Input, o);
-			//cam basis
+			
+			//camera basis
 			float3 forward = -float3(1, 0, 0);
 			float3 up = normalize(UNITY_MATRIX_V._m10_m11_m12);
 			float3 right = float3(1, 0, 0);

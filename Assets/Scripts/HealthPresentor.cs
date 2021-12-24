@@ -6,7 +6,6 @@ public class HealthPresentor : MonoBehaviour
     public void ChangeValuePresentor(int value)
     {
         int fullHeart = value / 2, halfHeart = value % 2;
-        Debug.Log("full="+fullHeart + " half="+ halfHeart);
         for (int i = 0; i < fullHeart; i++)
             hpAnimator[i].SetTrigger("Full");
         if (halfHeart != 0)

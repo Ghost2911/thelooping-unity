@@ -21,9 +21,12 @@ public class Unit : MonoBehaviour, IDamageable
 	private Vector3[] path;
 	
 	private SpriteRenderer _renderer;
-	private Animator _animator;
-	public Transform target;
 	private int targetIndex;
+	private Coroutine _cor;
+	public Transform target;
+	
+	[HideInInspector]
+	public Animator _animator;
 
 	public int health = 10;
 	public int Health
@@ -52,7 +55,8 @@ public class Unit : MonoBehaviour, IDamageable
 	{
 		_renderer = GetComponent<SpriteRenderer>();
 		_animator = GetComponent<Animator>();
-		StartCoroutine("UpdatePath");
+		if (target!=null)
+			StartCoroutine("UpdatePath");
 	}
 
 	public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
@@ -105,15 +109,13 @@ public class Unit : MonoBehaviour, IDamageable
 			StopCoroutine("Attacking");
 			_animator.SetBool("isRun", true);
 			Vector3 currentWaypoint = path[0];
-			if (target == null)
-				Destroy(gameObject);
+
 			while (true)
 			{
-				
 				if (transform.position == currentWaypoint)
 				{
 					targetIndex++;
-					if (targetIndex >= path.Length)
+					if (Vector3.Distance(transform.position,target.position) < attackRange)
 					{
 						_animator.SetBool("isRun", false);
 						StartCoroutine("Attacking");
@@ -135,7 +137,7 @@ public class Unit : MonoBehaviour, IDamageable
 		while (true)
 		{
 			if (target == null)
-				Destroy(gameObject);
+				break;
 			_animator.SetTrigger("isAttack");
 			yield return new WaitForSeconds(attackCooldown);
 		}
@@ -201,13 +203,9 @@ public class Unit : MonoBehaviour, IDamageable
 				Gizmos.DrawCube(path[i], Vector3.one);
 
 				if (i == targetIndex)
-				{
 					Gizmos.DrawLine(transform.position, path[i]);
-				}
 				else
-				{
 					Gizmos.DrawLine(path[i - 1], path[i]);
-				}
 			}
 		}
 	}

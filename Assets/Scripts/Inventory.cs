@@ -16,10 +16,10 @@ public class Inventory : MonoBehaviour
     [HideInInspector]
     public Dictionary<StatsType, int> baseStats = new Dictionary<StatsType, int>();
 
-    private void Awake()
+    private void Start()
     {
         foreach (StatsType attribute in Enum.GetValues(typeof(StatsType)))
-            stats.Add(attribute, baseStats[attribute]);
+            stats.Add(attribute, 10);//basestats [attr] - 10
         foreach (CollectableType item in Enum.GetValues(typeof(CollectableType)))
             collectableItems.Add(item, 0);
         StatsPresentorUpdate();

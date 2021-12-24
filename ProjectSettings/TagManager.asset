@@ -6,6 +6,7 @@ TagManager:
   tags:
   - enemy
   - collectable
+  - coin
   layers:
   - Default
   - TransparentFX
@@ -40,6 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Terrain
+    uniqueID: 3810020913
+    locked: 0
   - name: Background
     uniqueID: 2786959733
     locked: 0

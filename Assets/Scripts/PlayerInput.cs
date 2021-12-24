@@ -66,9 +66,8 @@ public class PlayerInput : MonoBehaviour, IDamageable
         baseStats.Add(StatsType.Armor,baseArmor);
         baseStats.Add(StatsType.Damage, baseDamage);
         baseStats.Add(StatsType.Speed, baseSpeed);
-
-        rangePrefab.GetComponent<Projectile>().owner = transform;
         inventory.baseStats = baseStats;
+        rangePrefab.GetComponent<Projectile>().owner = transform;
     }
     void Start()
     {
