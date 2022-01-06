@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -52,15 +50,20 @@ public class MapGenerator : MonoBehaviour
                     arr[i, j] = 1;
             }
 
+
             if (i + 2 < height)
             {
-                int[] list = Enumerable.Range(startPos, endPos - startPos + 1).Where(a => a!=forkPos).ToArray();
-                Debug.Log(list);
-                forkPos = list[Random.Range(0,list.Length)];
-                arr[i+1, forkPos] = 3;
-                arr[i, forkPos] = 23;
-                arr[i+2, forkPos] = 17;
+                int[] list = Enumerable.Range(startPos, endPos - startPos + 1).Where(a => a != forkPos).ToArray();
+                if (list.Length != 0)
+                {
+                    Debug.Log(list);
+                    forkPos = list[Random.Range(0, list.Length)];
+                    arr[i + 1, forkPos] = 3;
+                    arr[i, forkPos] = 23;
+                    arr[i + 2, forkPos] = 17;
+                }
             }
+           
         }
     }
 
