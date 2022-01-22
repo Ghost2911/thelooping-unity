@@ -3,7 +3,7 @@ using UnityEngine;
 public class HealthPresentor : MonoBehaviour
 {
     public Animator[] hpAnimator;
-    public void ChangeValuePresentor(int value)
+    public void ChangeValue(int value)
     {
         int fullHeart = value / 2, halfHeart = value % 2;
         for (int i = 0; i < fullHeart; i++)

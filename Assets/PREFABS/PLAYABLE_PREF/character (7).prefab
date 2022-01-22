@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3166547911017560130}
   - component: {fileID: 3166547911017560131}
   - component: {fileID: 3166547911017560188}
+  - component: {fileID: -3753285316141049586}
   m_Layer: 0
   m_Name: character (7)
   m_TagString: Player
@@ -97,35 +98,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc148c973681f7340901116f464b7bd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heroName: Wizzard
-  attackRange: 2
-  maxHealth: 12
-  baseArmor: 10
-  baseDamage: 10
-  baseSpeed: 10
+  stats: {fileID: 0}
+  inventory: {fileID: 0}
+  rangePrefab: {fileID: 0}
   joystick: {fileID: 0}
   revive: {fileID: 0}
   btnAttack: {fileID: 0}
   btnFlip: {fileID: 0}
-  isDead: 0
-  HealthChangeEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: HealthPresentor, Assembly-CSharp
-        m_MethodName: ChangeValuePresentor
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  inventory: {fileID: 0}
-  rangePrefab: {fileID: 0}
-  health: 15
 --- !u!143 &3166547911017560131
 CharacterController:
   m_ObjectHideFlags: 0
@@ -163,3 +142,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-3753285316141049586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3166547911017560189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5191b31c34c584fa1198a17c0f6f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityName: Wizzard
+  isDead: 0
+  isStunned: 0
+  speed: 20
+  attackRange: 0.25
+  HealthChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  EntityDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  baseArmor: 10
+  baseDamage: 10
+  baseSpeed: 10
+  maxHealth: 12
+  health: 0
+  animator: {fileID: 0}

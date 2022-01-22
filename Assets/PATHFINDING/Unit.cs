@@ -1,60 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
-public class Unit : MonoBehaviour, IDamageable
+public class Unit : MonoBehaviour
 {
 	const float minPathUpdateTime = .2f;
 	const float pathUpdateMoveThreshold = .1f;
 
-	public float speed = 20;
+	[Header("Enemy settings")]
 	public float turnSpeed = 3;
 	public float turnDst = 5;
 	public float stoppingDst = 10;
 
 	public float attackRange = 1f;
 	public float affectedArea = 3f;
-	public bool isDead = false;
 	public bool followingPath;
 	public static float attackCooldown = 2f;
 	public GameObject[] drops;
+	public Transform target;
 
 	private Vector3 direction;
 	private Vector3[] path;
 	
-	private SpriteRenderer _renderer;
 	private int targetIndex;
-	private Coroutine _cor;
-	public Transform target;
-	
-	[HideInInspector]
-	public Animator _animator;
-
-	public int health = 10;
-	public int Health
-	{
-		get
-		{
-			return health;
-		}
-		set
-		{
-			if (health > 0)
-			{
-				health = value;
-				StartCoroutine("DamageColor");
-				if (health <= 0)
-				{
-					isDead = true;
-					StopAllCoroutines();
-					_animator.SetTrigger("isDead");
-				}
-			}
-		}
-	}
+	private EntityStats stats;
 
 	void Start()
 	{
-		_renderer = GetComponent<SpriteRenderer>();
-		_animator = GetComponent<Animator>();
+		stats = GetComponent<EntityStats>();
 		if (target!=null)
 			StartCoroutine("UpdatePath");
 	}
@@ -104,10 +75,10 @@ public class Unit : MonoBehaviour, IDamageable
 
 	IEnumerator FollowPath()
 	{
-		if (!isDead)
+		if (!stats.isDead && !stats.isStunned)
 		{
 			StopCoroutine("Attacking");
-			_animator.SetBool("isRun", true);
+			stats.animator.SetBool("isRun", true);
 			Vector3 currentWaypoint = path[0];
 
 			while (true)
@@ -117,7 +88,7 @@ public class Unit : MonoBehaviour, IDamageable
 					targetIndex++;
 					if (Vector3.Distance(transform.position,target.position) < attackRange)
 					{
-						_animator.SetBool("isRun", false);
+						stats.animator.SetBool("isRun", false);
 						StartCoroutine("Attacking");
 						yield break;
 					}
@@ -126,7 +97,7 @@ public class Unit : MonoBehaviour, IDamageable
 
 				direction = (transform.position - currentWaypoint).normalized;
 				SpriteFlip(direction);
-				transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+				transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, stats.baseSpeed * Time.deltaTime);
 				yield return null;
 			}
 		}
@@ -138,7 +109,7 @@ public class Unit : MonoBehaviour, IDamageable
 		{
 			if (target == null)
 				break;
-			_animator.SetTrigger("isAttack");
+			stats.animator.SetTrigger("isAttack");
 			yield return new WaitForSeconds(attackCooldown);
 		}
 	}
@@ -167,24 +138,12 @@ public class Unit : MonoBehaviour, IDamageable
 		bullet.GetComponent<Projectile>().destination = target.position;
 	}
 
-	public void Damage(int damage)
-	{
-		Health -= damage;
-	}
 
 	private void CreateDeadBody()
 	{
 		foreach (GameObject drop in drops)
 			Instantiate(drop,transform.position, new Quaternion(0f,0f,0f,0f));
 		Destroy(this.gameObject);
-		//need create sprite
-	}
-
-	IEnumerator DamageColor()
-	{
-        _renderer.material.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        _renderer.material.color = Color.white;
 	}
 
 	void OnDrawGizmosSelected()

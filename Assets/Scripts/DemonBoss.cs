@@ -2,16 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DemonBoss : Unit, IDamageable
+public class DemonBoss : Unit
 {
     private Coroutine _cor = null;
     public GameObject splashAttack;
     public Transform _target;
-    
-    public new void Damage(int damage)
+    private EntityStats stats;
+
+    private void Awake()
     {
-        Health -= damage;
-        if (!_animator.GetBool("isRun"))
+        stats = GetComponent<EntityStats>();
+        stats.HealthChangeEvent.AddListener(BossSlide);
+    }
+
+    public void BossSlide(int damage)
+    {
+        if (!stats.animator.GetBool("isRun"))
         {
             StopAllCoroutines();
             _cor = StartCoroutine(Move());
@@ -39,15 +45,15 @@ public class DemonBoss : Unit, IDamageable
 
     IEnumerator Move()
     {
-        _animator.SetBool("isRun", true);
+        stats.animator.SetBool("isRun", true);
         yield return new WaitForSeconds(5f);
-        _animator.SetBool("isRun", false);
+        stats.animator.SetBool("isRun", false);
         _cor = null;
     }
                 
     IEnumerator Attack1()
     {
-        _animator.SetTrigger("Attack_1");
+        stats.animator.SetTrigger("Attack_1");
         yield return new WaitForSeconds(2f);
         _cor = null;
     }
@@ -63,7 +69,7 @@ public class DemonBoss : Unit, IDamageable
     }
     IEnumerator Attack3()
     {
-        _animator.SetTrigger("Attack_2");
+        stats.animator.SetTrigger("Attack_2");
         yield return new WaitForSeconds(1f);
         _cor = null;
     }

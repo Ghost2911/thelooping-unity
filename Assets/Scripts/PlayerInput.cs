@@ -1,88 +1,46 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 using System.Collections.Generic;
 
-public class PlayerInput : MonoBehaviour, IDamageable
+public class PlayerInput : MonoBehaviour
 {
-    [Header("Base stats")]
-    public string heroName;
-    public float attackRange = 0.25f;
-    public int maxHealth = 12;
-
-    public int baseArmor = 10;
-    public int baseDamage = 10;
-    public int baseSpeed = 10;
+    [Header("Entity stats")]
+    public EntityStats stats;
+    public Inventory inventory;
+    public GameObject rangePrefab;
 
     [Header("UI/Control")]
     public FloatingJoystick joystick;
     public GameObject revive;
     public Button btnAttack;
     public Button btnFlip;
-
-    [Header("Other")]
-    public bool isDead = false;
-    public UnityEvent<int> HealthChangeEvent;
-    public Inventory inventory;
-    public GameObject rangePrefab;
-    
+  
     private CharacterController _characterController;
-    private SpriteRenderer _renderer;
-    private Animator _animator;
     private Vector3 direction = new Vector3(0, 0, 0);
-
-    public int health;
-    public int Health
-    {
-        get
-        {
-            return health;
-        }
-        set
-        {
-            if (!isDead)
-            {
-                health = value;
-                StartCoroutine("DamageColor");
-                if (health <= 0)
-                {
-                    health = 0;
-                    _animator.SetTrigger("Dead");
-                    revive.SetActive(true);
-                    isDead = true;
-                    Destroy(GetComponent<CharacterController>());
-                }
-                if (health > maxHealth)
-                    health = maxHealth;
-                HealthChangeEvent.Invoke(health);
-            }
-        }
-    }
 
     void Awake()
     {
-        Dictionary<StatsType, int> baseStats = new Dictionary<StatsType, int>();
-        baseStats.Add(StatsType.Armor,baseArmor);
-        baseStats.Add(StatsType.Damage, baseDamage);
-        baseStats.Add(StatsType.Speed, baseSpeed);
-        inventory.baseStats = baseStats;
         rangePrefab.GetComponent<Projectile>().owner = transform;
+        stats = GetComponent<EntityStats>();
+        Dictionary<StatsType, int> baseStats = new Dictionary<StatsType, int>();
+        baseStats.Add(StatsType.Armor, stats.baseArmor);
+        baseStats.Add(StatsType.Damage, stats.baseDamage);
+        baseStats.Add(StatsType.Speed, stats.baseSpeed);
+        inventory.baseStats = baseStats;
+        inventory.entityStats = stats;
     }
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
-        _renderer = GetComponent<SpriteRenderer>();
-        _animator = GetComponent<Animator>();
-        inventory.SetHandlerName(heroName);
-        btnAttack.onClick.AddListener(delegate { if (!isDead) _animator.SetTrigger("Attack"); });
-        btnFlip.onClick.AddListener(delegate { if (!isDead) { _animator.SetTrigger("Flip"); StartCoroutine(Flip()); } });
-        Health = maxHealth;
+        inventory.SetHandlerName(stats.entityName);
+        btnAttack.onClick.AddListener(delegate { if (!stats.isDead) stats.animator.SetTrigger("Attack"); });
+        btnFlip.onClick.AddListener(delegate { if (!stats.isDead) { stats.animator.SetTrigger("Flip"); StartCoroutine(Flip()); } });
     }
 
     void Update()
     {
-        if (isDead)
+        if (stats.isDead || stats.isStunned)
             return;
 
         Vector3 movement = new Vector3(joystick.Horizontal, 0.0f, joystick.Vertical);
@@ -92,12 +50,12 @@ public class PlayerInput : MonoBehaviour, IDamageable
 
     private void Move(Vector3 movement)
     {
-        _animator.SetBool("isRun", movement != Vector3.zero);
+        stats.animator.SetBool("isRun", movement != Vector3.zero);
 
         if (movement != Vector3.zero)
         {       
             direction = movement.normalized;
-            _characterController.SimpleMove(direction * (baseSpeed + inventory.stats[StatsType.Speed]/baseSpeed));
+            _characterController.SimpleMove(direction * (stats.baseSpeed + stats.additiveStats[StatsType.Speed]/stats.baseSpeed));
             if (movement.x < 0)
                 transform.localScale = new Vector3(-1f, 1f, 1f);
             else if (movement.x > 0)
@@ -108,10 +66,10 @@ public class PlayerInput : MonoBehaviour, IDamageable
     private void Attack()
     {
         Camera.main.GetComponent<CameraFollow>().CameraShake();
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position + direction / 4, attackRange);
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position + direction, stats.attackRange);
         foreach (Collider enemy in hitEnemies)
-            if (enemy.GetComponent<IDamageable>()!=null && enemy.transform.root != transform) 
-                enemy.GetComponent<IDamageable>().Damage(inventory.stats[StatsType.Damage]);
+            if (enemy.GetComponent<IDamageable>() != null && enemy.transform != transform)
+                enemy.GetComponent<IDamageable>().Damage(stats.additiveStats[StatsType.Damage]);
     }
 
     private void AttackRange()
@@ -121,22 +79,13 @@ public class PlayerInput : MonoBehaviour, IDamageable
         bullet.transform.Rotate(new Vector3(90, -90, 0));
     }
 
-    public void Damage(int damage)
-    {
-        if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Flip"))
-        {
-            int resultDamage = Mathf.Clamp(damage - inventory.stats[StatsType.Armor], 0, 100);
-            Health -= resultDamage;
-        }
-    }
-
     IEnumerator Flip()
     {
         Vector3 endPos = transform.position + direction*5f;
         float flipTime = 0f;
         while (flipTime < 0.6f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, endPos, Time.deltaTime*baseSpeed);
+            transform.position = Vector3.MoveTowards(transform.position, endPos, Time.deltaTime*stats.baseSpeed);
             flipTime += Time.deltaTime;
             yield return null;
         }
@@ -144,19 +93,13 @@ public class PlayerInput : MonoBehaviour, IDamageable
 
     private void CreateDeadBody()
     {
+        revive.SetActive(true);
         Destroy(gameObject);
-    }
-
-    IEnumerator DamageColor()
-    {
-        _renderer.material.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        _renderer.material.color = Color.white;
     }
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.position + new Vector3(0, 0, 0.1f) + direction / 4, attackRange);
+        Gizmos.DrawWireSphere(transform.position + direction, stats.attackRange);
     }
 
     public Transform GetTransform()

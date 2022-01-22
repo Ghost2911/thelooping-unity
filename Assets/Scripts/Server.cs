@@ -28,7 +28,8 @@ public class Server : MonoBehaviour
         player.btnAttack = btnAttack;
         player.btnFlip = btnFlip;
         player.revive = revive;
-        player.HealthChangeEvent.AddListener(healthPresentor.ChangeValuePresentor);
+        player.stats.HealthChangeEvent.AddListener(healthPresentor.ChangeValue);
+        healthPresentor.ChangeValue(player.stats.health);
         revive.SetActive(false);
 
         characters.RemoveAt(characterNum);

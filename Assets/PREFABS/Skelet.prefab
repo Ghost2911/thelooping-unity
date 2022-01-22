@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7734665244886053105}
   - component: {fileID: 7734665244886053107}
   - component: {fileID: 7734665244886053108}
+  - component: {fileID: 8113056038050226115}
   - component: {fileID: 8366143024020951892}
   - component: {fileID: 845129658824310354}
   m_Layer: 0
@@ -97,13 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc442766580b93c4e8297af95fc2b52e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
   turnSpeed: 3
   turnDst: 5
   stoppingDst: 20
   attackRange: 1
   affectedArea: 3
-  isDead: 0
   followingPath: 0
   drops:
   - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
@@ -112,7 +111,35 @@ MonoBehaviour:
   - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
   - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
   target: {fileID: 0}
-  health: 10
+--- !u!114 &8113056038050226115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7734665244886053109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5191b31c34c584fa1198a17c0f6f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityName: Skelet
+  isDead: 0
+  isStunned: 0
+  speed: 10
+  attackRange: 2
+  HealthChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  EntityDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  baseArmor: 10
+  baseDamage: 10
+  baseSpeed: 10
+  maxHealth: 12
+  health: 0
+  animator: {fileID: 0}
 --- !u!136 &8366143024020951892
 CapsuleCollider:
   m_ObjectHideFlags: 0
