@@ -18,7 +18,7 @@ public class Statue : MonoBehaviour, IDamageable
         SetStatueStatus(false);
     }
 
-    public void Damage(int damage)
+    public void Damage(int damage, Color blindColor)
     {
         if (!isActive || canRepeatActivate)
         {

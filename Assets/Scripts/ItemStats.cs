@@ -9,8 +9,8 @@ public class ItemStats : ScriptableObject
     [Header("Item stats")]
     public StatsType type;
     public int additiveValue;
+    public StatusData status;
     [Header("Item cost")]
     public CollectableItem costItem;
     public int costPrice;
-
 }

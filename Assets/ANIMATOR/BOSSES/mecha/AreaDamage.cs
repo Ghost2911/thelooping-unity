@@ -40,7 +40,7 @@ public class AreaDamage : MonoBehaviour
             foreach (GameObject target in targets)
             {
                 if (target != null)
-                    target.GetComponent<IDamageable>().Damage(areaDamage);
+                    target.GetComponent<IDamageable>().Damage(areaDamage, Color.red);
                 else
                     targets.Remove(target);
             }

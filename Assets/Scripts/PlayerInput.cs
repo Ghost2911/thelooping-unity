@@ -9,13 +9,14 @@ public class PlayerInput : MonoBehaviour
     public EntityStats stats;
     public Inventory inventory;
     public GameObject rangePrefab;
+    public StatusData statusData;
 
     [Header("UI/Control")]
     public FloatingJoystick joystick;
     public GameObject revive;
     public Button btnAttack;
     public Button btnFlip;
-  
+
     private CharacterController _characterController;
     private Vector3 direction = new Vector3(0, 0, 0);
 
@@ -34,8 +35,8 @@ public class PlayerInput : MonoBehaviour
     {
         _characterController = GetComponent<CharacterController>();
         inventory.SetHandlerName(stats.entityName);
-        btnAttack.onClick.AddListener(delegate { if (!stats.isDead) stats.animator.SetTrigger("Attack"); });
-        btnFlip.onClick.AddListener(delegate { if (!stats.isDead) { stats.animator.SetTrigger("Flip"); StartCoroutine(Flip()); } });
+        btnAttack.onClick.AddListener(delegate { stats.animator.SetTrigger("Attack"); });
+        btnFlip.onClick.AddListener(delegate { stats.animator.SetTrigger("Flip"); StartCoroutine(Flip());});
     }
 
     void Update()
@@ -51,9 +52,10 @@ public class PlayerInput : MonoBehaviour
     private void Move(Vector3 movement)
     {
         stats.animator.SetBool("isRun", movement != Vector3.zero);
-
+        
         if (movement != Vector3.zero)
         {       
+            stats.MoveEvent.Invoke();
             direction = movement.normalized;
             _characterController.SimpleMove(direction * (stats.baseSpeed + stats.additiveStats[StatsType.Speed]/stats.baseSpeed));
             if (movement.x < 0)
@@ -65,15 +67,21 @@ public class PlayerInput : MonoBehaviour
 
     private void Attack()
     {
+        stats.AttackEvent.Invoke();
         Camera.main.GetComponent<CameraFollow>().CameraShake();
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position + direction, stats.attackRange);
         foreach (Collider enemy in hitEnemies)
             if (enemy.GetComponent<IDamageable>() != null && enemy.transform != transform)
-                enemy.GetComponent<IDamageable>().Damage(stats.additiveStats[StatsType.Damage]);
+            {
+                enemy.GetComponent<IDamageable>().Damage(stats.additiveStats[StatsType.Damage], Color.red);
+                if (statusData != null)
+                    enemy.GetComponent<IStatusable>().AddStatus(statusData);
+            }
     }
 
     private void AttackRange()
     {
+        stats.AttackEvent.Invoke();
         GameObject bullet = Instantiate(rangePrefab, transform.position + direction / 2, new Quaternion(0,0,0,0));
         bullet.transform.LookAt(transform.position + direction, Vector3.up);
         bullet.transform.Rotate(new Vector3(90, -90, 0));
@@ -93,6 +101,7 @@ public class PlayerInput : MonoBehaviour
 
     private void CreateDeadBody()
     {
+        stats.DeathEvent.Invoke();
         revive.SetActive(true);
         Destroy(gameObject);
     }

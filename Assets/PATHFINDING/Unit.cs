@@ -6,9 +6,6 @@ public class Unit : MonoBehaviour
 	const float pathUpdateMoveThreshold = .1f;
 
 	[Header("Enemy settings")]
-	public float turnSpeed = 3;
-	public float turnDst = 5;
-	public float stoppingDst = 10;
 
 	public float attackRange = 1f;
 	public float affectedArea = 3f;
@@ -97,7 +94,8 @@ public class Unit : MonoBehaviour
 
 				direction = (transform.position - currentWaypoint).normalized;
 				SpriteFlip(direction);
-				transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, stats.baseSpeed * Time.deltaTime);
+				transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, stats.baseSpeed * stats.speedMultiplier * Time.deltaTime);
+				stats.MoveEvent.Invoke();
 				yield return null;
 			}
 		}
@@ -124,14 +122,16 @@ public class Unit : MonoBehaviour
 
 	private void Attack()
 	{
+		stats.AttackEvent.Invoke();
 		Collider[] hitEnemies = Physics.OverlapSphere(transform.position + (target.position - transform.position).normalized * attackRange, affectedArea);
 		foreach (Collider enemy in hitEnemies)
 			if (enemy.tag == "Player" && enemy.transform.root != transform)
-				enemy.GetComponent<IDamageable>().Damage(5);
+				enemy.GetComponent<IDamageable>().Damage(5, Color.red);
 	}
 	
 	private void RangeAttack()
 	{
+		stats.AttackEvent.Invoke();
 		GameObject bullet = Instantiate(Resources.Load("bullet"), transform.position, Quaternion.LookRotation(transform.position, target.position)) as GameObject;
 		bullet.transform.LookAt(target);
 		bullet.transform.Rotate(90.0f, 0.0f, 0.0f, Space.Self);
@@ -141,6 +141,7 @@ public class Unit : MonoBehaviour
 
 	private void CreateDeadBody()
 	{
+		stats.DeathEvent.Invoke();
 		foreach (GameObject drop in drops)
 			Instantiate(drop,transform.position, new Quaternion(0f,0f,0f,0f));
 		Destroy(this.gameObject);

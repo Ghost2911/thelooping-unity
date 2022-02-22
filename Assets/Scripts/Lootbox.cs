@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Lootbox : MonoBehaviour, IDamageable
@@ -13,7 +11,7 @@ public class Lootbox : MonoBehaviour, IDamageable
         _animator = GetComponent<Animator>();
     }
 
-    public void Damage(int damage)
+    public void Damage(int damage, Color blindColor)
     {
         foreach (GameObject drop in drops)
             Instantiate(drop, transform.position, new Quaternion(0f, 0f, 0f, 0f));

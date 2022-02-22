@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour
         if (other.transform != owner && !other.isTrigger)
         {
             if (other.GetComponent<IDamageable>()!=null) 
-                other.GetComponent<IDamageable>().Damage(damage);
+                other.GetComponent<IDamageable>().Damage(damage, Color.red);
             Destroy(this.gameObject);
         }
     }

@@ -37,7 +37,7 @@ public class Trap : MonoBehaviour
         foreach (GameObject target in trapTargets)
         {
             if (target != null)
-                target.GetComponent<IDamageable>().Damage(trapDamage);
+                target.GetComponent<IDamageable>().Damage(trapDamage, Color.red);
             else
                 trapTargets.Remove(target);
         }

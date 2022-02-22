@@ -19,7 +19,7 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         foreach (StatsType attribute in Enum.GetValues(typeof(StatsType)))
-            entityStats.additiveStats.Add(attribute, 10);//basestats [attr] - 10
+            entityStats.additiveStats.Add(attribute, 10); //basestats [attr] - 10
         foreach (CollectableType item in Enum.GetValues(typeof(CollectableType)))
             collectableItems.Add(item, 0);
         StatsPresentorUpdate();
