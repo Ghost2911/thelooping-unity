@@ -16,7 +16,7 @@ public class Item : MonoBehaviour
         Transform childText = transform.GetChild(0);
         _animator = childText.GetComponent<Animator>();
         _textMesh = childText.GetComponent<TextMeshPro>();
-        _textMesh.text = string.Format("{0} <sprite name=\"icon_collect_{1}\">\n\n{2} <sprite name=\"icon_collect_{3}\">",
+        _textMesh.text = string.Format("{0} <sprite name=\"resources_basic_0\">\n\n{2} <sprite name=\"resources_basic_0\">",
             stats.additiveValue, stats.type.ToString(), stats.costPrice, stats.costItem.type.ToString());
         GetComponent<SpriteRenderer>().sprite = stats.icon;
     }

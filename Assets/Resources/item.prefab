@@ -285,12 +285,12 @@ SpriteRenderer:
   m_SortingLayerID: -1508007563
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 5573755575616302906, guid: edfc3194e8e039849b51db4fda211505, type: 3}
+  m_Sprite: {fileID: 2569268424387192681, guid: cf3a72a76ae3b1f4281c7e6df1ba1526, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.1666665, y: 3.3333333}
+  m_Size: {x: 1.1, y: 1.0666667}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -321,13 +321,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c84dc3da7f68e47ba0da5e6b4c22b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotType: 2
-  icon: {fileID: 5573755575616302906, guid: edfc3194e8e039849b51db4fda211505, type: 3}
-  stats: 1
-  additiveValue: 20
-  costItem: {fileID: 8883556498256631755, guid: 45e404539af1ef142a0c80f68b69ca36, type: 3}
-  costPrice: 10
-  inMarket: 1
+  stats: {fileID: 11400000, guid: 31ed554747f12d344b0c41cb23c29694, type: 2}
+  inMarket: 0
   isShow: 0
 --- !u!1 &8128059561740615808
 GameObject:

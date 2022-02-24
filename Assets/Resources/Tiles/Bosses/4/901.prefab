@@ -107,7 +107,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7982190008768523046}
   - component: {fileID: 57883311993752910}
-  - component: {fileID: 1452527108506888397}
   m_Layer: 0
   m_Name: Sprout_arena
   m_TagString: Untagged
@@ -144,24 +143,6 @@ CapsuleCollider:
   m_Height: 20
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1452527108506888397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4311960513415142069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86796f4a23e79004fbc1639a7186be10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  locationPresentor: {fileID: 0}
-  locationName: Sprout
-  TargetChangeEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  _animator: {fileID: 0}
 --- !u!1 &8370351523195592810
 GameObject:
   m_ObjectHideFlags: 0

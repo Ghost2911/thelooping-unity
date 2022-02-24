@@ -43,6 +43,14 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public ItemStats GetItemStats(SlotType slotType)
+    {
+        foreach (Slot slot in slots)
+            if (slot.type == slotType)
+                return slot.itemStats;
+        return null;
+    }
+
     public void ChangeCollectableItem(CollectableType collectableType, int value)
     {
         collectableItems[collectableType] += value;
@@ -59,13 +67,12 @@ public class Inventory : MonoBehaviour
     {
         textmeshStats.text = String.Empty;
         foreach (KeyValuePair<StatsType, int> attribute in entityStats.additiveStats)
-        {
             textmeshStats.text += String.Format("{0}\t{1}\n",attribute.Key,attribute.Value);
-        }
     }
 
     private void CollectableItemPresentorUpdate()
     {
-        textmeshCollectable.text = string.Join("", collectableItems.Select(p => $"{p.Value.ToString().PadLeft(2, '0')}  <sprite name=\"resources_basic_{Convert.ToInt32(p.Key)}\">"));
+        textmeshCollectable.text = string.Join("", collectableItems.Select(p => $"{p.Value.ToString().PadLeft(2, '0')}" +
+                                                $"  <sprite name=\"resources_basic_{Convert.ToInt32(p.Key)}\">"));
     }
 }

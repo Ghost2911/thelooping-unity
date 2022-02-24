@@ -62,9 +62,17 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
     public void AddStatus(StatusData status)
     {
         System.Type statusType = System.Type.GetType(status.type.ToString());
-        //if (gameObject.GetComponent<Status>().GetType() != statusType)
-        gameObject.AddComponent(statusType);
-        gameObject.GetComponent<Status>().statusData = status;
+        Status statusHas = GetComponent(statusType) as Status;
+
+        if (statusHas != null)
+        {
+            statusHas.duration = status.duration;
+        }
+        else
+        {
+            gameObject.AddComponent(statusType);
+            GetComponent<Status>().statusData = status;
+        }
     }
 
     public int Health

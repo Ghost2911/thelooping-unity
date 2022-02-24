@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Reel : MonoBehaviour {
- 
+public class Reel : MonoBehaviour 
+{
     public int spinResult;
 
     private Animator _animator;

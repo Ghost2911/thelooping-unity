@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
  
-public class Slots : MonoBehaviour {
- 
+public class Slots : MonoBehaviour 
+{
     public Reel[] reels;
     bool startSpin;
     public UnityEvent SpinEndEvent;

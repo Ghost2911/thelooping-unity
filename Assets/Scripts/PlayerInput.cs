@@ -9,7 +9,6 @@ public class PlayerInput : MonoBehaviour
     public EntityStats stats;
     public Inventory inventory;
     public GameObject rangePrefab;
-    public StatusData statusData;
 
     [Header("UI/Control")]
     public FloatingJoystick joystick;
@@ -70,13 +69,19 @@ public class PlayerInput : MonoBehaviour
         stats.AttackEvent.Invoke();
         Camera.main.GetComponent<CameraFollow>().CameraShake();
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position + direction, stats.attackRange);
+ 
         foreach (Collider enemy in hitEnemies)
-            if (enemy.GetComponent<IDamageable>() != null && enemy.transform != transform)
+        {
+            if (enemy.transform != transform)
             {
-                enemy.GetComponent<IDamageable>().Damage(stats.additiveStats[StatsType.Damage], Color.red);
-                if (statusData != null)
-                    enemy.GetComponent<IStatusable>().AddStatus(statusData);
+                IDamageable damagable = enemy.GetComponent<IDamageable>();
+                IStatusable statusable = enemy.GetComponent<IStatusable>();
+                if (damagable != null)
+                    enemy.GetComponent<IDamageable>().Damage(stats.additiveStats[StatsType.Damage], Color.red);
+                if (statusable != null)
+                    enemy.GetComponent<IStatusable>().AddStatus(inventory.GetItemStats(SlotType.Weapons).status);
             }
+        }
     }
 
     private void AttackRange()

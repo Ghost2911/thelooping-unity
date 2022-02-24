@@ -5470,18 +5470,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfc765a679f7dd4c99d6668318a754b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  turnSpeed: 3
-  turnDst: 5
-  stoppingDst: 1
   attackRange: 1
   affectedArea: 3
-  isDead: 0
   followingPath: 0
   drops: []
   target: {fileID: 0}
-  _animator: {fileID: 0}
-  health: 60
   splashAttack: {fileID: 0}
   _target: {fileID: 0}
 --- !u!95 &5811753604113198312
@@ -10725,7 +10718,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2295491811655931023}
-  - component: {fileID: 8312968110888656072}
   - component: {fileID: 2916941266774299276}
   m_Layer: 0
   m_Name: Demon_arena
@@ -10753,84 +10745,6 @@ Transform:
   m_Father: {fileID: 6461214904109319029}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8312968110888656072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7886798964100856225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86796f4a23e79004fbc1639a7186be10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  locationPresentor: {fileID: 0}
-  locationName: Baphomet
-  TargetChangeEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8964583011805936237}
-        m_TargetAssemblyTypeName: Turret, Assembly-CSharp
-        m_MethodName: SetTarget
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8006019960304532945}
-        m_TargetAssemblyTypeName: Turret, Assembly-CSharp
-        m_MethodName: SetTarget
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8327450597998152174}
-        m_TargetAssemblyTypeName: Turret, Assembly-CSharp
-        m_MethodName: SetTarget
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 4825890295779020823}
-        m_TargetAssemblyTypeName: Turret, Assembly-CSharp
-        m_MethodName: SetTarget
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 7959316052943286361}
-        m_TargetAssemblyTypeName: DemonBoss, Assembly-CSharp
-        m_MethodName: SetTarget
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _animator: {fileID: 0}
 --- !u!65 &2916941266774299276
 BoxCollider:
   m_ObjectHideFlags: 0
