@@ -87,18 +87,20 @@ public class PlayerInput : MonoBehaviour
     private void AttackRange()
     {
         stats.AttackEvent.Invoke();
-        GameObject bullet = Instantiate(rangePrefab, transform.position + direction / 2, new Quaternion(0,0,0,0));
+        GameObject bullet = Instantiate(rangePrefab, transform.position + direction / 2, new Quaternion(0, 0, 0, 0));
         bullet.transform.LookAt(transform.position + direction, Vector3.up);
         bullet.transform.Rotate(new Vector3(90, -90, 0));
     }
 
     IEnumerator Flip()
     {
-        Vector3 endPos = transform.position + direction*5f;
+        Vector3 startPos = transform.position;
+        Vector3 endPos = transform.position + direction*10f;
+        
         float flipTime = 0f;
         while (flipTime < 0.6f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, endPos, Time.deltaTime*stats.baseSpeed);
+            transform.position = Vector3.MoveTowards(startPos, endPos, Time.deltaTime*10);
             flipTime += Time.deltaTime;
             yield return null;
         }
@@ -124,6 +126,9 @@ public class PlayerInput : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "collectable")
+        {
+            inventory.ChangeCollectableItem(other.GetComponent<CollectableItem>().type, 1);
             Destroy(other.gameObject);
+        }
     }
 }

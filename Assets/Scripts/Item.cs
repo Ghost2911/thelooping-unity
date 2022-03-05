@@ -9,7 +9,7 @@ public class Item : MonoBehaviour
 
     private Animator _animator;
     private TextMeshPro _textMesh;
-    private GameObject _player;
+    private PlayerInput _player;
 
     void Start()
     {
@@ -25,17 +25,30 @@ public class Item : MonoBehaviour
     {
         if (isShow)
         {
-            _player.GetComponent<PlayerInput>().inventory.Equip(stats);
-            Destroy(gameObject); 
+            if (inMarket)
+            {
+                if (_player.inventory.ChangeCollectableItem(stats.costItem.type, -stats.costPrice))
+                {
+                    _player.inventory.Equip(stats);
+                    Destroy(gameObject);
+                }
+                else
+                {  
+                    //отмена покупки - анимация нехватки ресурса
+                }
+            }
+            else
+            {
+                _player.inventory.Equip(stats);
+                Destroy(gameObject);
+            }
         }
-        else
-        { }
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            _player = other.gameObject;
+            _player = other.gameObject.GetComponent<PlayerInput>();
             _animator.SetTrigger("ShowText");
             isShow = true;
         }

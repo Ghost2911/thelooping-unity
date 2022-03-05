@@ -51,10 +51,15 @@ public class Inventory : MonoBehaviour
         return null;
     }
 
-    public void ChangeCollectableItem(CollectableType collectableType, int value)
+    public bool ChangeCollectableItem(CollectableType collectableType, int value)
     {
-        collectableItems[collectableType] += value;
-        CollectableItemPresentorUpdate();
+        if (collectableItems[collectableType] + value >= 0)
+        {
+            collectableItems[collectableType] += value;
+            CollectableItemPresentorUpdate();
+            return true;
+        }
+        return false;
     }
 
     public void ChangeStats(StatsType statType, int value)

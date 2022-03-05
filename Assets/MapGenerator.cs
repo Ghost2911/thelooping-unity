@@ -9,24 +9,34 @@ public class MapGenerator : MonoBehaviour
     public int height = 12;
     public int bossCount = 3;
     public Slots slots;
+    private int[,] arr; 
     private List<Vector3Int> possibleBossTiles = new List<Vector3Int>();
     public void Awake()
     {
         Create();
     }
+    private void Start()
+    {
+        TilesInstantiate();
+    }
 
     public void Create()
     {
-        int[,] arr = new int[width, height];
+        arr = new int[width, height];
         AddPath(ref arr);
         AddForks(ref arr);
         AddEvents(ref arr);
+    }
+
+    public void TilesInstantiate()
+    {
+        GameObject tile;
 
         for (int j = 0; j < width; j++)
         {
             for (int i = 0; i < height; i++)
             {
-                GameObject tile = TileFromResources(arr[i, j]);
+                tile = TileFromResources(arr[i, j]);
                 Instantiate(tile, new Vector3(48 * j, 0f, 48 * i), tile.transform.rotation, this.transform);
             }
         }
@@ -126,7 +136,7 @@ public class MapGenerator : MonoBehaviour
         Object[] maps =  (tileNum<900)?Resources.LoadAll("Tiles/"+tileNum):
             Resources.LoadAll("Tiles/Bosses").Where(a => a.name == tileNum.ToString()).ToArray();
         int totalMapCount = maps.Length;
-        Resources.UnloadUnusedAssets();
+        //Resources.UnloadUnusedAssets();
 
         return maps[Random.Range(0, totalMapCount)] as GameObject;
     }
