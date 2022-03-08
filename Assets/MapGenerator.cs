@@ -5,14 +5,18 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    public int width = 16;
-    public int height = 12;
+    [HideInInspector]
+    public static MapGenerator instance;
+    public int tileSize = 48;
+    public int mapSize = 10;
     public int bossCount = 3;
     public Slots slots;
     private int[,] arr; 
     private List<Vector3Int> possibleBossTiles = new List<Vector3Int>();
     public void Awake()
     {
+        if (instance == null)
+            instance = this;
         Create();
     }
     private void Start()
@@ -22,7 +26,7 @@ public class MapGenerator : MonoBehaviour
 
     public void Create()
     {
-        arr = new int[width, height];
+        arr = new int[mapSize, mapSize];
         AddPath(ref arr);
         AddForks(ref arr);
         AddEvents(ref arr);
@@ -32,12 +36,12 @@ public class MapGenerator : MonoBehaviour
     {
         GameObject tile;
 
-        for (int j = 0; j < width; j++)
+        for (int j = 0; j < mapSize; j++)
         {
-            for (int i = 0; i < height; i++)
+            for (int i = 0; i < mapSize; i++)
             {
                 tile = TileFromResources(arr[i, j]);
-                Instantiate(tile, new Vector3(48 * j, 0f, 48 * i), tile.transform.rotation, this.transform);
+                Instantiate(tile, new Vector3(tileSize * j, 0f, tileSize * i), tile.transform.rotation, this.transform);
             }
         }
     }
@@ -45,13 +49,13 @@ public class MapGenerator : MonoBehaviour
     void AddPath(ref int[,] arr)
     {
         int startPos, endPos, distBetweenHorizontal;
-        int forkPos = Random.Range(2, width-2);
+        int forkPos = Random.Range(2, mapSize - 2);
 
-        for (int i = 0; i < height; i += distBetweenHorizontal)
+        for (int i = 0; i < mapSize; i += distBetweenHorizontal)
         {
             distBetweenHorizontal = Random.Range(2, 3);
             startPos = Random.Range(0, forkPos-1)+1;
-            endPos = Random.Range(forkPos+1, width)-1;
+            endPos = Random.Range(forkPos+1, mapSize) -1;
 
             possibleBossTiles.Add(new Vector3Int(i, startPos-1, 4));
             possibleBossTiles.Add(new Vector3Int(i, endPos+1, 6));
@@ -64,7 +68,7 @@ public class MapGenerator : MonoBehaviour
                 if (arr[i,j]==0)
                     arr[i, j] = 1;
 
-            if (i + 2 < height)
+            if (i + 2 < mapSize)
             {
                 int[] list = Enumerable.Range(startPos, endPos - startPos + 1).Where(a => a != forkPos).ToArray();
                 if (list.Length != 0)
@@ -81,9 +85,9 @@ public class MapGenerator : MonoBehaviour
 
     void AddForks(ref int[,] arr)
     {
-        for (int i = 0; i < (height-1); i++)
+        for (int i = 0; i < (mapSize - 1); i++)
         {
-            for (int j = 0; j < (width-1); j++)
+            for (int j = 0; j < (mapSize - 1); j++)
             {
                 if (arr[i, j] == 0 && arr[i, j + 1] == 3 && Random.Range(0, 3) == 0)
                 {
@@ -143,8 +147,8 @@ public class MapGenerator : MonoBehaviour
 
     void AddEvents(ref int[,] arr)
     {
-        for (int i = 0; i < height; i++)
-            for (int j = 0; j < width; j++)
+        for (int i = 0; i < mapSize; i++)
+            for (int j = 0; j < mapSize; j++)
                 if (arr[i, j] == 0 && Random.Range(0, 4) == 0)
                     arr[i, j] = 5;
     }

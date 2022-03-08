@@ -17,7 +17,7 @@ public class PlayerInput : MonoBehaviour
     public Button btnFlip;
 
     private CharacterController _characterController;
-    private Vector3 direction = new Vector3(0, 0, 0);
+    private Vector3 direction = new Vector3(1, 0, 0);
 
     void Awake()
     {
@@ -35,7 +35,7 @@ public class PlayerInput : MonoBehaviour
         _characterController = GetComponent<CharacterController>();
         inventory.SetHandlerName(stats.entityName);
         btnAttack.onClick.AddListener(delegate { stats.animator.SetTrigger("Attack"); });
-        btnFlip.onClick.AddListener(delegate { stats.animator.SetTrigger("Flip"); StartCoroutine(Flip());});
+        btnFlip.onClick.AddListener(delegate { if (!stats.animator.GetCurrentAnimatorStateInfo(0).IsName("Flip")) { stats.animator.SetTrigger("Flip"); StartCoroutine(Flip()); } });
     }
 
     void Update()
@@ -54,13 +54,16 @@ public class PlayerInput : MonoBehaviour
         
         if (movement != Vector3.zero)
         {       
-            stats.MoveEvent.Invoke();
             direction = movement.normalized;
-            _characterController.SimpleMove(direction * (stats.baseSpeed + stats.additiveStats[StatsType.Speed]/stats.baseSpeed));
-            if (movement.x < 0)
-                transform.localScale = new Vector3(-1f, 1f, 1f);
-            else if (movement.x > 0)
-                transform.localScale = new Vector3(1f, 1f, 1f);
+            if (!stats.animator.GetCurrentAnimatorStateInfo(0).IsName("Attacks"))
+            {
+                stats.MoveEvent.Invoke();
+                _characterController.SimpleMove(direction * (stats.baseSpeed + stats.additiveStats[StatsType.Speed] / stats.baseSpeed));
+                if (movement.x < 0)
+                    transform.localScale = new Vector3(-1f, 1f, 1f);
+                else if (movement.x > 0)
+                    transform.localScale = new Vector3(1f, 1f, 1f);
+            }
         }
     }
 
@@ -95,12 +98,11 @@ public class PlayerInput : MonoBehaviour
     IEnumerator Flip()
     {
         Vector3 startPos = transform.position;
-        Vector3 endPos = transform.position + direction*10f;
-        
+        Vector3 endPos = transform.position + direction*stats.baseSpeed;
         float flipTime = 0f;
         while (flipTime < 0.6f)
         {
-            transform.position = Vector3.MoveTowards(startPos, endPos, Time.deltaTime*10);
+            transform.position = Vector3.MoveTowards(startPos,endPos,flipTime*stats.baseSpeed);
             flipTime += Time.deltaTime;
             yield return null;
         }

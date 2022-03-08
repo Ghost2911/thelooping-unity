@@ -1,22 +1,21 @@
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 
 public class DarkForest : MonoBehaviour
 {
-    public enum Axis { horizontal, vertical, diagonal};
-    public Axis direction = Axis.horizontal;
+    public Vector2 direction = new Vector2(0f, 0f);
     private Transform player;
+    private Vector2 darknessPos;
 
-    private void Start()
+    private void Awake()
     {
+        darknessPos = V3toV2(transform.position) + new Vector2(24f, 24f) * direction;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            StopAllCoroutines();
             player = other.transform;
             StartCoroutine(ChangeAmbientLight());
         }
@@ -26,8 +25,8 @@ public class DarkForest : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            StopAllCoroutines();
             player = null;
+            StopCoroutine(ChangeAmbientLight());
         }
     }
 
@@ -35,44 +34,22 @@ public class DarkForest : MonoBehaviour
     {
         while (true)
         {
-            float distance;
-            switch (direction)
-            {
-                case Axis.horizontal:
-                    distance = transform.position.x - player.position.x + 24;
-                    break;
-                case Axis.vertical:
-                    distance = transform.position.z - player.position.z + 24;
-                    break;
-                default:
-                    distance = 0;
-                    break;
-            }
-            RenderSettings.ambientLight = Color.Lerp(Color.white, Color.black, (48f - distance)/40f);
+            Vector2 distance = (darknessPos - V3toV2(player.position)) * direction;
+            float darkMultiplier = distance.magnitude / 35f;
+            RenderSettings.ambientLight = Color.Lerp(Color.white, Color.black, darkMultiplier);
+            if (darkMultiplier > 1.1f) 
+                player.transform.position += V3toV2(direction)
+                    *MapGenerator.instance.tileSize*(MapGenerator.instance.mapSize-0.5f);
             yield return new WaitForSeconds(0.1f);
         }
     }
-    
-    /*
-    IEnumerator BlackColor()
+    public Vector2 V3toV2(Vector3 v3)
     {
-        float t = 0;
-        while (t!=1)
-        {
-            t += 0.01f;
-            RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, Color.black, t);
-            yield return new WaitForSeconds(0.1f);
-        }
+        return new Vector2(v3.x, v3.z);
     }
-    IEnumerator WhiteColor()
-    {
-        float t = 0;
-        while (t != 1)
-        {
-            t += 0.01f;
-            RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, Color.white, t);
-            yield return new WaitForSeconds(0.1f);
-        }
-    }*/
 
+    public Vector3 V3toV2(Vector2 v2)
+    {
+        return new Vector3(v2.x, 0, v2.y);
+    }
 }
