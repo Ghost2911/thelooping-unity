@@ -1,10 +1,10 @@
 public class Stun : Status
 {
-    public override void OnStatusEnable()
+    void OnEnable()
     {
         target.isStunned = true;
     }
-    public override void OnStatusDisable()
+    void OnDisable()
     {
         target.isStunned = false;
     }

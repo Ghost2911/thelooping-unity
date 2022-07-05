@@ -18,6 +18,9 @@ TextureImporter:
       213: 5356007169173771531
     second: spr_Props_4
   - first:
+      213: 5150180841144181828
+    second: spr_Props_5
+  - first:
       213: 1349896435115823950
     second: spr_Props_6
   - first:
@@ -103,9 +106,9 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
-  alignment: 7
-  spritePivot: {x: 0.5, y: 0}
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 15
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -292,12 +295,33 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
+      name: spr_Props_5
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 175
+        width: 13
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 444eb6d203e197740800000000000000
+      internalID: 5150180841144181828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
       name: spr_Props_6
       rect:
         serializedVersion: 2
-        x: 152
+        x: 167
         y: 175
-        width: 50
+        width: 35
         height: 37
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -609,7 +633,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 21dadc5a22695094289bff9780042baf
+    spriteID: 755ee5026e429894f8c6594a2dc1f55a
     internalID: 0
     vertices: []
     indices: 

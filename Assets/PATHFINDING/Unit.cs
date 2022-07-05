@@ -2,39 +2,89 @@
 using System.Collections;
 public class Unit : MonoBehaviour
 {
-	const float minPathUpdateTime = .2f;
-	const float pathUpdateMoveThreshold = .1f;
-
+	const float minPathUpdateTime = 0.5f;
 	[Header("Enemy settings")]
 
 	public float attackRange = 1f;
 	public float affectedArea = 3f;
 	public bool followingPath;
-	public static float attackCooldown = 2f;
+	public static float attackCooldown = 1f;
 	public GameObject[] drops;
-	public Transform target;
+	public EntityStats stats;
+	public GameObject projectileBullet;
 
+	private Transform target;
 	private Vector3 direction;
 	private Vector3[] path;
-	
 	private int targetIndex;
-	private EntityStats stats;
+	private bool isAttacking = false;
+	private Vector3 pathOffset;
+	private bool pathRequestSearched = false;
 
-	void Start()
+	void Awake()
 	{
+		pathOffset = new Vector3((attackRange+affectedArea/3) * Mathf.Cos(Random.Range(0, 360)), 0, (attackRange+affectedArea/3)  * Mathf.Sin(Random.Range(0, 360)));
 		stats = GetComponent<EntityStats>();
-		if (target!=null)
-			StartCoroutine("UpdatePath");
+		stats.speedMultiplier = Random.Range(stats.speedMultiplier-0.4f, stats.speedMultiplier);
+		if (target != null)
+			StartCoroutine(UpdatePath());
+	}
+
+	public void SetTarget(Transform target)
+	{
+		this.target = target;
+		StopCoroutine(UpdatePath());
+		StartCoroutine(UpdatePath());
 	}
 
 	public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
 	{
 		if (pathSuccessful)
 		{
+			pathRequestSearched = false;
 			path = newPath;
 			targetIndex = 0;
 			StopCoroutine("FollowPath");
 			StartCoroutine("FollowPath");
+		}
+	}
+
+	IEnumerator FollowPath()
+	{
+		if (!stats.isDead && !stats.isStunned)
+		{
+			if (path.Length != 0)
+			{
+				Vector3 currentWaypoint = path[0];
+				stats.animator.SetBool("isRun", true);
+				while (true)
+				{
+					if (Vector3.Distance(transform.position, target.position) < (attackRange + affectedArea))
+					{
+						stats.animator.SetBool("isRun", false);
+						isAttacking = true;
+						StartCoroutine("Attacking");
+						yield break;
+					}
+					if (transform.position == currentWaypoint)
+					{
+						targetIndex++;
+						if (targetIndex >= path.Length)
+						{
+							stats.animator.SetBool("isRun", false);
+							isAttacking = true;
+							StartCoroutine("Attacking");
+							yield break;
+						}
+						currentWaypoint = path[targetIndex];
+					}
+					direction = (transform.position - currentWaypoint).normalized;
+					SpriteFlip(direction);
+					transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, stats.speed * stats.speedMultiplier * Time.deltaTime);
+					stats.MoveEvent.Invoke();
+					yield return null;
+				}
+			}
 		}
 	}
 
@@ -47,70 +97,36 @@ public class Unit : MonoBehaviour
 			Debug.Log(hit.transform.tag);
 		}
 	}
-
 	IEnumerator UpdatePath()
 	{
 		if (Time.timeSinceLevelLoad < 1f)
-		{
-			yield return new WaitForSeconds(1f);
-		}
+			yield return new WaitForSeconds(0.1f);
+
 		PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
-		float sqrMoveThreshold = pathUpdateMoveThreshold * pathUpdateMoveThreshold;
 		Vector3 targetPosOld = target.position;
 
 		while (true)
 		{
 			yield return new WaitForSeconds(minPathUpdateTime);
-
-			if ((target.position - targetPosOld).sqrMagnitude > sqrMoveThreshold)
+			if (isAttacking == false)
 			{
-				PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
-				targetPosOld = target.position;
-			}
-		}
-	}
-
-	IEnumerator FollowPath()
-	{
-		if (!stats.isDead && !stats.isStunned)
-		{
-			StopCoroutine("Attacking");
-			stats.animator.SetBool("isRun", true);
-			Vector3 currentWaypoint = path[0];
-
-			while (true)
-			{
-				if (transform.position == currentWaypoint)
+				if (!pathRequestSearched)
 				{
-					targetIndex++;
-					if (Vector3.Distance(transform.position,target.position) < attackRange)
-					{
-						stats.animator.SetBool("isRun", false);
-						StartCoroutine("Attacking");
-						yield break;
-					}
-					currentWaypoint = path[targetIndex];
+					pathRequestSearched = true;
+					PathRequestManager.RequestPath(transform.position, target.position + pathOffset, OnPathFound);
+					targetPosOld = target.position;
 				}
-
-				direction = (transform.position - currentWaypoint).normalized;
-				SpriteFlip(direction);
-				transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, stats.baseSpeed * stats.speedMultiplier * Time.deltaTime);
-				stats.MoveEvent.Invoke();
-				yield return null;
 			}
 		}
 	}
 
 	IEnumerator Attacking()
 	{
-		while (true)
-		{
-			if (target == null)
-				break;
-			stats.animator.SetTrigger("isAttack");
-			yield return new WaitForSeconds(attackCooldown);
-		}
+		stats.animator.SetTrigger("isAttack");
+		yield return new WaitForSeconds(Random.Range(attackCooldown, attackCooldown+1f));
+		isAttacking = false;
 	}
+	
 
 	private void SpriteFlip(Vector3 movement)
 	{
@@ -123,19 +139,25 @@ public class Unit : MonoBehaviour
 	private void Attack()
 	{
 		stats.AttackEvent.Invoke();
+		SpriteFlip(transform.position - target.position);
 		Collider[] hitEnemies = Physics.OverlapSphere(transform.position + (target.position - transform.position).normalized * attackRange, affectedArea);
 		foreach (Collider enemy in hitEnemies)
 			if (enemy.tag == "Player" && enemy.transform.root != transform)
-				enemy.GetComponent<IDamageable>().Damage(5, Color.red);
+				enemy.GetComponent<IDamageable>().Damage(stats.attack * stats.attackMultiplier, 0f, Vector3.zero, Color.red, stats);
 	}
 	
 	private void RangeAttack()
 	{
-		stats.AttackEvent.Invoke();
-		GameObject bullet = Instantiate(Resources.Load("bullet"), transform.position, Quaternion.LookRotation(transform.position, target.position)) as GameObject;
-		bullet.transform.LookAt(target);
-		bullet.transform.Rotate(90.0f, 0.0f, 0.0f, Space.Self);
-		bullet.GetComponent<Projectile>().destination = target.position;
+		if (projectileBullet != null)
+		{
+			stats.AttackEvent.Invoke();
+			SpriteFlip(transform.position - target.position);
+			GameObject bullet = Instantiate(projectileBullet, transform.position, Quaternion.LookRotation(transform.position, target.position)) as GameObject;
+			bullet.transform.LookAt(target);
+			bullet.transform.Rotate(new Vector3(90f, 0, 90f), Space.Self);
+			bullet.GetComponent<Projectile>().destination = target.position;
+			bullet.GetComponent<Projectile>().owner = transform;
+		}
 	}
 
 

@@ -12,7 +12,7 @@ public class PanelControl : MonoBehaviour
         panel.SetActive(false);
     }
 
-    public void PanelChangeActive()
+    public void ChangeActive()
     {
         panel.SetActive(!panel.activeSelf);
     }

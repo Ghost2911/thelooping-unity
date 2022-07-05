@@ -7,7 +7,6 @@ public class DemonBoss : Unit
     private Coroutine _cor = null;
     public GameObject splashAttack;
     public Transform _target;
-    private EntityStats stats;
 
     private void Awake()
     {
@@ -23,17 +22,6 @@ public class DemonBoss : Unit
             _cor = StartCoroutine(Move());
         }
     }
-
-    public void SetTarget(Transform target)
-    {
-        _target = target;
-        this.target = target;
-        if (this.target!=null)
-            StartCoroutine("UpdatePath");
-        else
-            StopCoroutine("UpdatePath");
-    }
-
     void Update()
     {
         if (_target != null)

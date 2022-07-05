@@ -45,8 +45,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 1}
-  m_Center: {x: 0, y: 0.42, z: 6.9330324e-16}
+  m_Size: {x: 2, y: 1.8084741, z: 1.7100613}
+  m_Center: {x: 0, y: 1.9307818, z: -0.35503072}
 --- !u!212 &4761775963730663211
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -109,7 +109,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 22100000, guid: 0e509dad4733df648b4a5e51007b3513, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -126,8 +126,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6544448384754614374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90ca970323872344a90ddeb34c3c9b85, type: 3}
+  m_Script: {fileID: 11500000, guid: 78328e86fd8f7f245a93f12450dde4ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 3
+  cooldown: 5
+  trapDamage: 5
   trapTargets: []

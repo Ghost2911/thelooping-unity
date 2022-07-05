@@ -3,6 +3,7 @@ using TMPro;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 public class Inventory : MonoBehaviour
 {
@@ -12,16 +13,20 @@ public class Inventory : MonoBehaviour
     public TextMeshProUGUI handlerName;
     public EntityStats entityStats;
     public Dictionary<CollectableType, int> collectableItems = new Dictionary<CollectableType, int>();
+    public static Inventory instance;
 
-    [HideInInspector]
-    public Dictionary<StatsType, int> baseStats = new Dictionary<StatsType, int>();
-
-    private void Start()
+    private void Awake()
     {
-        foreach (StatsType attribute in Enum.GetValues(typeof(StatsType)))
-            entityStats.additiveStats.Add(attribute, 10); //basestats [attr] - 10
+        instance = this;
+    }
+
+    public void SetBaseSettings(EntityStats characterStats)
+    {
+        entityStats = characterStats;
         foreach (CollectableType item in Enum.GetValues(typeof(CollectableType)))
             collectableItems.Add(item, 0);
+        foreach (Slot slot in slots)
+            slot.stats = entityStats;
         StatsPresentorUpdate();
         CollectableItemPresentorUpdate();
     }
@@ -64,20 +69,19 @@ public class Inventory : MonoBehaviour
 
     public void ChangeStats(StatsType statType, int value)
     {
-         entityStats.additiveStats[statType] += value;
+         FieldInfo stats = entityStats.GetType().GetField(statType.ToString());
+         stats.SetValue(entityStats, (int)stats.GetValue(entityStats)+value);
          StatsPresentorUpdate();
     }
 
     private void StatsPresentorUpdate()
     {
-        textmeshStats.text = String.Empty;
-        foreach (KeyValuePair<StatsType, int> attribute in entityStats.additiveStats)
-            textmeshStats.text += String.Format("{0}\t{1}\n",attribute.Key,attribute.Value);
+        textmeshStats.text = String.Format("Attack\t{0}\nArmor\t{1}\nSpeed\t{2}\n", entityStats.attack* entityStats.attackMultiplier, entityStats.armor* entityStats.armorMultiplier, entityStats.speed* entityStats.speedMultiplier);
     }
 
     private void CollectableItemPresentorUpdate()
     {
         textmeshCollectable.text = string.Join("", collectableItems.Select(p => $"{p.Value.ToString().PadLeft(2, '0')}" +
-                                                $"  <sprite name=\"resources_basic_{Convert.ToInt32(p.Key)}\">"));
+                                                $"  <sprite name=\"icon_res_{p.Key}\">"));
     }
 }

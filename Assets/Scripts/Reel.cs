@@ -23,6 +23,7 @@ public class Reel : MonoBehaviour
     public void StopSpin()
     {
         _animator.Play("EndRoll");
+        _animator.enabled = false;
     }
 
     Sprite GetSprite(string imageName, string spriteName)

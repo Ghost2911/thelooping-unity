@@ -1,6 +1,6 @@
 public enum StatsType
 {
-    Armor,
-    Speed,
-    Damage,
+    armor,
+    speed,
+    attack,
 }

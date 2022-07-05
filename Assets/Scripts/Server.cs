@@ -12,7 +12,7 @@ public class Server : MonoBehaviour
     public HealthPresentor healthPresentor;
     public List<GameObject> characters;
 
-    void Awake()
+    void Start()
     {
         FindAllPlayableCharacters();
     }
@@ -29,7 +29,7 @@ public class Server : MonoBehaviour
         player.btnFlip = btnFlip;
         player.revive = revive;
         player.stats.HealthChangeEvent.AddListener(healthPresentor.ChangeValue);
-        healthPresentor.ChangeValue(player.stats.health);
+        healthPresentor.ChangeValue(player.stats.Health);
         revive.SetActive(false);
 
         characters.RemoveAt(characterNum);

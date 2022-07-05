@@ -35,11 +35,11 @@ public class DarkForest : MonoBehaviour
         while (true)
         {
             Vector2 distance = (darknessPos - V3toV2(player.position)) * direction;
-            float darkMultiplier = distance.magnitude / 35f;
-            RenderSettings.ambientLight = Color.Lerp(Color.white, Color.black, darkMultiplier);
-            if (darkMultiplier > 1.1f) 
+            float darkMultiplier = distance.magnitude / 30f;
+            RenderSettings.ambientLight = Color.Lerp(Color.white, Color.clear, darkMultiplier);
+            if (darkMultiplier > 1.1f)
                 player.transform.position += V3toV2(direction)
-                    *MapGenerator.instance.tileSize*(MapGenerator.instance.mapSize-0.5f);
+                    *MapGenerator.instance.tileSize*(MapGenerator.instance.mapSize+1.3f);
             yield return new WaitForSeconds(0.1f);
         }
     }

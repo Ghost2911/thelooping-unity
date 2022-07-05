@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -18,24 +17,19 @@ public class PlayerInput : MonoBehaviour
 
     private CharacterController _characterController;
     private Vector3 direction = new Vector3(1, 0, 0);
+    private float attackTime = 0.3f;
 
-    void Awake()
-    {
-        rangePrefab.GetComponent<Projectile>().owner = transform;
-        stats = GetComponent<EntityStats>();
-        Dictionary<StatsType, int> baseStats = new Dictionary<StatsType, int>();
-        baseStats.Add(StatsType.Armor, stats.baseArmor);
-        baseStats.Add(StatsType.Damage, stats.baseDamage);
-        baseStats.Add(StatsType.Speed, stats.baseSpeed);
-        inventory.baseStats = baseStats;
-        inventory.entityStats = stats;
-    }
     void Start()
     {
-        _characterController = GetComponent<CharacterController>();
-        inventory.SetHandlerName(stats.entityName);
-        btnAttack.onClick.AddListener(delegate { stats.animator.SetTrigger("Attack"); });
+        inventory = Inventory.instance;
+        btnAttack.onClick.AddListener(delegate { stats.animator.SetTrigger("Attack"); attackTime = 0.4f; });
         btnFlip.onClick.AddListener(delegate { if (!stats.animator.GetCurrentAnimatorStateInfo(0).IsName("Flip")) { stats.animator.SetTrigger("Flip"); StartCoroutine(Flip()); } });
+
+        rangePrefab.GetComponent<Projectile>().owner = transform;
+        stats = GetComponent<EntityStats>(); 
+        
+        inventory.SetBaseSettings(stats);
+        _characterController = GetComponent<CharacterController>();
     }
 
     void Update()
@@ -45,44 +39,49 @@ public class PlayerInput : MonoBehaviour
 
         Vector3 movement = new Vector3(joystick.Horizontal, 0.0f, joystick.Vertical);
         //Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-        Move(movement);
+        if (attackTime > 0)
+            attackTime -= Time.deltaTime;
+        else
+            Move(movement);
     }
 
     private void Move(Vector3 movement)
     {
         stats.animator.SetBool("isRun", movement != Vector3.zero);
-        
+
         if (movement != Vector3.zero)
-        {       
+        {
+            if (stats.animator.GetCurrentAnimatorStateInfo(0).IsName("Flip"))
+                return;
             direction = movement.normalized;
-            if (!stats.animator.GetCurrentAnimatorStateInfo(0).IsName("Attacks"))
-            {
-                stats.MoveEvent.Invoke();
-                _characterController.SimpleMove(direction * (stats.baseSpeed + stats.additiveStats[StatsType.Speed] / stats.baseSpeed));
-                if (movement.x < 0)
-                    transform.localScale = new Vector3(-1f, 1f, 1f);
-                else if (movement.x > 0)
-                    transform.localScale = new Vector3(1f, 1f, 1f);
-            }
+            stats.MoveEvent.Invoke();
+            _characterController.SimpleMove(direction * stats.speed * stats.speedMultiplier);
+            if (movement.x < 0)
+                transform.localScale = new Vector3(-1f, 1f, 1f);
+            else if (movement.x > 0)
+                transform.localScale = new Vector3(1f, 1f, 1f);
+
         }
     }
+    //stats.animator.GetCurrentAnimatorStateInfo(0).IsName("Flip")
 
     private void Attack()
     {
         stats.AttackEvent.Invoke();
         Camera.main.GetComponent<CameraFollow>().CameraShake();
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position + direction, stats.attackRange);
- 
+
         foreach (Collider enemy in hitEnemies)
         {
             if (enemy.transform != transform)
             {
                 IDamageable damagable = enemy.GetComponent<IDamageable>();
                 IStatusable statusable = enemy.GetComponent<IStatusable>();
-                if (damagable != null)
-                    enemy.GetComponent<IDamageable>().Damage(stats.additiveStats[StatsType.Damage], Color.red);
-                if (statusable != null)
-                    enemy.GetComponent<IStatusable>().AddStatus(inventory.GetItemStats(SlotType.Weapons).status);
+
+                damagable?.Damage(stats.attack * stats.attackMultiplier, stats.attackKnockback, direction, Color.red, stats);
+                StatusData weaponStatus = inventory.GetItemStats(SlotType.Weapons)?.status;
+                if (weaponStatus != null)
+                    statusable?.AddStatus(weaponStatus);
             }
         }
     }
@@ -97,15 +96,16 @@ public class PlayerInput : MonoBehaviour
 
     IEnumerator Flip()
     {
-        Vector3 startPos = transform.position;
-        Vector3 endPos = transform.position + direction*stats.baseSpeed;
-        float flipTime = 0f;
-        while (flipTime < 0.6f)
+        Vector3 dir = direction*1.1f;
+        float time = 0.3f;
+        stats.isInvulnerability = true;
+        while (time > 0)
         {
-            transform.position = Vector3.MoveTowards(startPos,endPos,flipTime*stats.baseSpeed);
-            flipTime += Time.deltaTime;
+            _characterController.SimpleMove(dir * stats.speed * stats.speedMultiplier);
+            time -= Time.deltaTime;
             yield return null;
         }
+        stats.isInvulnerability = false;
     }
 
     private void CreateDeadBody()

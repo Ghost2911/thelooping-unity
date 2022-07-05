@@ -1,40 +1,108 @@
 Using pre-set license
-Built from '2020.3/staging' branch; Version is '2020.3.8f1 (507919d4fff5) revision 5273881'; Using compiler version '192528614'; Build Type 'Release'
-OS: 'Windows 10 Home Single Language; OS build 16299.1087; Version 1709; 64bit' Language: 'ru' Physical Memory: 7645 MB
+Built from '2020.2/staging' branch; Version is '2020.2.7f1 (c53830e277f1) revision 12924976'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Pro; OS build 19042.1706; Version 2009; 64bit' Language: 'ru' Physical Memory: 16365 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
  COMMAND LINE ARGUMENTS:
-C:\Program Files\Unity\Hub\Editor\2020.3.8f1\Editor\Unity.exe
+D:\Program Files\Unity\Editor\Unity.exe
 -adb2
 -batchMode
 -noUpm
 -name
 AssetImportWorker0
 -projectPath
-C:/Users/NONAME/Documents/GitHub/thelooping-unity
+C:/Users/Ghost2911/Documents/GitHub/thelooping-unity
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-60173
-Successfully changed project path to: C:/Users/NONAME/Documents/GitHub/thelooping-unity
-C:/Users/NONAME/Documents/GitHub/thelooping-unity
+49863
+Successfully changed project path to: C:/Users/Ghost2911/Documents/GitHub/thelooping-unity
+C:/Users/Ghost2911/Documents/GitHub/thelooping-unity
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 4696.14 ms, found 5 plugins.
+Refreshing native plugins compatible for Editor in 91.61 ms, found 5 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Initialize engine version: 2020.3.8f1 (507919d4fff5)
-[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.8f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Users/NONAME/Documents/GitHub/thelooping-unity/Assets
+Initialize engine version: 2020.2.7f1 (c53830e277f1)
+[Subsystems] Discovering subsystems at path D:/Program Files/Unity/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/Ghost2911/Documents/GitHub/thelooping-unity/Assets
 GfxDevice: creating device client; threaded=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
-    Renderer: AMD Radeon(TM) R4 Graphics (ID=0x98e4)
+    Renderer: NVIDIA GeForce GTX 1050 Ti (ID=0x1c82)
     Vendor:   
-    VRAM:     500 MB
-    Driver:   22.19.180.513
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+    VRAM:     4018 MB
+    Driver:   31.0.15.1640
 Initialize mono
-Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.8f1/Editor/Data/Managed'
-Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.8f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
-Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.8f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56788
+Mono path[0] = 'D:/Program Files/Unity/Editor/Data/Managed'
+Mono path[1] = 'D:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'D:/Program Files/Unity/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56500
 Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: D:/Program Files/Unity/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.001811 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 80.37 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.509 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.008318 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.94 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.609 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Shader 'Universal Render Pipeline/Unlit Sprite': fallback shader 'Hidden/Universal Render Pipeline/FallbackError' not found
+Shader 'Universal Render Pipeline/Unlit Sprite': fallback shader 'Hidden/Universal Render Pipeline/FallbackError' not found
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.08 seconds
+Refreshing native plugins compatible for Editor in 0.89 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1965 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 93.4 MB.
+System memory in use after: 93.4 MB.
+
+Unloading 26 unused Assets to reduce memory usage. Loaded Objects now: 2397.
+Total: 3.069000 ms (FindLiveObjects: 0.371100 ms CreateObjectMapping: 0.102200 ms MarkObjects: 2.423900 ms  DeleteObjects: 0.170600 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/_StatusesData/FrostWave.cs
+  artifactKey: Guid(757c8fbdfabcdbf4b9862168f78a88db) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_StatusesData/FrostWave.cs using Guid(757c8fbdfabcdbf4b9862168f78a88db) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '85ce0aa9f30e5cd94d46dabada9df79a') in 0.039926 seconds
+  Import took 0.044170 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 87.226952 seconds.
+  path: Assets/_StatusesData/Blademail.cs
+  artifactKey: Guid(42b2ef47ddeb60c49b9c86d379c089b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_StatusesData/Blademail.cs using Guid(42b2ef47ddeb60c49b9c86d379c089b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f8fa44bc6eff5b332d59b4cd958e961') in 0.013012 seconds
+  Import took 0.018011 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 63.920261 seconds.
+  path: Assets/_StatusesData/KnockbackPower.cs
+  artifactKey: Guid(007e4f838808fc84d80ec933a207be9b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_StatusesData/KnockbackPower.cs using Guid(007e4f838808fc84d80ec933a207be9b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae8f8640cd38b573b0d11289653e23ec') in 0.011964 seconds
+  Import took 0.016087 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 13.442006 seconds.
+  path: Assets/_StatusesData/SwordWoodBoots.cs
+  artifactKey: Guid(0ffc3e18c8ba5c845b38f026fbd5e019) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_StatusesData/SwordWoodBoots.cs using Guid(0ffc3e18c8ba5c845b38f026fbd5e019) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'def0df24d5e3a7f1c0ef73e4b690590c') in 0.011759 seconds
+  Import took 0.016308 seconds .
+

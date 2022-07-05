@@ -35,7 +35,7 @@ public class Boss : MonoBehaviour, IDamageable
             }
         }
     }
-    public void Damage(int damage, Color blindColor)
+    public void Damage(int damage, float knockbackPower, Vector3 direction, Color blindColor, EntityStats damageSource = null)
     {
         Health -= damage;
         if (!_animator.GetBool("isRun"))

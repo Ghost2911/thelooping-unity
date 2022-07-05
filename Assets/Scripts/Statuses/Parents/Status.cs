@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 public abstract class Status : MonoBehaviour
 {
@@ -10,32 +9,31 @@ public abstract class Status : MonoBehaviour
     protected Animator statusAnimator;
     protected Animator targetAnimator;
 
-    private void Start()
+    public void Init()
     {
         target = GetComponent<EntityStats>();
+        duration = statusData.duration;
         targetAnimator = GetComponent<Animator>();
         statusAnimator = transform.GetChild(0).GetComponent<Animator>();
-        statusAnimator.runtimeAnimatorController = statusData.animator;
-        duration = statusData.duration;
+        if (statusAnimator!=null)
+            statusAnimator.runtimeAnimatorController = statusData.animator;
         StartCoroutine(Activate());
+        OnActivate();
     }
 
     private IEnumerator Activate()
     { 
-        OnStatusEnable();
         while (true)
         {
             yield return new WaitForSeconds(statusData.deltaTick);
             Tick();
             if (--duration == 0)
-            {
-                OnStatusDisable();
                 Destroy(this);
-            }
         }
     }
 
+    public virtual void OnActivate()
+    { }
+
     public abstract void Tick();
-    public abstract void OnStatusEnable();
-    public abstract void OnStatusDisable();
 }

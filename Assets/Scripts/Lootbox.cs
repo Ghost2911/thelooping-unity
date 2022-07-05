@@ -4,18 +4,20 @@ public class Lootbox : MonoBehaviour, IDamageable
 {
     public int Health { get; set; }
     public GameObject[] drops;
-    private Animator _animator;
+    public Sprite destroyObject;
+    private SpriteRenderer _renderer;
 
     void Start()
     {
-        _animator = GetComponent<Animator>();
+        _renderer = GetComponent<SpriteRenderer>();
     }
 
-    public void Damage(int damage, Color blindColor)
+    public void Damage(int damage, float knockbackPower, Vector3 direction, Color blindColor, EntityStats damageSource = null)
     {
         foreach (GameObject drop in drops)
-            Instantiate(drop, transform.position, new Quaternion(0f, 0f, 0f, 0f));
-        _animator.SetTrigger("Hit");
+            Instantiate(drop, transform.position, Quaternion.identity);
+        _renderer.sprite = destroyObject;
         Destroy(this);
     }
+
 }

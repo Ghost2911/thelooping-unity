@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 831718118577518425}
   - component: {fileID: 8347218843142107036}
   - component: {fileID: 3791421714059498977}
-  - component: {fileID: 6620830908978118319}
+  - component: {fileID: 62998748965676891}
   m_Layer: 0
   m_Name: DarkMag
   m_TagString: enemy
@@ -54,7 +54,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bb559cbc7543aaf4e9a584f3b8169893, type: 2}
+  - {fileID: 2100000, guid: 644dbed82d2ba4f0f9aa330b3b984eab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,11 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc442766580b93c4e8297af95fc2b52e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  speed: 20
-  turnSpeed: 3
-  turnDst: 5
-  stoppingDst: 10
   attackRange: 1
   affectedArea: 3
   followingPath: 0
@@ -112,7 +107,8 @@ MonoBehaviour:
   - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
   - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
   - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
-  health: 10
+  stats: {fileID: 0}
+  projectileBullet: {fileID: 0}
 --- !u!136 &8347218843142107036
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -138,7 +134,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 22100000, guid: d88cb7c32aed777458bdaab31b319e4f, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -146,7 +142,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6620830908978118319
+--- !u!114 &62998748965676891
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,17 +151,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 7810916110455898995}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Script: {fileID: 11500000, guid: ae5191b31c34c584fa1198a17c0f6f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 831718118577518425}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
+  entityName: mag
+  isDead: 0
+  isStunned: 0
+  isInvulnerability: 0
+  attackRange: 0.25
+  attackKnockback: 20
+  HealthChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  DeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  MoveEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AttackEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  armor: 10
+  armorMultiplier: 1
+  attack: 10
+  attackMultiplier: 1
+  speed: 10
+  speedMultiplier: 1
+  regenValue: 1
+  regenMultiplier: 1
+  regenRefreshTime: 5
+  maxHealth: 12
+  health: 0
+  animator: {fileID: 0}
+  statusEffects: []

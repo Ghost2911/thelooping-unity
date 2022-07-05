@@ -44,7 +44,7 @@ public class MechaArm : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             if (other.GetComponent<IDamageable>() != null)
-                other.GetComponent<IDamageable>().Damage(damage, Color.red);
+                other.GetComponent<IDamageable>().Damage(damage, 0f, Vector3.zero, Color.red);
         }
     }
 }

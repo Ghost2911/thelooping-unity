@@ -28,6 +28,8 @@ public class CollectableItem : MonoBehaviour
             yield return null;
         }
         _collider.enabled = true;
+        yield return new WaitForSeconds(1f);
+        GetComponentInChildren<Animator>().enabled = false;
     }
 
     private Vector3 RandomVector(float min, float max)

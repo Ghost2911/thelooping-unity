@@ -13,12 +13,11 @@ public class Item : MonoBehaviour
 
     void Start()
     {
-        Transform childText = transform.GetChild(0);
-        _animator = childText.GetComponent<Animator>();
-        _textMesh = childText.GetComponent<TextMeshPro>();
-        _textMesh.text = string.Format("{0} <sprite name=\"resources_basic_0\">\n\n{2} <sprite name=\"resources_basic_0\">",
-            stats.additiveValue, stats.type.ToString(), stats.costPrice, stats.costItem.type.ToString());
         GetComponent<SpriteRenderer>().sprite = stats.icon;
+        _animator = GetComponentInChildren<Animator>();
+        _textMesh = GetComponentInChildren<TextMeshPro>();
+        _textMesh.text = string.Format("{0} <sprite name=\"icon_res_{1}\">\n{2} <sprite name=\"icon_res_{3}\">",
+            stats.additiveValue.ToString().PadLeft(2,'0'),  stats.type.ToString(), stats.costPrice.ToString().PadLeft(2, '0'), stats.costItem.type.ToString());
     }
 
     private void OnMouseUp()
