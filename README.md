@@ -1,3 +1,3 @@
 # looping-unity
 Work in progress...
-![](gif_animation.gif)
+![hippo](gif_animation.gif)
