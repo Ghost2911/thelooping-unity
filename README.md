@@ -1,3 +1,3 @@
-# looping-unity
+# thelooping-unity
 Work in progress...
 ![til](gif_animation.gif)
