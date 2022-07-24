@@ -2,28 +2,37 @@
 using System.Collections;
 public class Unit : MonoBehaviour
 {
-	const float minPathUpdateTime = 0.5f;
+	const float minPathUpdateTime = 0.3f;
+	
 	[Header("Enemy settings")]
-
-	public float attackRange = 1f;
+	public float[] attackRange = new float[3];
 	public float affectedArea = 3f;
 	public bool followingPath;
 	public static float attackCooldown = 1f;
 	public GameObject[] drops;
+	public GameObject projectileItem;
+	
+    [HideInInspector]
 	public EntityStats stats;
-	public GameObject projectileBullet;
-
 	private Transform target;
+	private Vector3 startPosition;
+	private Vector3 targetPositionBeforeAttack;
+	private int attackNumber = 0;
+
 	private Vector3 direction;
 	private Vector3[] path;
 	private int targetIndex;
 	private bool isAttacking = false;
 	private Vector3 pathOffset;
 	private bool pathRequestSearched = false;
+	private float startSpriteDirection;
 
 	void Awake()
 	{
-		pathOffset = new Vector3((attackRange+affectedArea/3) * Mathf.Cos(Random.Range(0, 360)), 0, (attackRange+affectedArea/3)  * Mathf.Sin(Random.Range(0, 360)));
+		startPosition = transform.position;
+		startSpriteDirection = transform.localScale.x;
+		attackNumber = Random.Range(0, 3);
+		pathOffset = new Vector3((Random.Range(0,2)*2-1)*attackRange[attackNumber], 0f, Random.Range(-attackRange[attackNumber]/2, attackRange[attackNumber] / 2));
 		stats = GetComponent<EntityStats>();
 		stats.speedMultiplier = Random.Range(stats.speedMultiplier-0.4f, stats.speedMultiplier);
 		if (target != null)
@@ -59,13 +68,14 @@ public class Unit : MonoBehaviour
 				stats.animator.SetBool("isRun", true);
 				while (true)
 				{
-					if (Vector3.Distance(transform.position, target.position) < (attackRange + affectedArea))
+					if (Vector3.Distance(transform.position, target.position) > 50f)
 					{
+						target = null;
+						transform.position = startPosition;
 						stats.animator.SetBool("isRun", false);
-						isAttacking = true;
-						StartCoroutine("Attacking");
 						yield break;
 					}
+
 					if (transform.position == currentWaypoint)
 					{
 						targetIndex++;
@@ -85,24 +95,29 @@ public class Unit : MonoBehaviour
 					yield return null;
 				}
 			}
+			stats.animator.SetBool("isRun", false);
+			isAttacking = true;
+			StartCoroutine("Attacking");
+			yield break;
 		}
 	}
 
 	void RaycastCheck()
 	{
 		RaycastHit hit;
-		if (Physics.Raycast(transform.position, target.position, out hit, attackRange * 2))
+		if (Physics.Raycast(transform.position, target.position, out hit, attackRange[attackNumber]))
 		{
 			Debug.DrawRay(transform.position, target.position * hit.distance, Color.yellow);
 			Debug.Log(hit.transform.tag);
 		}
 	}
+
 	IEnumerator UpdatePath()
 	{
 		if (Time.timeSinceLevelLoad < 1f)
 			yield return new WaitForSeconds(0.1f);
 
-		PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+		PathRequestManager.RequestPath(GetInstanceID(),transform.position, target.position, OnPathFound);
 		Vector3 targetPosOld = target.position;
 
 		while (true)
@@ -113,7 +128,7 @@ public class Unit : MonoBehaviour
 				if (!pathRequestSearched)
 				{
 					pathRequestSearched = true;
-					PathRequestManager.RequestPath(transform.position, target.position + pathOffset, OnPathFound);
+					PathRequestManager.RequestPath(GetInstanceID(),transform.position, target.position + pathOffset, OnPathFound);
 					targetPosOld = target.position;
 				}
 			}
@@ -122,25 +137,26 @@ public class Unit : MonoBehaviour
 
 	IEnumerator Attacking()
 	{
-		stats.animator.SetTrigger("isAttack");
+		targetPositionBeforeAttack = target.position;
+		SpriteFlip(transform.position - target.position);
+		stats.animator.SetTrigger($"Attack{attackNumber+1}");
 		yield return new WaitForSeconds(Random.Range(attackCooldown, attackCooldown+1f));
 		isAttacking = false;
+		attackNumber = Random.Range(0, 3);
 	}
-	
 
 	private void SpriteFlip(Vector3 movement)
 	{
 		if (movement.x < 0)
-			transform.localScale = new Vector3(1f, 1f, 1f);
+			transform.localScale = new Vector3(1f*startSpriteDirection, 1f, 1f);
 		else if (movement.x > 0)
-			transform.localScale = new Vector3(-1f, 1f, 1f);
+			transform.localScale = new Vector3(-1f*startSpriteDirection, 1f, 1f);
 	}
 
 	private void Attack()
 	{
 		stats.AttackEvent.Invoke();
-		SpriteFlip(transform.position - target.position);
-		Collider[] hitEnemies = Physics.OverlapSphere(transform.position + (target.position - transform.position).normalized * attackRange, affectedArea);
+		Collider[] hitEnemies = Physics.OverlapSphere(transform.position + (targetPositionBeforeAttack - transform.position).normalized * attackRange[attackNumber], affectedArea);
 		foreach (Collider enemy in hitEnemies)
 			if (enemy.tag == "Player" && enemy.transform.root != transform)
 				enemy.GetComponent<IDamageable>().Damage(stats.attack * stats.attackMultiplier, 0f, Vector3.zero, Color.red, stats);
@@ -148,18 +164,14 @@ public class Unit : MonoBehaviour
 	
 	private void RangeAttack()
 	{
-		if (projectileBullet != null)
+		if (projectileItem != null)
 		{
 			stats.AttackEvent.Invoke();
 			SpriteFlip(transform.position - target.position);
-			GameObject bullet = Instantiate(projectileBullet, transform.position, Quaternion.LookRotation(transform.position, target.position)) as GameObject;
-			bullet.transform.LookAt(target);
-			bullet.transform.Rotate(new Vector3(90f, 0, 90f), Space.Self);
-			bullet.GetComponent<Projectile>().destination = target.position;
-			bullet.GetComponent<Projectile>().owner = transform;
+			GameObject throwable = Instantiate(projectileItem, transform.position, Quaternion.identity)as GameObject;
+			throwable.GetComponentInChildren<IThrowable>().InitialSetup(target, transform);
 		}
 	}
-
 
 	private void CreateDeadBody()
 	{
@@ -172,7 +184,7 @@ public class Unit : MonoBehaviour
 	void OnDrawGizmosSelected()
 	{
 		if (target != null)
-			Gizmos.DrawWireSphere(transform.position + (target.position - transform.position).normalized * attackRange, affectedArea);
+			Gizmos.DrawWireSphere(transform.position + (target.position - transform.position).normalized * attackRange[0], affectedArea);
 	}
 
 	public void OnDrawGizmos()

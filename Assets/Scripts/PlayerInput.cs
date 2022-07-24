@@ -5,9 +5,11 @@ using UnityEngine.UI;
 public class PlayerInput : MonoBehaviour
 {
     [Header("Entity stats")]
-    public EntityStats stats;
+    public EntityStats stats; 
+    public float radiusAttack;
     public Inventory inventory;
     public GameObject rangePrefab;
+   
 
     [Header("UI/Control")]
     public FloatingJoystick joystick;
@@ -69,7 +71,7 @@ public class PlayerInput : MonoBehaviour
     {
         stats.AttackEvent.Invoke();
         Camera.main.GetComponent<CameraFollow>().CameraShake();
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position + direction, stats.attackRange);
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position + direction, radiusAttack);
 
         foreach (Collider enemy in hitEnemies)
         {
@@ -117,7 +119,7 @@ public class PlayerInput : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.position + direction, stats.attackRange);
+        Gizmos.DrawWireSphere(transform.position + direction, radiusAttack);
     }
 
     public Transform GetTransform()

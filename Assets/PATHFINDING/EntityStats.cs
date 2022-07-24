@@ -9,7 +9,6 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
     public bool isDead = false;
     public bool isStunned = false;
     public bool isInvulnerability = false;
-    public float attackRange = 0.25f;
     public float attackKnockback = 20f;
 
     [HideInInspector]

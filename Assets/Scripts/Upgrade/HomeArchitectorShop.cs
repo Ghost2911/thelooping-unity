@@ -27,6 +27,7 @@ public class HomeArchitectorShop : HomeShop
         if (Inventory.instance.ChangeCollectableItem(upgrade.costItem.type, -upgrade.costPrice))
         {
             PlayerPrefs.SetInt(build.name, 1);
+            PlayerPrefs.Save();
             StartCoroutine(UpdateButton(cardNum, true));
         }
     }

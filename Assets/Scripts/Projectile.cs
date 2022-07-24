@@ -1,5 +1,5 @@
 using UnityEngine;
-public class Projectile : MonoBehaviour
+public class Projectile : MonoBehaviour, IThrowable
 {
     public int damage;
     public float range;
@@ -7,11 +7,20 @@ public class Projectile : MonoBehaviour
     public float speed = 10f;
     public float offset = 2f;
     public Transform owner;
+    public float scatter;
 
     void Start()
     {
         transform.position += new Vector3(0,offset,0);
-        destination = transform.position + transform.right * range;
+        destination = transform.position + transform.right * range + Random.Range(-scatter, scatter) * transform.up;
+    }
+
+    public void InitialSetup(Transform target, Transform owner)
+    {
+        transform.LookAt(target);
+        transform.Rotate(new Vector3(90f, 0, 90f), Space.Self);
+        destination = target.position;
+        this.owner = owner;
     }
 
     void Update()

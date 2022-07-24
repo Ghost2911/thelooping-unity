@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public class PathRequestManager : MonoBehaviour
 {
-
-	Queue<PathRequest> pathRequestQueue = new Queue<PathRequest>();
+	Dictionary<int, PathRequest> pathRequestQueue = new Dictionary<int, PathRequest>();
 	PathRequest currentPathRequest;
 
 	static PathRequestManager instance;
@@ -19,18 +19,25 @@ public class PathRequestManager : MonoBehaviour
 		pathfinding = GetComponent<Pathfinding>();
 	}
 
-	public static void RequestPath(Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> callback)
+	public static void RequestPath(int unitID, Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> callback)
 	{
 		PathRequest newRequest = new PathRequest(pathStart, pathEnd, callback);
-		instance.pathRequestQueue.Enqueue(newRequest);
-		instance.TryProcessNext();
+		if (instance.pathRequestQueue.ContainsKey(unitID))
+			instance.pathRequestQueue[unitID] = newRequest;
+		else
+		{
+			instance.pathRequestQueue.Add(unitID, newRequest);
+			instance.TryProcessNext();
+		}
 	}
 
 	void TryProcessNext()
 	{
 		if (!isProcessingPath && pathRequestQueue.Count > 0)
 		{
-			currentPathRequest = pathRequestQueue.Dequeue();
+			var curUnit = pathRequestQueue.First();
+			currentPathRequest = curUnit.Value;
+			instance.pathRequestQueue.Remove(curUnit.Key);
 			isProcessingPath = true;
 			pathfinding.StartFindPath(currentPathRequest.pathStart, currentPathRequest.pathEnd);
 		}
@@ -55,6 +62,5 @@ public class PathRequestManager : MonoBehaviour
 			pathEnd = _end;
 			callback = _callback;
 		}
-
 	}
 }
