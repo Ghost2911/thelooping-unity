@@ -23,15 +23,20 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
     public UnityEvent<EntityStats> DamageTakeEvent;
 
     public int armor = 10;
-    public float armorMultiplier = 1f;
     public int attack = 10;
-    public int attackMultiplier = 1;
+    public float attackCooldown = 1f;
     public int speed = 10;
-    public float speedMultiplier = 1f;
-
-    public int regenValue = 1;
-    public int regenMultiplier = 1;
+    public int regenValue = 1;   
     public float regenRefreshTime = 5f;
+
+    [HideInInspector]
+    public int regenMultiplier = 1; 
+    [HideInInspector]
+    public float speedMultiplier = 1f;
+    [HideInInspector]
+    public int attackMultiplier = 1;
+    [HideInInspector]
+    public float armorMultiplier = 1f;
 
     public int maxHealth = 12;
     private int health;

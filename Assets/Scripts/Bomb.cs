@@ -7,19 +7,20 @@ public class Bomb : MonoBehaviour, IThrowable
     public float speed;
     public float affectedArea;
 
-    public Vector3 destination;
+    public Transform target;
     private Transform owner;
 
     public void InitialSetup(Transform target, Transform owner)
     {
-        destination = target.position;
+        this.target = target;
         this.owner = owner;
         StartCoroutine(Move());
     }
 
     IEnumerator Move()
     {
-        while (transform.parent.position != destination)
+        Vector3 destination = target.position;
+        while (transform.parent.position != target.position)
         {
             transform.parent.position = Vector3.MoveTowards(transform.parent.position, destination, Time.deltaTime * speed);
             yield return null;

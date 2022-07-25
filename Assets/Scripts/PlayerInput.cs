@@ -71,7 +71,7 @@ public class PlayerInput : MonoBehaviour
     {
         stats.AttackEvent.Invoke();
         Camera.main.GetComponent<CameraFollow>().CameraShake();
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position + direction, radiusAttack);
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position + direction*1.5f, radiusAttack);
 
         foreach (Collider enemy in hitEnemies)
         {
@@ -119,7 +119,7 @@ public class PlayerInput : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.position + direction, radiusAttack);
+        Gizmos.DrawWireSphere(transform.position + direction*1.5f, radiusAttack);
     }
 
     public Transform GetTransform()

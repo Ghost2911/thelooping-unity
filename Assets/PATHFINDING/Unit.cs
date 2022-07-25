@@ -2,13 +2,12 @@
 using System.Collections;
 public class Unit : MonoBehaviour
 {
-	const float minPathUpdateTime = 0.3f;
+	const float minPathUpdateTime = 0.5f;
 	
 	[Header("Enemy settings")]
 	public float[] attackRange = new float[3];
 	public float affectedArea = 3f;
 	public bool followingPath;
-	public static float attackCooldown = 1f;
 	public GameObject[] drops;
 	public GameObject projectileItem;
 	
@@ -66,6 +65,7 @@ public class Unit : MonoBehaviour
 			{
 				Vector3 currentWaypoint = path[0];
 				stats.animator.SetBool("isRun", true);
+			
 				while (true)
 				{
 					if (Vector3.Distance(transform.position, target.position) > 50f)
@@ -88,6 +88,7 @@ public class Unit : MonoBehaviour
 						}
 						currentWaypoint = path[targetIndex];
 					}
+
 					direction = (transform.position - currentWaypoint).normalized;
 					SpriteFlip(direction);
 					transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, stats.speed * stats.speedMultiplier * Time.deltaTime);
@@ -95,10 +96,12 @@ public class Unit : MonoBehaviour
 					yield return null;
 				}
 			}
-			stats.animator.SetBool("isRun", false);
-			isAttacking = true;
-			StartCoroutine("Attacking");
-			yield break;
+			if (!isAttacking)
+			{
+				stats.animator.SetBool("isRun", false);
+				isAttacking = true;
+				StartCoroutine("Attacking");
+			}
 		}
 	}
 
@@ -140,9 +143,10 @@ public class Unit : MonoBehaviour
 		targetPositionBeforeAttack = target.position;
 		SpriteFlip(transform.position - target.position);
 		stats.animator.SetTrigger($"Attack{attackNumber+1}");
-		yield return new WaitForSeconds(Random.Range(attackCooldown, attackCooldown+1f));
-		isAttacking = false;
+		yield return new WaitForSeconds(Random.Range(stats.attackCooldown, stats.attackCooldown+1f));
 		attackNumber = Random.Range(0, 3);
+		pathOffset = new Vector3((Random.Range(0, 2) * 2 - 1) * attackRange[attackNumber], 0f, Random.Range(-attackRange[attackNumber] / 2, attackRange[attackNumber] / 2));
+		isAttacking = false;
 	}
 
 	private void SpriteFlip(Vector3 movement)
