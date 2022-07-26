@@ -18,7 +18,7 @@ public class Statue : MonoBehaviour, IDamageable
         SetStatueStatus(false);
     }
 
-    public void Damage(int damage,float knockbackPower,Vector3 direction,Color blindColor, EntityStats damageSource = null)
+    public void Damage(int damage,float knockbackPower,Vector3 direction,Color blindColor, EntityStats damageSource = null, bool ignoreArmor = false)
     {
         if (!isActive || canRepeatActivate)
         {

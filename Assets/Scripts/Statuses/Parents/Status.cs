@@ -9,8 +9,9 @@ public abstract class Status : MonoBehaviour
     protected Animator statusAnimator;
     protected Animator targetAnimator;
 
-    public void Init()
+    public void Init(StatusData status)
     {
+        statusData = status;
         target = GetComponent<EntityStats>();
         duration = statusData.duration;
         targetAnimator = GetComponent<Animator>();

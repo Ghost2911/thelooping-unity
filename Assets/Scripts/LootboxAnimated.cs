@@ -11,7 +11,7 @@ public class LootboxAnimated : MonoBehaviour, IDamageable
         _animator = GetComponent<Animator>();
     }
 
-    public void Damage(int damage, float knockbackPower, Vector3 direction, Color blindColor, EntityStats damageSource=null)
+    public void Damage(int damage, float knockbackPower, Vector3 direction, Color blindColor, EntityStats damageSource=null, bool ignoreArmor = false)
     {
         foreach (GameObject drop in drops)
             Instantiate(drop, transform.position, new Quaternion(0f, 0f, 0f, 0f));

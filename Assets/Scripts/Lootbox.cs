@@ -12,7 +12,7 @@ public class Lootbox : MonoBehaviour, IDamageable
         _renderer = GetComponent<SpriteRenderer>();
     }
 
-    public void Damage(int damage, float knockbackPower, Vector3 direction, Color blindColor, EntityStats damageSource = null)
+    public void Damage(int damage, float knockbackPower, Vector3 direction, Color blindColor, EntityStats damageSource = null, bool ignoreArmor = false)
     {
         foreach (GameObject drop in drops)
             Instantiate(drop, transform.position, Quaternion.identity);

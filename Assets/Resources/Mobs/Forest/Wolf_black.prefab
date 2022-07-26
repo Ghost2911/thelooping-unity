@@ -109,6 +109,7 @@ MonoBehaviour:
   - {fileID: 3414784330001204120, guid: 8d543bb9702a7b740aa211ae097952d1, type: 3}
   - {fileID: 3414784330001204120, guid: 8d543bb9702a7b740aa211ae097952d1, type: 3}
   projectileItem: {fileID: 0}
+  weaponStatus: {fileID: 11400000, guid: 5c20e18bfd470db4990f3dcd721f0c06, type: 2}
   stats: {fileID: 0}
 --- !u!136 &6910371741045926572
 CapsuleCollider:
@@ -175,7 +176,7 @@ MonoBehaviour:
   DamageTakeEvent:
     m_PersistentCalls:
       m_Calls: []
-  armor: 2
+  armor: 1
   attack: 4
   attackCooldown: 1
   speed: 13

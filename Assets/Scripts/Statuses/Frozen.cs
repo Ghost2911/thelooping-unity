@@ -1,6 +1,6 @@
 public class Frozen : Status
 {
-    public void OnEnable()
+    public override void OnActivate()
     {
         target.isStunned = true;
     }

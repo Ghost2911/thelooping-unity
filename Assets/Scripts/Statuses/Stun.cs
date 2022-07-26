@@ -1,6 +1,6 @@
 public class Stun : Status
 {
-    void OnEnable()
+    public override void OnActivate()
     {
         target.isStunned = true;
     }

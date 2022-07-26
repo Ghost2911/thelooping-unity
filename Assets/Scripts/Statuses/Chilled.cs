@@ -1,7 +1,7 @@
 public class Chilled : Status
 {
     const int slowMultiplier = 2;
-    void OnEnable()
+    public override void OnActivate()
     {
         targetAnimator.speed = targetAnimator.speed / slowMultiplier;
         target.speedMultiplier = target.speedMultiplier / slowMultiplier;

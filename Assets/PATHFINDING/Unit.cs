@@ -10,6 +10,7 @@ public class Unit : MonoBehaviour
 	public bool followingPath;
 	public GameObject[] drops;
 	public GameObject projectileItem;
+	public StatusData weaponStatus;
 	
     [HideInInspector]
 	public EntityStats stats;
@@ -163,7 +164,11 @@ public class Unit : MonoBehaviour
 		Collider[] hitEnemies = Physics.OverlapSphere(transform.position + (targetPositionBeforeAttack - transform.position).normalized * attackRange[attackNumber], affectedArea);
 		foreach (Collider enemy in hitEnemies)
 			if (enemy.tag == "Player" && enemy.transform.root != transform)
+			{
 				enemy.GetComponent<IDamageable>().Damage(stats.attack * stats.attackMultiplier, 0f, Vector3.zero, Color.red, stats);
+				if (weaponStatus != null)
+					enemy.GetComponent<IStatusable>().AddStatus(weaponStatus);
+			}
 	}
 	
 	private void RangeAttack()

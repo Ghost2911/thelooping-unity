@@ -53,7 +53,7 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
         StartCoroutine(HealthRegeneration());
     }
 
-    public void Damage(int damage, float knockbackPower, Vector3 direction, Color blindColor, EntityStats damageSource = null)
+    public void Damage(int damage, float knockbackPower, Vector3 direction, Color blindColor, EntityStats damageSource = null, bool ignoreArmor=false)
     {
         if (!isInvulnerability)
         {
@@ -61,7 +61,7 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
                 StartCoroutine(Knockback(direction, knockbackPower));
             StartCoroutine(DamageColor(blindColor));
             DamageTakeEvent.Invoke(damageSource);
-            int resultDamage = System.Convert.ToInt32(damage *(1-armor/20f));
+            int resultDamage = (ignoreArmor)?damage:System.Convert.ToInt32(damage *(1-armor/20f));
             Health -= resultDamage;
         }
     }
@@ -105,8 +105,7 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
             else
             {
                 Status status = gameObject.AddComponent(statusType) as Status;
-                status.statusData = statusData;
-                status.Init();
+                status.Init(statusData);
             }
         }
     }

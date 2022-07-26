@@ -6,6 +6,7 @@ public class Bomb : MonoBehaviour, IThrowable
     public int damage;
     public float speed;
     public float affectedArea;
+    public StatusData status;
 
     public Transform target;
     private Transform owner;
@@ -33,7 +34,11 @@ public class Bomb : MonoBehaviour, IThrowable
         StopAllCoroutines();
         Collider[] hitEnemies = Physics.OverlapSphere(transform.parent.position, affectedArea);
         foreach (Collider enemy in hitEnemies)
+        {
             enemy.GetComponent<IDamageable>()?.Damage(damage, 0f, Vector3.zero, Color.red);
+            if (status!=null)
+                enemy.GetComponent<IStatusable>()?.AddStatus(status);
+        }
         Destroy(transform.parent.gameObject,0.3f);
     }
 

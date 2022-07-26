@@ -36,7 +36,7 @@ public class MechaBoss : MonoBehaviour, IDamageable
             }
         }
     }
-    public void Damage(int damage, float knockbackPower, Vector3 direction, Color blindColor, EntityStats damageSource=null)
+    public void Damage(int damage, float knockbackPower, Vector3 direction, Color blindColor, EntityStats damageSource=null, bool ignoreArmor = false)
     {
         Health -= damage;
         if (!_animator.GetBool("isRun"))
