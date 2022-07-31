@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3060031154023223781}
   - component: {fileID: 3060031154023223780}
   - component: {fileID: 3060031154023223779}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TraderBuild
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,8 +96,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 13.620731, y: 12.510516, z: 0.2}
-  m_Center: {x: 0.17535973, y: 6.255258, z: 0}
+  m_Size: {x: 13.620731, y: 7.0883336, z: 1.0928742}
+  m_Center: {x: 0.17535973, y: 2.03, z: 0.44643706}
 --- !u!1 &3060031154769761951
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,6 +250,10 @@ PrefabInstance:
     - target: {fileID: 7413161036626669076, guid: d72e6547b89fa50428b38449321b8dd4, type: 3}
       propertyPath: m_LocalPosition.z
       value: -23.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 7413161036626669078, guid: d72e6547b89fa50428b38449321b8dd4, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7430037960931415829, guid: d72e6547b89fa50428b38449321b8dd4, type: 3}
       propertyPath: m_LocalPosition.x

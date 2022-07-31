@@ -43,7 +43,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 22100000, guid: bf559f895019dc6479f23cb95c64afd8, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -212,6 +212,7 @@ MonoBehaviour:
   - {fileID: 5580807531388953428, guid: e9457b2992e000640ab34fb01db86836, type: 3}
   - {fileID: 2479447145657248852, guid: 1b978bad2d7a9484686cfdb04df68071, type: 3}
   projectileItem: {fileID: 0}
+  weaponStatus: {fileID: 0}
   stats: {fileID: 0}
 --- !u!136 &2408797082310864357
 CapsuleCollider:

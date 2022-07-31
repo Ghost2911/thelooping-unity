@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-public class Server : MonoBehaviour
+public class GlobalSettings : MonoBehaviour
 {
     public FloatingJoystick joystick;
     public Button btnAttack;
@@ -11,6 +11,12 @@ public class Server : MonoBehaviour
     public GameObject revive;
     public HealthPresentor healthPresentor;
     public List<GameObject> characters;
+    public GlobalSettings instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {

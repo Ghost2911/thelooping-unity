@@ -10,7 +10,6 @@ public class PlayerInput : MonoBehaviour
     public Inventory inventory;
     public GameObject rangePrefab;
    
-
     [Header("UI/Control")]
     public FloatingJoystick joystick;
     public GameObject revive;
