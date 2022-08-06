@@ -32,7 +32,7 @@ public class Slot : MonoBehaviour
         StatsChangeEvent.Invoke(itemStats.type, itemStats.additiveValue);
         if (equipItem.status!=null)
             if (type!=SlotType.Weapons)
-                stats.AddStatus(equipItem.status);
+                stats.AddStatus(equipItem.status,1);
     }
 
     public void Unequip()

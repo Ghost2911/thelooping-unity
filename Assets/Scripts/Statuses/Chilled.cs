@@ -11,5 +11,7 @@ public class Chilled : Status
         targetAnimator.speed = targetAnimator.speed * slowMultiplier;
         target.speedMultiplier = target.speedMultiplier * slowMultiplier;
     }
-    public override void Tick(){}
+    public override void Tick()
+    {
+    }
 }

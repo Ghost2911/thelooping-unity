@@ -40,6 +40,7 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
 
     public int maxHealth = 12;
     private int health;
+    private float knockbackMultiplier = 0f;
 
     public Animator animator;
     public List<Status> statusEffects;
@@ -50,6 +51,7 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
         animator = GetComponent<Animator>();
         _render = GetComponent<SpriteRenderer>();
         health = maxHealth;
+        knockbackMultiplier = speed / 20f;
         StartCoroutine(HealthRegeneration());
     }
 
@@ -58,7 +60,7 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
         if (!isInvulnerability)
         {
             if (knockbackPower != 0)
-                StartCoroutine(Knockback(direction, knockbackPower));
+                StartCoroutine(Knockback(direction, knockbackPower*knockbackMultiplier));
             StartCoroutine(DamageColor(blindColor));
             DamageTakeEvent.Invoke(damageSource);
             int resultDamage = (ignoreArmor)?damage:System.Convert.ToInt32(damage *(1-armor/20f));
@@ -93,7 +95,7 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
         _render.material.color = Color.white;
     }
 
-    public void AddStatus(StatusData statusData)
+    public void AddStatus(StatusData statusData, int statusLayer=0)
     {
         if (!isInvulnerability)
         {
@@ -105,7 +107,7 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
             else
             {
                 Status status = gameObject.AddComponent(statusType) as Status;
-                status.Init(statusData);
+                status.Init(statusData, statusLayer);
             }
         }
     }
@@ -137,7 +139,10 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
                 if (health <= 0)
                 {
                     health = 0;
+                    foreach (Status status in statusEffects)
+                        Destroy(status);
                     animator.SetTrigger("Death");
+                    isStunned = true;
                     isDead = true;
                 }
                 if (health > maxHealth)

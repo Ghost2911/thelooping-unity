@@ -31,6 +31,11 @@ public class PathRequestManager : MonoBehaviour
 		}
 	}
 
+	public static void RemovePath(int unitID)
+	{
+		instance.pathRequestQueue.Remove(unitID);
+	}
+
 	void TryProcessNext()
 	{
 		if (!isProcessingPath && pathRequestQueue.Count > 0)

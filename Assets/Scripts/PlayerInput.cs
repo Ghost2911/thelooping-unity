@@ -25,10 +25,7 @@ public class PlayerInput : MonoBehaviour
         inventory = Inventory.instance;
         btnAttack.onClick.AddListener(delegate { stats.animator.SetTrigger("Attack"); attackTime = 0.4f; });
         btnFlip.onClick.AddListener(delegate { if (!stats.animator.GetCurrentAnimatorStateInfo(0).IsName("Flip")) { stats.animator.SetTrigger("Flip"); StartCoroutine(Flip()); } });
-
-        rangePrefab.GetComponent<Projectile>().owner = transform;
         stats = GetComponent<EntityStats>(); 
-        
         inventory.SetBaseSettings(stats);
         _characterController = GetComponent<CharacterController>();
     }
@@ -38,8 +35,8 @@ public class PlayerInput : MonoBehaviour
         if (stats.isDead || stats.isStunned)
             return;
 
-        Vector3 movement = new Vector3(joystick.Horizontal, 0.0f, joystick.Vertical);
-        //Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
+        //Vector3 movement = new Vector3(joystick.Horizontal, 0.0f, joystick.Vertical);
+        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
         if (attackTime > 0)
             attackTime -= Time.deltaTime;
         else
@@ -64,7 +61,6 @@ public class PlayerInput : MonoBehaviour
 
         }
     }
-    //stats.animator.GetCurrentAnimatorStateInfo(0).IsName("Flip")
 
     private void Attack()
     {
@@ -90,9 +86,8 @@ public class PlayerInput : MonoBehaviour
     private void AttackRange()
     {
         stats.AttackEvent.Invoke();
-        GameObject bullet = Instantiate(rangePrefab, transform.position + direction / 2, new Quaternion(0, 0, 0, 0));
-        bullet.transform.LookAt(transform.position + direction, Vector3.up);
-        bullet.transform.Rotate(new Vector3(90, -90, 0));
+        GameObject bullet = Instantiate(rangePrefab, transform.position + direction / 2, Quaternion.identity);
+        bullet.GetComponent<IThrowable>().InitialSetup(transform.position+direction.normalized * 20f,transform);
     }
 
     IEnumerator Flip()

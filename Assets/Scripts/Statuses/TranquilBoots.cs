@@ -9,7 +9,7 @@ public class TranquilBoots : Status
         if (steps > 5f)
         {
             steps = 0f;
-            target.Health += 4;
+            target.Health += 2;
         }
     }
 

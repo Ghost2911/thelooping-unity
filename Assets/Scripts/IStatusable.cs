@@ -1,4 +1,4 @@
 public interface IStatusable
 {
-    void AddStatus(StatusData status);
+    void AddStatus(StatusData status, int statusLayer=0);
 }

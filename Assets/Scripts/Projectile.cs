@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour, IThrowable
     public float offset = 2f;
     public Transform owner;
     public float scatter;
+    public StatusData status;
 
     void Start()
     {
@@ -15,11 +16,11 @@ public class Projectile : MonoBehaviour, IThrowable
         destination = transform.position + transform.right * range + Random.Range(-scatter, scatter) * transform.up;
     }
 
-    public void InitialSetup(Transform target, Transform owner)
+    public void InitialSetup(Vector3 target, Transform owner)
     {
-        transform.LookAt(target);
-        transform.Rotate(new Vector3(90f, 0, 90f), Space.Self);
-        destination = target.position;
+        transform.LookAt(target,Vector3.up);
+        transform.Rotate(new Vector3(90f, -90f, 0f), Space.Self);
+        destination = target;
         this.owner = owner;
     }
 

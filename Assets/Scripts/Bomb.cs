@@ -8,10 +8,10 @@ public class Bomb : MonoBehaviour, IThrowable
     public float affectedArea;
     public StatusData status;
 
-    public Transform target;
+    public Vector3 target;
     private Transform owner;
 
-    public void InitialSetup(Transform target, Transform owner)
+    public void InitialSetup(Vector3 target, Transform owner)
     {
         this.target = target;
         this.owner = owner;
@@ -20,10 +20,9 @@ public class Bomb : MonoBehaviour, IThrowable
 
     IEnumerator Move()
     {
-        Vector3 destination = target.position;
-        while (transform.parent.position != target.position)
+        while (transform.parent.position != target)
         {
-            transform.parent.position = Vector3.MoveTowards(transform.parent.position, destination, Time.deltaTime * speed);
+            transform.parent.position = Vector3.MoveTowards(transform.parent.position, target, Time.deltaTime * speed);
             yield return null;
         }
         yield return 0;

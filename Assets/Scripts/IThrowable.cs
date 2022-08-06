@@ -2,6 +2,6 @@ using UnityEngine;
 
 public interface IThrowable
 {
-    void InitialSetup(Transform target, Transform owner);
+    void InitialSetup(Vector3 target, Transform owner);
 }
 

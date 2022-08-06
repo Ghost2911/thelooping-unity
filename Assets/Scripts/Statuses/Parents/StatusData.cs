@@ -6,6 +6,7 @@ public class StatusData : ScriptableObject
     public Color color;
     public Sprite icon;
     public StatusType type;
+    public StatusData additiveStatus;
     public RuntimeAnimatorController animator;
     public float duration = 10f;
     public float deltaTick;

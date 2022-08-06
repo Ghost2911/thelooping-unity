@@ -10,15 +10,14 @@ Shader "Custom/RightSpriteShadow" {
 			"Queue"="Geometry"
 			"RenderType"="TransparentCutout"
 		}
-		LOD 200
+		LOD 50
 
 		Cull Off
 		Lighting Off
 
 		CGPROGRAM
 
-		#pragma surface surf Lambert vertex:vert addshadow fullforwardshadows
-		#pragma target 3.0
+		#pragma surface surf Lambert vertex:vert
 
 		sampler2D _MainTex;
 		fixed _Cutoff;
@@ -34,7 +33,7 @@ Shader "Custom/RightSpriteShadow" {
 			UNITY_INITIALIZE_OUTPUT(Input, o);
 			
 			//camera basis
-			float3 forward = -float3(1, 0, 0);
+			float3 forward = float3(1, 0, 0);
 			float3 up = normalize(UNITY_MATRIX_V._m10_m11_m12);
 			float3 right = float3(1, 0, 0);
   

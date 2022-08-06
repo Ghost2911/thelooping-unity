@@ -16,7 +16,7 @@ public class Explossion : MonoBehaviour
             IStatusable statusable = other.GetComponent<IStatusable>();
 
             damagable?.Damage(damage, knockbackForce, new Vector3(Random.Range(-1, 1), 0f, Random.Range(-1, 1)).normalized, Color.red);
-            statusable?.AddStatus(status);
+            if (status!=null) statusable?.AddStatus(status);
         }
     }
 

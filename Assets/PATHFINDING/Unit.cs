@@ -60,14 +60,14 @@ public class Unit : MonoBehaviour
 
 	IEnumerator FollowPath()
 	{
-		if (!stats.isDead && !stats.isStunned)
+		if (!stats.isStunned)
 		{
 			if (path.Length != 0)
 			{
 				Vector3 currentWaypoint = path[0];
 				stats.animator.SetBool("isRun", true);
-			
-				while (true)
+
+				while (!stats.isStunned)
 				{
 					if (Vector3.Distance(transform.position, target.position) > 50f)
 					{
@@ -97,7 +97,7 @@ public class Unit : MonoBehaviour
 					yield return null;
 				}
 			}
-			if (!isAttacking)
+			if (!isAttacking && !stats.isStunned)
 			{
 				stats.animator.SetBool("isRun", false);
 				isAttacking = true;
@@ -165,9 +165,10 @@ public class Unit : MonoBehaviour
 		foreach (Collider enemy in hitEnemies)
 			if (enemy.tag == "Player" && enemy.transform.root != transform)
 			{
-				enemy.GetComponent<IDamageable>().Damage(stats.attack * stats.attackMultiplier, 0f, Vector3.zero, Color.red, stats);
+				EntityStats entity = enemy.GetComponent<EntityStats>();
+				entity.Damage(stats.attack * stats.attackMultiplier, 0f, Vector3.zero, Color.red, stats);
 				if (weaponStatus != null)
-					enemy.GetComponent<IStatusable>().AddStatus(weaponStatus);
+					entity.AddStatus(weaponStatus);
 			}
 	}
 	
@@ -177,14 +178,16 @@ public class Unit : MonoBehaviour
 		{
 			stats.AttackEvent.Invoke();
 			SpriteFlip(transform.position - target.position);
-			GameObject throwable = Instantiate(projectileItem, transform.position, Quaternion.identity)as GameObject;
-			throwable.GetComponentInChildren<IThrowable>().InitialSetup(target, transform);
+			GameObject throwable = Instantiate(projectileItem, transform.position, Quaternion.identity) as GameObject;
+			throwable.GetComponentInChildren<IThrowable>().InitialSetup(target.position, transform);
 		}
 	}
 
 	private void CreateDeadBody()
 	{
 		stats.DeathEvent.Invoke();
+		StopAllCoroutines();
+		PathRequestManager.RemovePath(GetInstanceID());
 		foreach (GameObject drop in drops)
 			Instantiate(drop,transform.position, new Quaternion(0f,0f,0f,0f));
 		Destroy(this.gameObject);
