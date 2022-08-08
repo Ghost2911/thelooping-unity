@@ -35,8 +35,8 @@ public class PlayerInput : MonoBehaviour
         if (stats.isDead || stats.isStunned)
             return;
 
-        //Vector3 movement = new Vector3(joystick.Horizontal, 0.0f, joystick.Vertical);
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
+        Vector3 movement = new Vector3(joystick.Horizontal, 0.0f, joystick.Vertical);
+        //Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
         if (attackTime > 0)
             attackTime -= Time.deltaTime;
         else
@@ -75,7 +75,7 @@ public class PlayerInput : MonoBehaviour
                 IDamageable damagable = enemy.GetComponent<IDamageable>();
                 IStatusable statusable = enemy.GetComponent<IStatusable>();
 
-                damagable?.Damage(stats.attack * stats.attackMultiplier, stats.attackKnockback, direction, Color.red, stats);
+                damagable?.Damage((int)(stats.attack * stats.attackMultiplier), stats.attackKnockback, direction, Color.red, stats);
                 StatusData weaponStatus = inventory.GetItemStats(SlotType.Weapons)?.status;
                 if (weaponStatus != null)
                     statusable?.AddStatus(weaponStatus);

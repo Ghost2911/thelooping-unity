@@ -166,7 +166,7 @@ public class Unit : MonoBehaviour
 			if (enemy.tag == "Player" && enemy.transform.root != transform)
 			{
 				EntityStats entity = enemy.GetComponent<EntityStats>();
-				entity.Damage(stats.attack * stats.attackMultiplier, 0f, Vector3.zero, Color.red, stats);
+				entity.Damage((int)(stats.attack * stats.attackMultiplier), 0f, Vector3.zero, Color.red, stats); 
 				if (weaponStatus != null)
 					entity.AddStatus(weaponStatus);
 			}

@@ -34,13 +34,14 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
     [HideInInspector]
     public float speedMultiplier = 1f;
     [HideInInspector]
-    public int attackMultiplier = 1;
+    public float attackMultiplier = 1f;
     [HideInInspector]
     public float armorMultiplier = 1f;
 
     public int maxHealth = 12;
     private int health;
-    private float knockbackMultiplier = 0f;
+    public float knockbackMultiplier = 1f;
+    public float statusDurationMultiplier = 1f;
 
     public Animator animator;
     public List<Status> statusEffects;
@@ -62,8 +63,8 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
             if (knockbackPower != 0)
                 StartCoroutine(Knockback(direction, knockbackPower*knockbackMultiplier));
             StartCoroutine(DamageColor(blindColor));
-            DamageTakeEvent.Invoke(damageSource);
             int resultDamage = (ignoreArmor)?damage:System.Convert.ToInt32(damage *(1-armor/20f));
+            DamageTakeEvent.Invoke(damageSource);
             Health -= resultDamage;
         }
     }
@@ -95,7 +96,7 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
         _render.material.color = Color.white;
     }
 
-    public void AddStatus(StatusData statusData, int statusLayer=0)
+    public void AddStatus(StatusData statusData)
     {
         if (!isInvulnerability)
         {
@@ -106,8 +107,9 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
                 statusOnEntity.duration = statusData.duration;
             else
             {
+                statusOnEntity.duration *= statusDurationMultiplier;
                 Status status = gameObject.AddComponent(statusType) as Status;
-                status.Init(statusData, statusLayer);
+                status.Init(statusData);
             }
         }
     }

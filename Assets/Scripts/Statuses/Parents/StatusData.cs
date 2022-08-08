@@ -9,7 +9,8 @@ public class StatusData : ScriptableObject
     public StatusData additiveStatus;
     public RuntimeAnimatorController animator;
     public float duration = 10f;
-    public float deltaTick;
-    public int damagePerTick = 1;
+    public int layer = 0;
+    public float deltaTick = 3;
+    public int damagePerTick = 0;
 }
 

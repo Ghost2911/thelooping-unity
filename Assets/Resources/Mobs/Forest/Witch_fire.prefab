@@ -100,9 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRange:
-  - 2
-  - 2
-  - 2
+  - 6
+  - 6
+  - 6
   affectedArea: 1
   followingPath: 0
   drops:
@@ -186,6 +186,8 @@ MonoBehaviour:
   attackMultiplier: 1
   armorMultiplier: 1
   maxHealth: 50
+  knockbackMultiplier: 1
+  statusDurationMultiplier: 1
   animator: {fileID: 0}
   statusEffects: []
 --- !u!1 &4790998175728451087

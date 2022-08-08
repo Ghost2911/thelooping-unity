@@ -1,7 +1,7 @@
 
 public class FrozenArmor : Status
 {
-    public override void Tick() { }
+    public override void Tick() { statusAnimator.SetTrigger("Tick"); }
 
     public override void OnActivate()
     {

@@ -1,4 +1,4 @@
-using UnityEngine;
+ using UnityEngine;
 
 public class FrogRain : Status
 {
@@ -8,7 +8,7 @@ public class FrogRain : Status
 
         foreach (Collider enemy in hitEnemies)
         {
-            if (enemy.tag == "Enemy")
+            if (enemy.GetComponent<IStatusable>()!=null)
             {
                 Instantiate(Resources.Load("Explossion/frogRain") 
                     as GameObject,enemy.transform.position, Quaternion.identity).GetComponent<Explossion>().owner = transform;

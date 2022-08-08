@@ -1,21 +1,17 @@
 using System.Collections;
 using UnityEngine;
 
-public class FireSpirits : Status
+public class FireArmor : Status
 {
-    float timer = 0;
     public override void Tick()
     {
+        statusAnimator.SetTrigger("Tick");
         StartCoroutine(SpiritTimer());
-    }
-    public override void OnActivate()
-    {
-        target.DamageTakeEvent.AddListener(BurnAttacker);
     }
 
     void BurnAttacker(EntityStats stats)
     {
-        if (stats != null && timer > 0)
+        if (stats != null)
             stats.AddStatus(statusData.additiveStatus);
     }
 

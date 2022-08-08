@@ -3,9 +3,25 @@ using UnityEngine;
 
 public class WoodenShield : Status
 {
+    public override void OnActivate()
+    {
+        target.DamageTakeEvent.AddListener(RemoveShield);
+    }
+
     public override void Tick() 
     {
+        statusAnimator.SetTrigger("Tick");
         StartCoroutine(ShieldTimer());
+    }
+    void RemoveShield(EntityStats stats)
+    {
+        statusAnimator.SetTrigger("StatusEnd");
+        target.isInvulnerability = false;
+    }
+
+    private void OnDisable()
+    {
+        target.DamageTakeEvent.RemoveListener(RemoveShield);
     }
 
     IEnumerator ShieldTimer()

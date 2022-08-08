@@ -5,6 +5,7 @@ public class LocationTrigger : MonoBehaviour
     public string locationName = "???";
     private void OnTriggerEnter(Collider other)
     {
-        LocationPresentor.instance.ShowLocationName(locationName);
+        if (other.CompareTag("Player"))
+            LocationPresentor.instance.ShowLocationName(locationName);
     }
 }

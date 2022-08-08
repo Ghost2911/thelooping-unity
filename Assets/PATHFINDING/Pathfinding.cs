@@ -6,7 +6,6 @@ using System;
 
 public class Pathfinding : MonoBehaviour
 {
-
 	PathRequestManager requestManager;
 	Grid grid;
 
