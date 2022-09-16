@@ -8,18 +8,16 @@ public class Slot : MonoBehaviour
     public SlotType type;
     public UnityEvent<StatsType,int> StatsChangeEvent;
     public EntityStats stats;
+    public Image image;
+    public GameObject dropItem;
 
-    private GameObject _item;
-    private Image _image;
     private Sprite _imageEmpty;
 
-    public void Start()
+    public void Awake()
     {
-        _item = Resources.Load("item") as GameObject;
-        _image = transform.GetChild(0).GetComponent<Image>();
-        _imageEmpty = _image.sprite;
-        if (_item == null)
-            Debug.Log("Create prefab with name \"item\" in resources folder");
+        _imageEmpty = image.sprite;
+        if (dropItem == null)
+            Debug.Log($"Slot {type.ToString()} not contain empty drop-container");
     }
 
     public void Equip(ItemStats equipItem)
@@ -28,10 +26,10 @@ public class Slot : MonoBehaviour
             Unequip();
 
         itemStats = equipItem;
-        _image.sprite = itemStats.icon;
+        image.sprite = itemStats.icon;
         StatsChangeEvent.Invoke(itemStats.type, itemStats.additiveValue);
         if (equipItem.status!=null)
-            if (type!=SlotType.Weapons)
+            if (equipItem.status.useOnSelf)
                 stats.AddStatus(equipItem.status);
     }
 
@@ -42,10 +40,10 @@ public class Slot : MonoBehaviour
                 stats.RemoveStatus(itemStats.status);
         Vector3 dropOffset = new Vector3(Random.Range(-0.5f, 0.5f), 0, 0.2f);
         Vector3 dropPosition = Camera.main.GetComponent<CameraFollow>().target.position + dropOffset;
-        _item.GetComponent<Item>().stats = itemStats;
-        _image.sprite = _imageEmpty;
+        dropItem.GetComponent<Item>().stats = itemStats;
+        image.sprite = _imageEmpty;
         StatsChangeEvent.Invoke(itemStats.type, -itemStats.additiveValue);
         itemStats = null;
-        Instantiate(_item, dropPosition, new Quaternion(0, 0, 0, 0));
+        Instantiate(dropItem, dropPosition, new Quaternion(0, 0, 0, 0));
     }
 }

@@ -12,5 +12,6 @@ public class StatusData : ScriptableObject
     public int layer = 0;
     public float deltaTick = 3;
     public int damagePerTick = 0;
+    public bool useOnSelf = true;
 }
 

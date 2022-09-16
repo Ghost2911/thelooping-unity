@@ -6,7 +6,7 @@ public class PanelControl : MonoBehaviour
 {
     private GameObject panel;
 
-    void Start()
+    void Awake()
     {
         panel = this.gameObject;
         panel.SetActive(false);

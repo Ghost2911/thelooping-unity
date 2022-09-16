@@ -6,11 +6,11 @@ public class MapGenerator : MonoBehaviour
 {
     [HideInInspector]
     public static MapGenerator instance;
-    public List<GameObject> playableCharacters;
     public int tileSize = 48;
     public int mapSize = 10;
     public int bossCount = 3;
     public Slots slots;
+    public bool isPrebuild = false;
     private int[,] arr;
     private List<Vector3Int> possibleBossTiles = new List<Vector3Int>();
     private Vector2Int mainTile;
@@ -20,21 +20,21 @@ public class MapGenerator : MonoBehaviour
         if (instance == null)
             instance = this;
         offset = -((mapSize+2)/2-0.5f)*tileSize;
-        GenerateMap();
-        TilesInstantiate();
-        ReplaceCharacters();
-    }
-
-    /*private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (!isPrebuild)
         {
-            Clear();
             GenerateMap();
             TilesInstantiate();
+        }
+    }
+
+    public void Start()
+    {
+        if (!isPrebuild)
+        {
             ReplaceCharacters();
         }
-    }*/
+    }
+
 
     public void GenerateMap()
     {
@@ -175,7 +175,7 @@ public class MapGenerator : MonoBehaviour
     public void ReplaceCharacters()
     {
         List<GameObject> spawns = GameObject.FindGameObjectsWithTag("SpawnHero").ToList();
-        foreach (GameObject character in playableCharacters)
+        foreach (GameObject character in GlobalSettings.instance.characters)
         {
             int spawnNum = Random.Range(0, spawns.Count);
             character.transform.localPosition = spawns[spawnNum].transform.position;

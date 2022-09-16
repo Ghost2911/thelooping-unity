@@ -1,3 +1,4 @@
+
 public class ReduceResistance : Status
 {
     const float statusMultiplier = 0.5f;

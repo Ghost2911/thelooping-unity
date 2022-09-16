@@ -5,25 +5,25 @@ public class Reel : MonoBehaviour
 {
     public int spinResult;
 
-    private Animator _animator;
+    [HideInInspector]
+    public Animator animator;
     private Image _img;
 
     void Start()
     {
-        _animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         _img = GetComponent<Image>();
     }
  
     public void StartSpin()
     {
-        _animator.Play("Roll");
+        animator.Play("Roll");
         _img.sprite = GetSprite("Bosses_Contracts",spinResult.ToString());
     }
 
     public void StopSpin()
     {
-        _animator.Play("EndRoll");
-        _animator.enabled = false;
+        animator.Play("EndRoll");
     }
 
     Sprite GetSprite(string imageName, string spriteName)

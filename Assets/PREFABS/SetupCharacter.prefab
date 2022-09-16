@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &779924470986813280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1339026862217835871}
+  m_Layer: 0
+  m_Name: BackpackObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1339026862217835871
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779924470986813280}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7149396918150275008}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5211691249105589651
 GameObject:
   m_ObjectHideFlags: 0
@@ -26,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5211691249105589651}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.15}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1499939}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7149396918150275008}
@@ -137,6 +167,7 @@ Transform:
   - {fileID: 6598431936972491496}
   - {fileID: 5478731926302985154}
   - {fileID: 7425738338467696886}
+  - {fileID: 1339026862217835871}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -211,6 +242,7 @@ MonoBehaviour:
   revive: {fileID: 0}
   btnAttack: {fileID: 0}
   btnFlip: {fileID: 0}
+  btnUse: {fileID: 0}
 --- !u!114 &7708127180377296688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,11 +281,15 @@ MonoBehaviour:
   speed: 10
   regenValue: 1
   regenRefreshTime: 5
+  resistance: 00000000000000000000000000000000
   regenMultiplier: 1
   speedMultiplier: 1
   attackMultiplier: 1
   armorMultiplier: 1
+  direction: {x: 1, y: 0, z: 0}
   maxHealth: 12
+  knockbackMultiplier: 1
+  statusDurationMultiplier: 1
   animator: {fileID: 0}
   statusEffects: []
 --- !u!143 &7149396918150275011
@@ -421,7 +457,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8675723736576821477}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.2}
+  m_LocalPosition: {x: 0, y: 0, z: -0.19999695}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7149396918150275008}

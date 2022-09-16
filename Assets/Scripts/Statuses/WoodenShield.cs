@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class WoodenShield : Status
 {
+    bool shieldBonusActive = false;
     public override void OnActivate()
     {
         target.DamageTakeEvent.AddListener(RemoveShield);
@@ -16,18 +17,21 @@ public class WoodenShield : Status
     void RemoveShield(EntityStats stats)
     {
         statusAnimator.SetTrigger("StatusEnd");
-        target.isInvulnerability = false;
     }
 
     private void OnDisable()
-    {
+    { 
+        if (shieldBonusActive) 
+            target.armorMultiplier /= 1.5f;
         target.DamageTakeEvent.RemoveListener(RemoveShield);
     }
 
     IEnumerator ShieldTimer()
     {
-        target.isInvulnerability = true;
+        shieldBonusActive = true;
+        target.armorMultiplier *= 1.5f;
         yield return new WaitForSeconds(3f);
-        target.isInvulnerability = false;
+        target.armorMultiplier /= 1.5f;
+        shieldBonusActive = false;
     }
 }

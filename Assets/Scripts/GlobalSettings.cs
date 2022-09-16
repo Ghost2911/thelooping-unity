@@ -8,32 +8,31 @@ public class GlobalSettings : MonoBehaviour
     public FloatingJoystick joystick;
     public Button btnAttack;
     public Button btnFlip;
+    public Button btnUse;
     public GameObject revive;
     public HealthPresentor healthPresentor;
     public List<GameObject> characters;
-    public GlobalSettings instance;
+    public static GlobalSettings instance;
+    public bool isTutorial = false;
 
     private void Awake()
     {
         instance = this;
-    }
-
-    void Start()
-    {
         FindAllPlayableCharacters();
     }
 
     public void CreateCharacter()
     {
-        int characterNum = Random.Range(0, characters.Count);
+        int characterNum = (isTutorial)?0:Random.Range(0, characters.Count);
 
         PlayerInput player = characters[characterNum].GetComponent<PlayerInput>();
         Camera.main.GetComponent<CameraFollow>().target = player.transform;
-        player.enabled = true;
         player.joystick = joystick;
         player.btnAttack = btnAttack;
         player.btnFlip = btnFlip;
+        player.btnUse = btnUse;
         player.revive = revive;
+        player.enabled = true;
         player.stats.HealthChangeEvent.AddListener(healthPresentor.ChangeValue);
         healthPresentor.ChangeValue(player.stats.Health);
         revive.SetActive(false);
@@ -43,7 +42,8 @@ public class GlobalSettings : MonoBehaviour
 
     public void FindAllPlayableCharacters()
     {
-        characters.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        if (!isTutorial)
+            characters.AddRange(GameObject.FindGameObjectsWithTag("Player"));
         foreach (GameObject playableCharacter in characters)
             playableCharacter.GetComponent<PlayerInput>().enabled = false;
     }
