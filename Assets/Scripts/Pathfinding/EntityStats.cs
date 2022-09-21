@@ -54,6 +54,7 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
     public void Awake()
     {
         animator = GetComponent<Animator>();
+        animator.enabled = !isDead;
         _render = GetComponent<SpriteRenderer>();
         health = maxHealth;
         knockbackMultiplier = speed / 20f;
@@ -139,7 +140,6 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
                 Destroy(statusOnEntity);
         }
     }
-
 
     public int Health
     {

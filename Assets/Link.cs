@@ -8,7 +8,8 @@ public class Link : MonoBehaviour
     public float distance = 0;
     private LineRenderer line;
     private Material material;
-    private Vector3 offset = new Vector3(0, 0.75f, 0.75f);
+    public Vector3 offsetTarget = new Vector3(0, 0.75f, 0.75f);
+    public Vector3 offsetHolder = new Vector3(0, 0.75f, 0.75f);
 
     private void Start()
     {
@@ -34,12 +35,19 @@ public class Link : MonoBehaviour
 
     void Update()
     {
-        if (line.enabled)
+        try
         {
-            line.SetPosition(0, startPosition.position + offset);
-            line.SetPosition(1, endPosition.position + offset);
-            distance = Vector3.Distance(startPosition.position, endPosition.position);
-            material.mainTextureOffset = new Vector2(Time.realtimeSinceStartup * offsetSpeed, 0);
+            if (line.enabled)
+            {
+                line.SetPosition(0, startPosition.position + offsetHolder);
+                line.SetPosition(1, endPosition.position + offsetTarget);
+                distance = Vector3.Distance(startPosition.position, endPosition.position);
+                material.mainTextureOffset = new Vector2(Time.realtimeSinceStartup * offsetSpeed, 0);
+            }
+        }
+        catch
+        {
+            line.enabled = false;
         }
     }
 }

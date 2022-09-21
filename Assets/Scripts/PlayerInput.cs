@@ -11,7 +11,6 @@ public class PlayerInput : MonoBehaviour
     public GameObject rangePrefab;
 
     [HideInInspector] public FloatingJoystick joystick;
-    [HideInInspector] public GameObject revive;
     [HideInInspector] public Button btnAttack;
     [HideInInspector] public Button btnFlip;
     [HideInInspector] public Button btnUse;
@@ -28,8 +27,8 @@ public class PlayerInput : MonoBehaviour
         btnFlip.onClick.AddListener(delegate { if (!stats.animator.GetCurrentAnimatorStateInfo(0).IsName("Flip")) { stats.animator.SetTrigger("Flip"); StartCoroutine(Flip()); Debug.Log(gameObject.name); } });
         btnUse.onClick.AddListener(delegate { Use(); });
 
+        stats = GetComponent<EntityStats>();
         inventory = Inventory.instance;
-        stats = GetComponent<EntityStats>(); 
         inventory.SetBaseSettings(stats);
     }
 
@@ -93,7 +92,6 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-
     private void Attack()
     {
         stats.AttackEvent.Invoke();
@@ -139,7 +137,7 @@ public class PlayerInput : MonoBehaviour
     private void CreateDeadBody()
     {
         stats.DeathEvent.Invoke();
-        revive.SetActive(true);
+        GlobalSettings.instance.CreateCharacter();
         Destroy(gameObject);
     }
 

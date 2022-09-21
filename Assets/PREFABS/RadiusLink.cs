@@ -5,9 +5,9 @@ using UnityEngine;
 public class RadiusLink : MonoBehaviour
 {
     public string relatedObjectTag = "deadbody";
-    private List<Link> links = new List<Link>();
-    private Transform holder;
-    private float colliderRadius = 0f;
+    protected List<Link> links = new List<Link>();
+    protected Transform holder;
+    protected float colliderRadius = 0f;
 
     void Start()
     {
@@ -16,7 +16,7 @@ public class RadiusLink : MonoBehaviour
         colliderRadius = GetComponent<SphereCollider>().radius;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(relatedObjectTag))
         {
@@ -31,12 +31,15 @@ public class RadiusLink : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(relatedObjectTag))
+        if (other != null)
         {
-            foreach (Link l in links)
-                if (l.endPosition != null)
-                    if (l.distance > colliderRadius + 2f)
-                        l.ClearPosition();
+            if (other.CompareTag(relatedObjectTag))
+            {
+                foreach (Link l in links)
+                    if (l.endPosition != null)
+                        if (l.distance > colliderRadius + 2f)
+                            l.ClearPosition();
+            }
         }
     }
 }

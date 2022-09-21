@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System.Collections;
 
 public class GlobalSettings : MonoBehaviour
 {
@@ -9,7 +10,6 @@ public class GlobalSettings : MonoBehaviour
     public Button btnAttack;
     public Button btnFlip;
     public Button btnUse;
-    public GameObject revive;
     public HealthPresentor healthPresentor;
     public List<GameObject> characters;
     public static GlobalSettings instance;
@@ -19,6 +19,11 @@ public class GlobalSettings : MonoBehaviour
     {
         instance = this;
         FindAllPlayableCharacters();
+    }
+
+    private void Start()
+    {
+        Invoke("CreateCharacter", 1f);
     }
 
     public void CreateCharacter()
@@ -31,11 +36,9 @@ public class GlobalSettings : MonoBehaviour
         player.btnAttack = btnAttack;
         player.btnFlip = btnFlip;
         player.btnUse = btnUse;
-        player.revive = revive;
         player.enabled = true;
         player.stats.HealthChangeEvent.AddListener(healthPresentor.ChangeValue);
         healthPresentor.ChangeValue(player.stats.Health);
-        revive.SetActive(false);
 
         characters.RemoveAt(characterNum);
     }
