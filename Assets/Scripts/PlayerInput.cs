@@ -23,9 +23,9 @@ public class PlayerInput : MonoBehaviour
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
-        btnAttack.onClick.AddListener(delegate { stats.animator.SetTrigger("Attack"); attackTime = 0.4f; });
-        btnFlip.onClick.AddListener(delegate { if (!stats.animator.GetCurrentAnimatorStateInfo(0).IsName("Flip")) { stats.animator.SetTrigger("Flip"); StartCoroutine(Flip()); Debug.Log(gameObject.name); } });
-        btnUse.onClick.AddListener(delegate { Use(); });
+        btnAttack.onClick.AddListener(delegate {if (!stats.isStunned) stats.animator.SetTrigger("Attack"); attackTime = 0.4f; });
+        btnFlip.onClick.AddListener(delegate {if (!stats.isStunned) if (!stats.animator.GetCurrentAnimatorStateInfo(0).IsName("Flip")) { stats.animator.SetTrigger("Flip"); StartCoroutine(Flip()); Debug.Log(gameObject.name); } });
+        btnUse.onClick.AddListener(delegate {if (!stats.isStunned) Use(); });
 
         stats = GetComponent<EntityStats>();
         inventory = Inventory.instance;
@@ -68,27 +68,30 @@ public class PlayerInput : MonoBehaviour
 
     private void Use()
     {
-        if (hasUseItem)
+        if (!stats.isStunned)
         {
-            hasUseItem = false;
-            Transform handledObject = transform.GetChild(3).GetChild(0);
-            handledObject.SetParent(null);
-            possibleUseItem.position = transform.position + new Vector3(0,0,-1);
-            possibleUseItem.rotation = new Quaternion(0,0,0,0);
-            handledObject.GetComponentInChildren<Collider>().enabled = true;
-        }
-        else
-        {
-            if (possibleUseItem != null)
-                if (Vector3.Distance(possibleUseItem.transform.position, transform.position) < 2f)
-                {
-                    hasUseItem = true;
-                    Transform handler = transform.GetChild(3);
-                    possibleUseItem.SetParent(handler);
-                    possibleUseItem.localPosition = new Vector3(0, 0, 0);
-                    possibleUseItem.rotation = handler.rotation;
-                    possibleUseItem.GetComponentInChildren<Collider>().enabled = false;
-                }
+            if (hasUseItem)
+            {
+                hasUseItem = false;
+                Transform handledObject = transform.GetChild(3).GetChild(0);
+                handledObject.SetParent(null);
+                possibleUseItem.position = transform.position + new Vector3(0, 0, -1);
+                possibleUseItem.rotation = new Quaternion(0, 0, 0, 0);
+                handledObject.GetComponentInChildren<Collider>().enabled = true;
+            }
+            else
+            {
+                if (possibleUseItem != null)
+                    if (Vector3.Distance(possibleUseItem.transform.position, transform.position) < 2f)
+                    {
+                        hasUseItem = true;
+                        Transform handler = transform.GetChild(3);
+                        possibleUseItem.SetParent(handler);
+                        possibleUseItem.localPosition = new Vector3(0, 0, 0);
+                        possibleUseItem.rotation = handler.rotation;
+                        possibleUseItem.GetComponentInChildren<Collider>().enabled = false;
+                    }
+            }
         }
     }
 

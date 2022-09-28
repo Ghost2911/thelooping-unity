@@ -1,11 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class Boss : MonoBehaviour, IDamageable
+public class Boss : Unit
 {
     private Animator _animator;
-    private Coroutine _cor = null;
-
     public Transform[] movePoints;
     public Turret[] turrets;
     public int health = 50;
@@ -39,25 +37,7 @@ public class Boss : MonoBehaviour, IDamageable
     {
         Health -= damage;
         if (!_animator.GetBool("isRun"))
-            _cor = StartCoroutine(Move());
-    }
-
-    public void SetTarget(Transform target)
-    {
-        _target = target;
-    }
-    void Start()
-    {
-        _animator = GetComponent<Animator>();
-    }
-
-    void Update()
-    {
-        if (_target != null)
-        {
-            if (_cor == null)
-                _cor = StartCoroutine("Attack" + Random.Range(1, 4));
-        }
+            StartCoroutine(Move());
     }
 
     IEnumerator Move()
@@ -67,8 +47,6 @@ public class Boss : MonoBehaviour, IDamageable
         {
             _animator.SetBool("isRun", true);
             Vector3 newPosition = movePoints[Random.Range(0, movePoints.Length)].position;
-            Vector3 direction = (newPosition - transform.position).normalized;
-            SpriteFlip(direction);
 
             while (Vector3.Distance(newPosition, transform.position) > 0.1f)
             {
@@ -78,7 +56,7 @@ public class Boss : MonoBehaviour, IDamageable
             _animator.SetBool("isRun", false);
         }
         yield return new WaitForSeconds(2f);
-        _cor = null;
+        StartCoroutine("Attack" + Random.Range(1, 4));
     }
 
     IEnumerator Attack1()
@@ -86,7 +64,7 @@ public class Boss : MonoBehaviour, IDamageable
         splashAttack.SetActive(true);
         yield return new WaitForSeconds(4f);
         splashAttack.SetActive(false);
-        _cor = null;
+        StartCoroutine(Move());
     }
 
     IEnumerator Attack2()
@@ -102,7 +80,7 @@ public class Boss : MonoBehaviour, IDamageable
             bullet.GetComponent<Projectile>().speed = 25;
         }
         yield return new WaitForSeconds(1f);
-        _cor = null;
+        StartCoroutine(Move());
     }
     IEnumerator Attack3()
     {
@@ -113,13 +91,6 @@ public class Boss : MonoBehaviour, IDamageable
                 yield return null;
                 break;
             }
-        _cor = null;
-    }
-    private void SpriteFlip(Vector3 movement)
-    {
-        if (movement.x < 0)
-            transform.localScale = new Vector3(1f, 1f, 1f);
-        else if (movement.x > 0)
-            transform.localScale = new Vector3(-1f, 1f, 1f);
+        StartCoroutine(Move());
     }
 }

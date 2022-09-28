@@ -6,8 +6,10 @@ public class Trap : MonoBehaviour
 {
     public float cooldown = 5f;
     public int trapDamage = 5;
-    private Animator _anim;
+    public StatusData trapStatus; 
+    public bool isHold = false;
     public List<GameObject> trapTargets;
+    private Animator _anim;
     private bool isActive = false;
 
 
@@ -18,18 +20,24 @@ public class Trap : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trap - enter");
-        trapTargets.Add(other.gameObject);
-        if (!isActive)
+        if (other.CompareTag("Player") || other.CompareTag("enemy"))
         {
-            StartCoroutine("Attack");
-            isActive = true;
+            Debug.Log("Trap - enter");
+            trapTargets.Add(other.gameObject);
+            if (!isActive)
+            {
+                StartCoroutine("Attack");
+                isActive = true;
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        trapTargets.Remove(other.gameObject);
+        if (other.CompareTag("Player") || other.CompareTag("enemy"))
+        {
+            trapTargets.Remove(other.gameObject);
+        }
     }
 
     private void TakeDamage()
@@ -37,7 +45,17 @@ public class Trap : MonoBehaviour
         foreach (GameObject target in trapTargets)
         {
             if (target != null)
-                target.GetComponent<IDamageable>().Damage(trapDamage, 0f, Vector3.zero, Color.red);
+            {
+                EntityStats stats = target.GetComponent<EntityStats>();
+                stats.Damage(trapDamage, 0f, Vector3.zero, Color.red);
+                if (isHold)
+                {
+                    target.transform.position = transform.position;
+                    stats.animator.SetBool("isRun", false);
+                }
+                if (trapStatus!=null)
+                    stats.AddStatus(trapStatus);
+            }
             else
                 trapTargets.Remove(target);
         }

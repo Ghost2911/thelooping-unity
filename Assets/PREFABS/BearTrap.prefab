@@ -45,8 +45,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 1.8084741, z: 1.7100613}
-  m_Center: {x: 0, y: 1.9307818, z: -0.35503072}
+  m_Size: {x: 0.9699552, y: 1.3656839, z: 1.7100613}
+  m_Center: {x: -0.013180137, y: 0.16586328, z: -0.35503072}
 --- !u!212 &4761775963730663211
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -130,5 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 5
-  trapDamage: 5
+  trapDamage: 0
+  trapStatus: {fileID: 11400000, guid: 9b1c0b5e38ab37b4282258d3ac41cf1d, type: 2}
+  isHold: 1
   trapTargets: []

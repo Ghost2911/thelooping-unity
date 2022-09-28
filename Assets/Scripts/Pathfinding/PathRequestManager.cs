@@ -5,7 +5,8 @@ using System.Linq;
 
 public class PathRequestManager : MonoBehaviour
 {
-	Dictionary<int, PathRequest> pathRequestQueue = new Dictionary<int, PathRequest>();
+	Queue<PathRequest> pathRequestQueue = new Queue<PathRequest>();
+	Queue<int> unitIDQueue = new Queue<int>();
 	PathRequest currentPathRequest;
 
 	static PathRequestManager instance;
@@ -22,27 +23,20 @@ public class PathRequestManager : MonoBehaviour
 	public static void RequestPath(int unitID, Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> callback)
 	{
 		PathRequest newRequest = new PathRequest(pathStart, pathEnd, callback);
-		if (instance.pathRequestQueue.ContainsKey(unitID))
-			instance.pathRequestQueue[unitID] = newRequest;
-		else
+		if (!instance.unitIDQueue.Contains(unitID))
 		{
-			instance.pathRequestQueue.Add(unitID, newRequest);
+			instance.pathRequestQueue.Enqueue(newRequest);
+			instance.unitIDQueue.Enqueue(unitID);
 			instance.TryProcessNext();
 		}
-	}
-
-	public static void RemovePath(int unitID)
-	{
-		instance.pathRequestQueue.Remove(unitID);
 	}
 
 	void TryProcessNext()
 	{
 		if (!isProcessingPath && pathRequestQueue.Count > 0)
 		{
-			var curUnit = pathRequestQueue.First();
-			currentPathRequest = curUnit.Value;
-			instance.pathRequestQueue.Remove(curUnit.Key);
+			currentPathRequest = instance.pathRequestQueue.Dequeue();
+			instance.unitIDQueue.Dequeue();
 			isProcessingPath = true;
 			pathfinding.StartFindPath(currentPathRequest.pathStart, currentPathRequest.pathEnd);
 		}

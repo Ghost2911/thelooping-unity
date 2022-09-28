@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf7fe989d391d29419a947306bbb6758, type: 3}
-  m_Name: Stun
+  m_Name: SummonAssasin
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 1, b: 1, a: 1}
+  color: {r: 0, g: 0, b: 0, a: 0}
   icon: {fileID: 0}
-  type: 0
+  type: 37
   additiveStatus: {fileID: 0}
-  animator: {fileID: 22100000, guid: 1008b53455ceed54587c6475d30187ec, type: 2}
-  duration: 3
+  animator: {fileID: 0}
+  duration: 0
   layer: 0
   deltaTick: 1
   damagePerTick: 0
-  useOnSelf: 0
+  useOnSelf: 1

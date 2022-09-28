@@ -3,7 +3,7 @@ using System.Collections;
 public class Unit : MonoBehaviour
 {
 	const float minPathUpdateTime = 0.5f;
-	
+
 	[Header("Enemy settings")]
 	public float[] attackRange = new float[3];
 	public float affectedArea = 3f;
@@ -11,10 +11,11 @@ public class Unit : MonoBehaviour
 	public GameObject[] drops;
 	public GameObject projectileItem;
 	public StatusData weaponStatus;
-	
-    [HideInInspector]
+
+	[HideInInspector]
 	public EntityStats stats;
-	private Transform target;
+	public Transform target;
+	private Vector3 targetPosition = Vector3.zero;
 	private Vector3 startPosition;
 	private Vector3 targetPositionBeforeAttack;
 	private int attackNumber = 0;
@@ -26,22 +27,33 @@ public class Unit : MonoBehaviour
 	private Vector3 pathOffset;
 	private bool pathRequestSearched = false;
 	private float startSpriteDirection;
+	public string enemyTag;
 
 	void Awake()
 	{
 		startPosition = transform.position;
 		startSpriteDirection = transform.localScale.x;
 		attackNumber = Random.Range(0, 3);
-		pathOffset = new Vector3((Random.Range(0,2)*2-1)*attackRange[attackNumber], 0f, Random.Range(-attackRange[attackNumber]/2, attackRange[attackNumber] / 2));
+		pathOffset = new Vector3((Random.Range(0, 2) * 2 - 1) * attackRange[attackNumber], 0f, Random.Range(-attackRange[attackNumber] / 2, attackRange[attackNumber] / 2));
 		stats = GetComponent<EntityStats>();
-		stats.speedMultiplier = Random.Range(stats.speedMultiplier-0.4f, stats.speedMultiplier);
+		stats.speedMultiplier = Random.Range(stats.speedMultiplier - 0.4f, stats.speedMultiplier);
 		if (target != null)
 			StartCoroutine(UpdatePath());
 	}
 
 	public void SetTarget(Transform target)
 	{
+		enemyTag = target.tag;
 		this.target = target;
+		this.targetPosition = target.position;
+		StopCoroutine(UpdatePath());
+		StartCoroutine(UpdatePath());
+	}
+
+	public void SetTarget(Vector3 target)
+	{
+		this.target = null;
+		this.targetPosition = target;
 		StopCoroutine(UpdatePath());
 		StartCoroutine(UpdatePath());
 	}
@@ -69,7 +81,7 @@ public class Unit : MonoBehaviour
 
 				while (!stats.isStunned)
 				{
-					if (Vector3.Distance(transform.position, target.position) > 50f)
+					if (Vector3.Distance(transform.position, targetPosition) > 50f)
 					{
 						target = null;
 						transform.position = startPosition;
@@ -83,8 +95,11 @@ public class Unit : MonoBehaviour
 						if (targetIndex >= path.Length)
 						{
 							stats.animator.SetBool("isRun", false);
-							isAttacking = true;
-							StartCoroutine("Attacking");
+							if (target != null)
+							{
+								isAttacking = true;
+								StartCoroutine("Attacking");
+							}
 							yield break;
 						}
 						currentWaypoint = path[targetIndex];
@@ -100,8 +115,11 @@ public class Unit : MonoBehaviour
 			if (!isAttacking && !stats.isStunned)
 			{
 				stats.animator.SetBool("isRun", false);
-				isAttacking = true;
-				StartCoroutine("Attacking");
+				if (target != null)
+				{
+					isAttacking = true;
+					StartCoroutine("Attacking");
+				}
 			}
 		}
 	}
@@ -109,9 +127,9 @@ public class Unit : MonoBehaviour
 	void RaycastCheck()
 	{
 		RaycastHit hit;
-		if (Physics.Raycast(transform.position, target.position, out hit, attackRange[attackNumber]))
+		if (Physics.Raycast(transform.position, targetPosition, out hit, attackRange[attackNumber]))
 		{
-			Debug.DrawRay(transform.position, target.position * hit.distance, Color.yellow);
+			Debug.DrawRay(transform.position, targetPosition * hit.distance, Color.yellow);
 			Debug.Log(hit.transform.tag);
 		}
 	}
@@ -121,19 +139,20 @@ public class Unit : MonoBehaviour
 		if (Time.timeSinceLevelLoad < 1f)
 			yield return new WaitForSeconds(0.1f);
 
-		PathRequestManager.RequestPath(GetInstanceID(),transform.position, target.position, OnPathFound);
-		Vector3 targetPosOld = target.position;
+		PathRequestManager.RequestPath(GetInstanceID(), transform.position, targetPosition, OnPathFound);
 
-		while (true)
+		if (target != null)
 		{
-			yield return new WaitForSeconds(minPathUpdateTime);
-			if (isAttacking == false)
+			while (true)
 			{
-				if (!pathRequestSearched)
+				yield return new WaitForSeconds(minPathUpdateTime);
+				if (isAttacking == false)
 				{
-					pathRequestSearched = true;
-					PathRequestManager.RequestPath(GetInstanceID(),transform.position, target.position + pathOffset, OnPathFound);
-					targetPosOld = target.position;
+					if (!pathRequestSearched)
+					{
+						pathRequestSearched = true;
+						PathRequestManager.RequestPath(GetInstanceID(), transform.position, target.position + pathOffset, OnPathFound);
+					}
 				}
 			}
 		}
@@ -141,10 +160,10 @@ public class Unit : MonoBehaviour
 
 	IEnumerator Attacking()
 	{
-		targetPositionBeforeAttack = target.position;
-		SpriteFlip(transform.position - target.position);
-		stats.animator.SetTrigger($"Attack{attackNumber+1}");
-		yield return new WaitForSeconds(Random.Range(stats.attackCooldown, stats.attackCooldown+1f));
+		targetPositionBeforeAttack = targetPosition;
+		SpriteFlip(transform.position - targetPosition);
+		stats.animator.SetTrigger($"Attack{attackNumber + 1}");
+		yield return new WaitForSeconds(Random.Range(stats.attackCooldown, stats.attackCooldown + 1f));
 		attackNumber = Random.Range(0, 3);
 		pathOffset = new Vector3((Random.Range(0, 2) * 2 - 1) * attackRange[attackNumber], 0f, Random.Range(-attackRange[attackNumber] / 2, attackRange[attackNumber] / 2));
 		isAttacking = false;
@@ -153,9 +172,9 @@ public class Unit : MonoBehaviour
 	private void SpriteFlip(Vector3 movement)
 	{
 		if (movement.x < 0)
-			transform.localScale = new Vector3(1f*startSpriteDirection, 1f, 1f);
+			transform.localScale = new Vector3(1f * startSpriteDirection, 1f, 1f);
 		else if (movement.x > 0)
-			transform.localScale = new Vector3(-1f*startSpriteDirection, 1f, 1f);
+			transform.localScale = new Vector3(-1f * startSpriteDirection, 1f, 1f);
 	}
 
 	private void Attack()
@@ -163,23 +182,23 @@ public class Unit : MonoBehaviour
 		stats.AttackEvent.Invoke();
 		Collider[] hitEnemies = Physics.OverlapSphere(transform.position + (targetPositionBeforeAttack - transform.position).normalized * attackRange[attackNumber], affectedArea);
 		foreach (Collider enemy in hitEnemies)
-			if (enemy.tag == "Player" && enemy.transform.root != transform)
+			if (enemy.tag == enemyTag && enemy.transform.root != transform)
 			{
 				EntityStats entity = enemy.GetComponent<EntityStats>();
-				entity.Damage((int)(stats.attack * stats.attackMultiplier), 0f, Vector3.zero, Color.red, stats); 
+				entity.Damage((int)(stats.attack * stats.attackMultiplier), 0f, Vector3.zero, Color.red, stats);
 				if (weaponStatus != null)
 					entity.AddStatus(weaponStatus);
 			}
 	}
-	
+
 	private void RangeAttack()
 	{
 		if (projectileItem != null)
 		{
 			stats.AttackEvent.Invoke();
-			SpriteFlip(transform.position - target.position);
+			SpriteFlip(transform.position - targetPosition);
 			GameObject throwable = Instantiate(projectileItem, transform.position, Quaternion.identity) as GameObject;
-			throwable.GetComponentInChildren<IThrowable>().InitialSetup(target.position, transform);
+			throwable.GetComponentInChildren<IThrowable>().InitialSetup(targetPosition, transform);
 		}
 	}
 
@@ -187,16 +206,15 @@ public class Unit : MonoBehaviour
 	{
 		stats.DeathEvent.Invoke();
 		StopAllCoroutines();
-		PathRequestManager.RemovePath(GetInstanceID());
 		foreach (GameObject drop in drops)
-			Instantiate(drop,transform.position, new Quaternion(0f,0f,0f,0f));
+			Instantiate(drop, transform.position, new Quaternion(0f, 0f, 0f, 0f));
 		Destroy(this.gameObject);
 	}
 
 	void OnDrawGizmosSelected()
 	{
-		if (target != null)
-			Gizmos.DrawWireSphere(transform.position + (target.position - transform.position).normalized * attackRange[0], affectedArea);
+		if (targetPosition != Vector3.zero)
+			Gizmos.DrawWireSphere(transform.position + (targetPosition - transform.position).normalized * attackRange[0], affectedArea);
 	}
 
 	public void OnDrawGizmos()
