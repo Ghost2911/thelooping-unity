@@ -1,5 +1,5 @@
 
-public class SummonEnt : SummonSkelet
+public class SummonEnt : SummonStatus
 {
     private void Awake()
     {
