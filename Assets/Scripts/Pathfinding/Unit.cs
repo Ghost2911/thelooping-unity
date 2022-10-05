@@ -41,11 +41,11 @@ public class Unit : MonoBehaviour
 			StartCoroutine(UpdatePath());
 	}
 
-	public void SetTarget(Transform target)
+    public void SetTarget(Transform target)
 	{
 		enemyTag = target.tag;
 		this.target = target;
-		this.targetPosition = target.position;
+		targetPosition = target.position;
 		StopCoroutine(UpdatePath());
 		StartCoroutine(UpdatePath());
 	}
@@ -53,7 +53,7 @@ public class Unit : MonoBehaviour
 	public void SetTarget(Vector3 target)
 	{
 		this.target = null;
-		this.targetPosition = target;
+		targetPosition = target;
 		StopCoroutine(UpdatePath());
 		StartCoroutine(UpdatePath());
 	}
@@ -161,7 +161,7 @@ public class Unit : MonoBehaviour
 	IEnumerator Attacking()
 	{
 		targetPositionBeforeAttack = targetPosition;
-		SpriteFlip(transform.position - targetPosition);
+		SpriteFlip(transform.position - target.position);
 		stats.animator.SetTrigger($"Attack{attackNumber + 1}");
 		yield return new WaitForSeconds(Random.Range(stats.attackCooldown, stats.attackCooldown + 1f));
 		attackNumber = Random.Range(0, 3);
@@ -196,9 +196,9 @@ public class Unit : MonoBehaviour
 		if (projectileItem != null)
 		{
 			stats.AttackEvent.Invoke();
-			SpriteFlip(transform.position - targetPosition);
+			SpriteFlip(transform.position - target.position);
 			GameObject throwable = Instantiate(projectileItem, transform.position, Quaternion.identity) as GameObject;
-			throwable.GetComponentInChildren<IThrowable>().InitialSetup(targetPosition, transform);
+			throwable.GetComponentInChildren<IThrowable>().InitialSetup(target.position, transform);
 		}
 	}
 

@@ -48,6 +48,7 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
     public float statusDurationMultiplier = 1f;
 
     public Animator animator;
+    public StatusData[] startStatuses;
     public List<Status> statusEffects;
     private SpriteRenderer _render;
 
@@ -60,6 +61,9 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
         knockbackMultiplier = speed / 20f;
         StartCoroutine(HealthRegeneration());
         StartCoroutine(EvasionColor());
+
+        foreach (StatusData status in startStatuses)
+            AddStatus(status);
     }
 
     public void Damage(int damage, float knockbackPower, Vector3 direction, Color blindColor, EntityStats damageSource = null, bool ignoreArmor=false)

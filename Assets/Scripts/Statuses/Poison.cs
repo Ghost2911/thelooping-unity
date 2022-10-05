@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Poison : Status
 {
-    const float slowMultiplier = 1.5f;
+    const float slowMultiplier = 2f;
 
     public override void OnActivate()
     {

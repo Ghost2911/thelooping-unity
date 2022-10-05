@@ -10,6 +10,7 @@ public class SummonStatus : Status
     static readonly float radius = 4f;
     static readonly float attackRadius = 10f;
     private GameObject summonPrefab;
+    private string attackingTag;
 
     public override void OnActivate()
     {
@@ -18,6 +19,8 @@ public class SummonStatus : Status
         rotateAngle = Mathf.PI * 2 / maxUnitCount;
         summonPrefab = Resources.Load(unitPrefabPath) as GameObject;
         summonPrefab.tag = target.tag;
+        attackingTag = target.CompareTag("enemy") ? "Player":"enemy";
+
         for (int i = 0; i < maxUnitCount; i++)
             offsets[i] = new Vector3(Mathf.Cos(i * rotateAngle) * radius, 0f, Mathf.Sin(i * rotateAngle) * radius);
     }
@@ -27,7 +30,7 @@ public class SummonStatus : Status
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRadius);
         Transform enemy = null;
         foreach (Collider hit in hitEnemies)
-            if (hit.CompareTag("enemy")) { enemy = hit.transform; break; }
+            if (hit.CompareTag(attackingTag)) { enemy = hit.transform; break; }
 
         for (int i = 0; i < maxUnitCount; i++)
         {
