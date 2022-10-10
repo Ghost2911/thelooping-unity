@@ -6,12 +6,16 @@ public class ProjectilePuncture : MonoBehaviour, IThrowable
     public int damage;
     public float speed = 10f;
     public StatusData status;
-
+    public Vector3 offset;
+    public bool spriteFlip = false;
     public Transform owner; 
+    
     private Vector3 target;
 
     public void InitialSetup(Vector3 target, Transform owner)
     {
+        transform.position+=offset;
+        SpriteFlip(owner.position-target);
         this.target = target;
         this.owner = owner;
         StartCoroutine(Move());
@@ -27,6 +31,13 @@ public class ProjectilePuncture : MonoBehaviour, IThrowable
         Destroy(gameObject);
     }
 
+	private void SpriteFlip(Vector3 movement)
+	{
+		if (movement.x < 0)
+			transform.localScale = new Vector3(spriteFlip?-1f:1f, 1f, 1f);
+		else if (movement.x > 0)
+			transform.localScale = new Vector3(spriteFlip?1f:-1f, 1f, 1f);
+    }
 
     private void OnTriggerEnter(Collider other)
     {

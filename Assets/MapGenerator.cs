@@ -15,6 +15,7 @@ public class MapGenerator : MonoBehaviour
     private List<Vector3Int> possibleBossTiles = new List<Vector3Int>();
     private Vector2Int mainTile;
     private float offset;
+
     public void Awake()
     {
         if (instance == null)
@@ -30,11 +31,8 @@ public class MapGenerator : MonoBehaviour
     public void Start()
     {
         if (!isPrebuild)
-        {
             ReplaceCharacters();
-        }
     }
-
 
     public void GenerateMap()
     {
@@ -145,7 +143,6 @@ public class MapGenerator : MonoBehaviour
                 }
             }
 
-
             //Boss tiles replace fork
             List<int> spinNumbers = new List<int>();
             while (spinNumbers.Count < bossCount)
@@ -187,8 +184,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject TileFromResources(int tileNum)
     {
         Object[] maps = (tileNum < 900) ? Resources.LoadAll("Tiles/" + tileNum) : Resources.LoadAll("Tiles/Bosses").Where(a => a.name == tileNum.ToString()).ToArray();
-        int totalMapCount = maps.Length;
-        return maps[Random.Range(0, totalMapCount)] as GameObject;
+        return maps[Random.Range(0, maps.Length)] as GameObject;
     }
 
     void AddMainStructures(ref int[,] arr)
@@ -202,7 +198,7 @@ public class MapGenerator : MonoBehaviour
                      mainTilePos.Add(new Vector2Int(i, j));
                 else if (arr[i, j] == 0 && Random.Range(0,5)>1)
                 {
-                    //добавить тайл для пустого места
+                    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
                 }
             }
         mainTile = mainTilePos[Random.Range(0,mainTilePos.Count)];

@@ -72,7 +72,7 @@ public class Unit : MonoBehaviour
 
 	IEnumerator FollowPath()
 	{
-		if (!stats.isStunned)
+		if (!stats.isStunned && !isAttacking)
 		{
 			if (path.Length != 0)
 			{
@@ -146,7 +146,7 @@ public class Unit : MonoBehaviour
 			while (true)
 			{
 				yield return new WaitForSeconds(minPathUpdateTime);
-				if (isAttacking == false)
+				if (!isAttacking)
 				{
 					if (!pathRequestSearched)
 					{
@@ -160,13 +160,13 @@ public class Unit : MonoBehaviour
 
 	IEnumerator Attacking()
 	{
-		targetPositionBeforeAttack = targetPosition;
+		targetPositionBeforeAttack = target.position;
 		SpriteFlip(transform.position - target.position);
 		stats.animator.SetTrigger($"Attack{attackNumber + 1}");
-		yield return new WaitForSeconds(Random.Range(stats.attackCooldown, stats.attackCooldown + 1f));
+		yield return new WaitForSeconds(stats.animator.GetCurrentAnimatorStateInfo(0).length + stats.attackCooldown);
+		isAttacking = false;
 		attackNumber = Random.Range(0, 3);
 		pathOffset = new Vector3((Random.Range(0, 2) * 2 - 1) * attackRange[attackNumber], 0f, Random.Range(-attackRange[attackNumber] / 2, attackRange[attackNumber] / 2));
-		isAttacking = false;
 	}
 
 	private void SpriteFlip(Vector3 movement)
@@ -214,7 +214,7 @@ public class Unit : MonoBehaviour
 	void OnDrawGizmosSelected()
 	{
 		if (targetPosition != Vector3.zero)
-			Gizmos.DrawWireSphere(transform.position + (targetPosition - transform.position).normalized * attackRange[0], affectedArea);
+			Gizmos.DrawWireSphere(transform.position + (targetPositionBeforeAttack - transform.position).normalized * attackRange[attackNumber], affectedArea);
 	}
 
 	public void OnDrawGizmos()

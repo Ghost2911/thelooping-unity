@@ -11,6 +11,7 @@ public class MechaArm : MonoBehaviour
 
     void OnEnable()
     {
+        _target = GetComponentInParent<Unit>().target;
         _startPos = transform.position;
         StartCoroutine(Move());
     }

@@ -19,8 +19,10 @@ public abstract class Status : MonoBehaviour
         statusAnimator = transform.GetChild(status.layer).GetComponent<Animator>();
         target.statusEffects.Add(this);
         if (statusAnimator!=null)
+        {
             statusAnimator.runtimeAnimatorController = statusData.animator;
-        statusAnimator.Play("StatusStart", 0);
+            statusAnimator.Play("StatusStart", 0);
+        }
         StartCoroutine(Activate());
         OnActivate();
     }

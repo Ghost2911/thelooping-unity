@@ -5,6 +5,7 @@ using UnityEngine;
 public class AreaDamage : MonoBehaviour
 {
     public int areaDamage = 5;
+    public StatusData status;
     public float lifetime = -1;
     public List<GameObject> targets;
     private Coroutine _cor;
@@ -23,16 +24,6 @@ public class AreaDamage : MonoBehaviour
         targets.Remove(other.gameObject);
     }
 
-    private void Update()
-    {
-        if (lifetime != -1)
-        {
-            lifetime -= Time.deltaTime;
-            if (lifetime <= 0)
-                Destroy(gameObject);
-        }
-    }
-
     IEnumerator Attack()
     {
         while (true)
@@ -40,7 +31,11 @@ public class AreaDamage : MonoBehaviour
             foreach (GameObject target in targets)
             {
                 if (target != null)
-                    target.GetComponent<IDamageable>().Damage(areaDamage, 0f, Vector3.zero, Color.red);
+                {
+                    target.GetComponent<EntityStats>()?.Damage(areaDamage, 0f, Vector3.zero, Color.red);
+                    if (status!=null)
+                        target.GetComponent<EntityStats>()?.AddStatus(status);
+                }
                 else
                     targets.Remove(target);
             }
@@ -57,6 +52,8 @@ public class AreaDamage : MonoBehaviour
     private void OnEnable()
     {
         StopAllCoroutines();
+        if (lifetime!=-1)
+            Destroy(gameObject,lifetime);
         _cor = StartCoroutine(Attack());
         targets.Clear();
     }

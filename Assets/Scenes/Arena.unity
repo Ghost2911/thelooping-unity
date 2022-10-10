@@ -295,9 +295,10 @@ MonoBehaviour:
   btnAttack: {fileID: 1269208435}
   btnFlip: {fileID: 883921663}
   btnUse: {fileID: 1516783890}
-  revive: {fileID: 1873118550}
   healthPresentor: {fileID: 1243820445}
-  characters: []
+  characters:
+  - {fileID: 424373236}
+  isTutorial: 0
 --- !u!1 &66680324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1303,6 +1304,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421973296}
   m_CullTransparentMesh: 1
+--- !u!1 &424373236 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7149396918150275013, guid: 14bd899b1a7fd1949ae0ad75c66827d5, type: 3}
+  m_PrefabInstance: {fileID: 1605202540}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &426692279
 GameObject:
   m_ObjectHideFlags: 0
@@ -3326,6 +3332,7 @@ MonoBehaviour:
   mapSize: 6
   bossCount: 3
   slots: {fileID: 2074800656285719325}
+  isPrebuild: 0
 --- !u!4 &1118802438
 Transform:
   m_ObjectHideFlags: 0
@@ -3352,7 +3359,7 @@ GameObject:
   - component: {fileID: 1239682596}
   - component: {fileID: 1239682594}
   m_Layer: 5
-  m_Name: SlotsEquipment
+  m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3381,7 +3388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.68685913, y: 0.5}
+  m_AnchoredPosition: {x: -0.68688965, y: 0.5}
   m_SizeDelta: {x: -727.7274, y: -330.887}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1239682594
@@ -3406,6 +3413,10 @@ MonoBehaviour:
   textmeshCollectable: {fileID: 813683444}
   handlerName: {fileID: 771531530}
   entityStats: {fileID: 0}
+  bossMarks:
+  - {fileID: 1760861692}
+  - {fileID: 2085816202}
+  - {fileID: 105278280}
 --- !u!222 &1239682596
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4338,6 +4349,9 @@ MonoBehaviour:
   startPosition: {fileID: 1581798747}
   endPosition: {fileID: 0}
   offsetSpeed: 4
+  distance: 0
+  offsetTarget: {x: 0, y: 0.75, z: 0.75}
+  offsetHolder: {x: 0, y: 0.75, z: 0.75}
 --- !u!120 &1456294673
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -6013,8 +6027,6 @@ GameObject:
   - component: {fileID: 1687258583}
   - component: {fileID: 1687258584}
   - component: {fileID: 1687258582}
-  - component: {fileID: 1687258586}
-  - component: {fileID: 1687258587}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6104,30 +6116,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
---- !u!114 &1687258586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1687258581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1687258587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1687258581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1713172007
 GameObject:
   m_ObjectHideFlags: 0
@@ -6342,7 +6330,7 @@ GameObject:
   - component: {fileID: 1801382275}
   - component: {fileID: 1801382277}
   m_Layer: 5
-  m_Name: Inventory
+  m_Name: MainPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

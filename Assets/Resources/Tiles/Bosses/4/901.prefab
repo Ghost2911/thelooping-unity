@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 202088057}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1624563863017240037}
@@ -51,7 +51,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 644dbed82d2ba4f0f9aa330b3b984eab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -210,6 +210,7 @@ GameObject:
   - component: {fileID: 7982190008768523046}
   - component: {fileID: 57883311993752910}
   - component: {fileID: 1192108451}
+  - component: {fileID: 4842743578855026981}
   m_Layer: 0
   m_Name: Sprout_arena
   m_TagString: Untagged
@@ -258,6 +259,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42cd62f94471c2f43a6513b615b216ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4842743578855026981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4311960513415142069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff36ffd2337966b4f9ec047a6048913d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locationName: Sprout
+  locationImage: {fileID: 21300000, guid: 4155f20123b384b4389e7fcc0c421e3a, type: 3}
 --- !u!1 &8370351523195592810
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,4 +466,5 @@ MonoBehaviour:
   animator: {fileID: 0}
   startStatuses:
   - {fileID: 11400000, guid: d5f50c0e52e646542b177eb3d7dfdb15, type: 2}
+  - {fileID: 11400000, guid: baa198682a3b60e43b400d9d3c142c4f, type: 2}
   statusEffects: []

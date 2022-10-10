@@ -15,6 +15,9 @@ public class Inventory : MonoBehaviour
     public Dictionary<CollectableType, int> collectableItems = new Dictionary<CollectableType, int>();
     public static Inventory instance;
 
+    public TargetPresentor[] bossMarks;
+    private int bossMarksCursor = 0;
+
     private void Awake()
     {
         instance = this;
@@ -83,5 +86,10 @@ public class Inventory : MonoBehaviour
     {
         textmeshCollectable.text = string.Join("", collectableItems.Select(p => $"{p.Value.ToString().PadLeft(2, '0')}" +
                                                 $"  <sprite name=\"icon_res_{p.Key}\">"));
+    }
+
+    public TargetPresentor GetNextTargetPresentor()
+    {
+        return bossMarks[bossMarksCursor++];
     }
 }

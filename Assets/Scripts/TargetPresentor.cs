@@ -4,14 +4,19 @@ using UnityEngine.UI;
 public class TargetPresentor : MonoBehaviour
 {
     private Image _image;
-    private string _targetName;
+
     private void Start()
     {
         _image = GetComponent<Image>();
     }
-    public void SetTarget(Sprite sprite, string name)
+
+    public void SetSprite(Sprite sprite)
     {
         _image.sprite = sprite;
-        _targetName = name;
+    }
+
+    public void SetCompleted()
+    {
+        _image.color = Color.black;
     }
 }
