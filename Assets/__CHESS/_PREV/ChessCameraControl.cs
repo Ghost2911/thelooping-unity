@@ -10,7 +10,7 @@ public class ChessCameraControl : MonoBehaviour
 
 	private Vector3 farPosition = new Vector3(0,0,0); 
 	private Quaternion farRotation;
-	private bool isFar = true;
+	public bool isFar = true;
 
 	private void Start()
 	{
@@ -25,7 +25,7 @@ public class ChessCameraControl : MonoBehaviour
 		StartCoroutine(EnumCameraPosition());
 	}
 
-	public IEnumerator EnumCameraPosition ()
+	public IEnumerator EnumCameraPosition()
 	{
 		Quaternion targetRotation = (isFar) ? closeRotation : farRotation;
 		Vector3 targetPosition = (isFar) ? closePosition : farPosition;

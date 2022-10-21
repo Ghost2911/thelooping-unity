@@ -5,7 +5,7 @@ using UnityEngine;
 public class ChessAI : MonoBehaviour
 {
     public static ChessAI Instance { set; get; }
-
+    public GameObject waitPanel;
     /* ------------------------- Cloning the Environment ----------------------*/
     private List<Chessman> ActiveChessmans;
     private Chessman[,] Chessmans;
@@ -26,7 +26,7 @@ public class ChessAI : MonoBehaviour
     private int[] ActualEnPassant;
 
     // Stack to store state history
-    private Stack< State> History;
+    private Stack<State> History;
 
     // Maximum depth of exploration (No of total further moves to see the outcomes)
     private int maxDepth;
@@ -40,6 +40,7 @@ public class ChessAI : MonoBehaviour
     // Variable to count Avg Response Time 
     private long totalTime = 0;
     private long totalRun = 0;
+    public int stepCount = 5;
     public  long averageResponseTime = 0;
 
     string detail, board;
@@ -53,6 +54,7 @@ public class ChessAI : MonoBehaviour
     public void NPCMove()
     {
         // Start the StopWatch
+        waitPanel.SetActive(true);
         System.Diagnostics.Stopwatch stopwatch  = new System.Diagnostics.Stopwatch();
         stopwatch.Start();
 
@@ -61,7 +63,7 @@ public class ChessAI : MonoBehaviour
         // printBoard();
 
         // New State History Stack
-        History = new Stack< State>();
+        History = new Stack<State>();
 
         /* --------------------- Sense --------------------- */
         
@@ -134,7 +136,6 @@ public class ChessAI : MonoBehaviour
         /* ---------------------- Act ---------------------- */
         // For most favourable move
         // select chessman
-        Debug.Log(NPCSelectedChessman.GetType() + " to (" + moveX + ", " + moveY + ") " + winningValue + "\n"); // remove this line
         BoardManager.Instance.SelectedChessman = BoardManager.Instance.Chessmans[NPCSelectedChessman.currentX, NPCSelectedChessman.currentY];
         BoardManager.Instance.allowedMoves = BoardManager.Instance.SelectedChessman.PossibleMoves();
 
@@ -146,9 +147,12 @@ public class ChessAI : MonoBehaviour
         stopwatch.Stop();
         totalTime += stopwatch.ElapsedMilliseconds;
         totalRun++;
+        waitPanel.SetActive(false);
 
         // Update average response time
         averageResponseTime = totalTime / totalRun;
+        if (--stepCount == 0)
+            GameResult.instance.SaveAndLoad();
     }
 
     private void Think()
@@ -156,7 +160,7 @@ public class ChessAI : MonoBehaviour
         maxDepth = 5;
         int depth = maxDepth-1;
         // winningValue = MiniMax(depth, true);
-        winningValue = AlphaBeta(depth, true, System.Int32.MinValue, System.Int32.MaxValue);
+        winningValue = AlphaBeta(depth, true, int.MinValue, int.MaxValue);
     }
 
     private int MiniMax(int depth, bool isMax)
@@ -175,7 +179,7 @@ public class ChessAI : MonoBehaviour
         // If it is max turn(NPC turn : Black)
         if(isMax)
         {
-            int hValue = System.Int32.MinValue;
+            int hValue = int.MinValue;
             // int ind = 0;
             // Get list of all possible moves with their heuristic value
             // For all chessmans
@@ -719,60 +723,4 @@ public class ChessAI : MonoBehaviour
             list[n] = value;  
         }  
     }
-
-    // private string printTabs(int num)
-    // {
-    //     string detail = "";
-    //     while(--num > 0) detail = detail + "\t";
-    //     return detail;
-    // }
-
-    // private string printMoves(bool[,] moves)
-    // {
-    //     string str = "\n";
-    //     for(int i=0; i<8; i++)
-    //     {
-    //         for(int j=7; j>=0; j--)
-    //         {
-    //             str = str + (moves[j, i]?1:0) + " ";
-    //         }
-    //         str = str + "\n";
-    //     }
-    //     return str;
-    // }
-
-    // //to be deleted
-    // private void printBoard()
-    // {
-    //     Chessman[,] Chessmans = BoardManager.Instance.Chessmans;
-    //     for(int i=0; i<8; i++)
-    //     {
-    //         for(int j=7; j>=0; j--)
-    //         {
-    //             if(Chessmans[j,i] == null)
-    //             {
-    //                 board = board + "[] ";
-    //                 continue;
-    //             }
-
-    //             board = board + (Chessmans[j,i].isWhite ? "W":"B");
-    //             Chessman chessman = Chessmans[j,i];
-
-    //             if(chessman.GetType() == typeof(King))
-    //                 board = board + "K ";
-    //             if(chessman.GetType() == typeof(Queen))
-    //                 board = board + "Q ";
-    //             if(chessman.GetType() == typeof(Rook))
-    //                 board = board + "R ";
-    //             if(chessman.GetType() == typeof(Bishup))
-    //                 board = board + "B ";
-    //             if(chessman.GetType() == typeof(Knight))
-    //                 board = board + "k ";
-    //             if(chessman.GetType() == typeof(Pawn))
-    //                 board = board + "P ";
-    //         }
-
-    //         board = board + "\n";
-    //     }
-    // }
 }

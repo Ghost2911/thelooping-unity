@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class BoardManager : MonoBehaviour
@@ -43,11 +45,10 @@ public class BoardManager : MonoBehaviour
     private void Start()
     {
         Instance = this;
-        cam = FindObjectOfType<Camera>();
+        cam = Camera.main;
         ActiveChessmans = new List<GameObject>();
         Chessmans = new Chessman[8, 8];
         EnPassant = new int[2] { -1, -1 };
-
 
         // Spawning all chessmans on the board
         SpawnAllChessmans();
@@ -278,7 +279,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    private void SpawnChessman(int index, Vector3 position)
+    private Chessman SpawnChessman(int index, Vector3 position)
     {
         GameObject ChessmanObject = Instantiate(ChessmanPrefabs[index], position, ChessmanPrefabs[index].transform.rotation) as GameObject;
         ChessmanObject.transform.SetParent(this.transform);
@@ -288,64 +289,104 @@ public class BoardManager : MonoBehaviour
         int y = (int)(position.z);
         Chessmans[x, y] = ChessmanObject.GetComponent<Chessman>();
         Chessmans[x, y].SetPosition(x, y);
-
+        return Chessmans[x, y];
     }
     
     private void SpawnAllChessmans()
     {
-        // Spawn White Pieces
-        // Rook1
-        SpawnChessman(0, new Vector3(0, 0, 7));
-        // Knight1
-        SpawnChessman(1, new Vector3(1, 0, 7));
-        // Bishop1
-        SpawnChessman(2, new Vector3(2, 0, 7));
-        // King
-        SpawnChessman(3, new Vector3(3, 0, 7));
-        // Queen
-        SpawnChessman(4, new Vector3(4, 0, 7));
-        // Bishop2
-        SpawnChessman(2, new Vector3(5, 0, 7));
-        // Knight2
-        SpawnChessman(1, new Vector3(6, 0, 7));
-        // Rook2
-        SpawnChessman(0, new Vector3(7, 0, 7));
-        // Pawns
-        for(int i=0; i<8; i++)
+        int[,] board = DeserializeBoard();
+
+        if (board == null)
         {
-            SpawnChessman(5, new Vector3(i, 0, 6));
-        }
+            // Spawn White Pieces
+            // Rook1
+            SpawnChessman(0, new Vector3(0, 0, 7));
+            // Knight1
+            SpawnChessman(1, new Vector3(1, 0, 7));
+            // Bishop1
+            SpawnChessman(2, new Vector3(2, 0, 7));
+            // King
+            SpawnChessman(3, new Vector3(3, 0, 7));
+            // Queen
+            SpawnChessman(4, new Vector3(4, 0, 7));
+            // Bishop2
+            SpawnChessman(2, new Vector3(5, 0, 7));
+            // Knight2
+            SpawnChessman(1, new Vector3(6, 0, 7));
+            // Rook2
+            SpawnChessman(0, new Vector3(7, 0, 7));
+            // Pawns
+            for (int i = 0; i < 8; i++)
+            {
+                SpawnChessman(5, new Vector3(i, 0, 6));
+            }
 
-        // Spawn Black Pieces
-        // Rook1
-        SpawnChessman(6, new Vector3(0, 0, 0));
-        // Knight1
-        SpawnChessman(7, new Vector3(1, 0, 0));
-        // Bishop1
-        SpawnChessman(8, new Vector3(2, 0, 0));
-        // King
-        SpawnChessman(9, new Vector3(3, 0, 0));
-        // Queen
-        SpawnChessman(10, new Vector3(4, 0, 0));
-        // Bishop2
-        SpawnChessman(8, new Vector3(5, 0, 0));
-        // Knight2
-        SpawnChessman(7, new Vector3(6, 0, 0));
-        // Rook2
-        SpawnChessman(6, new Vector3(7, 0, 0));
-        // Pawns
-        for (int i = 0; i < 8; i++)
+            // Spawn Black Pieces
+            // Rook1
+            SpawnChessman(6, new Vector3(0, 0, 0));
+            // Knight1
+            SpawnChessman(7, new Vector3(1, 0, 0));
+            // Bishop1
+            SpawnChessman(8, new Vector3(2, 0, 0));
+            // King
+            SpawnChessman(9, new Vector3(3, 0, 0));
+            // Queen
+            SpawnChessman(10, new Vector3(4, 0, 0));
+            // Bishop2
+            SpawnChessman(8, new Vector3(5, 0, 0));
+            // Knight2
+            SpawnChessman(7, new Vector3(6, 0, 0));
+            // Rook2
+            SpawnChessman(6, new Vector3(7, 0, 0));
+            // Pawns
+            for (int i = 0; i < 8; i++)
+            {
+                SpawnChessman(11, new Vector3(i, 0, 1));
+            }
+
+            WhiteKing = Chessmans[3, 7];
+            BlackKing = Chessmans[3, 0];
+
+            WhiteRook1 = Chessmans[0, 7];
+            WhiteRook2 = Chessmans[7, 7];
+            BlackRook1 = Chessmans[0, 0];
+            BlackRook2 = Chessmans[7, 0];
+        }
+        else
         {
-            SpawnChessman(11, new Vector3(i, 0, 1));
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 7; j >= 0; j--)
+                {
+                    switch (board[j, i])
+                    {
+                        case -1:
+                            break;
+                        case 0:
+                            if (BlackRook1 == null)
+                                BlackRook1 = SpawnChessman(board[j, i], new Vector3(j, 0, i));
+                            else
+                                BlackRook2 = SpawnChessman(board[j, i], new Vector3(j, 0, i));
+                            break;
+                        case 6:
+                            if (WhiteRook1 == null)
+                                WhiteRook1 = SpawnChessman(board[j, i], new Vector3(j, 0, i));
+                            else
+                                WhiteRook2 = SpawnChessman(board[j, i], new Vector3(j, 0, i));
+                            break;
+                        case 3:
+                            WhiteKing = SpawnChessman(board[j, i], new Vector3(j, 0, i));
+                            break;
+                        case 9:
+                            BlackKing = SpawnChessman(board[j, i], new Vector3(j, 0, i));
+                            break;
+                        default:
+                            SpawnChessman(board[j, i], new Vector3(j, 0, i));
+                            break;
+                    }
+                }
+            }
         }
-
-        WhiteKing = Chessmans[3, 7];
-        BlackKing = Chessmans[3, 0];
-
-        WhiteRook1 = Chessmans[0, 7];
-        WhiteRook2 = Chessmans[7, 7];
-        BlackRook1 = Chessmans[0, 0];
-        BlackRook2 = Chessmans[7, 0];
     }
 
     public void EndGame()
@@ -388,54 +429,79 @@ public class BoardManager : MonoBehaviour
             }
         }
 
-        if(!hasAllowedMove) 
+        if (!hasAllowedMove)
         {
             BoardHighlights.Instance.HighlightCheckmate(isWhiteTurn);
 
             Debug.Log("CheckMate");
+            Debug.Log("Average Response Time of computer (in seconds): " + (ChessAI.Instance.averageResponseTime / 1000.0));
 
-            Debug.Log("Average Response Time of computer (in seconds): " + (ChessAI.Instance.averageResponseTime/1000.0));
-
-            // Display Game Over Menu
-            GameOver.Instance.GameOverMenu();
-
-            // EndGame();
+            GameResult.instance.WinnerDialogAndLoad();
         }
     }
 
-    //to be deleted
-    // private void printBoard()
-    // {
-    //     string board = "";
-    //     for(int i=0; i<8; i++)
-    //     {
-    //         for(int j=7; j>=0; j--)
-    //         {
-    //             if(Chessmans[j,i] == null)
-    //             {
-    //                 board = board + "[] ";
-    //                 continue;
-    //             }
+    //to be Serialize/Deserialize (need rebuild/check Chessmans)
+    public void SerializeBoard()
+    {
+        int[,] board = new int[8, 8];
+        int additiveValue = 0;
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 7; j >= 0; j--)
+            {
+                if (Chessmans[j, i] == null)
+                {
+                    board[j, i] = -1;
+                    continue;
+                }
 
-    //             board = board + (Chessmans[j,i].isWhite ? "W":"B");
-    //             Chessman chessman = Chessmans[j,i];
+                additiveValue = (Chessmans[j, i].isWhite ? 0 : 6);
+                Chessman chessman = Chessmans[j, i];
 
-    //             if(chessman.GetType() == typeof(King))
-    //                 board = board + "K ";
-    //             if(chessman.GetType() == typeof(Queen))
-    //                 board = board + "Q ";
-    //             if(chessman.GetType() == typeof(Rook))
-    //                 board = board + "R ";
-    //             if(chessman.GetType() == typeof(Bishup))
-    //                 board = board + "B ";
-    //             if(chessman.GetType() == typeof(Knight))
-    //                 board = board + "k ";
-    //             if(chessman.GetType() == typeof(Pawn))
-    //                 board = board + "P ";
-    //         }
+                if (chessman.GetType() == typeof(King))
+                    board[j, i] = 3 + additiveValue;
+                if (chessman.GetType() == typeof(Queen))
+                    board[j, i] = 4 + additiveValue;
+                if (chessman.GetType() == typeof(Rook))
+                    board[j, i] = 0 + additiveValue;
+                if (chessman.GetType() == typeof(Bishup))
+                    board[j, i] = 2 + additiveValue;
+                if (chessman.GetType() == typeof(Knight))
+                    board[j, i] = 1 + additiveValue;
+                if (chessman.GetType() == typeof(Pawn))
+                    board[j, i] = 5 + additiveValue;
+            }
+        }
 
-    //         board = board + "\n";
-    //     }
-    //     System.IO.File.WriteAllText(@"C:\Users\darsh\Desktop\movedetail.txt", board);
-    // }
+        BinaryFormatter formatter = new BinaryFormatter();
+
+        using (FileStream stream = new FileStream("board.ght", FileMode.Create))
+        {
+            formatter.Serialize(stream, board);
+        }
+    }
+
+    public int[,] DeserializeBoard()
+    {
+        int[,] board;
+        BinaryFormatter formatter = new BinaryFormatter();
+
+        if (File.Exists("board.ght"))
+        {
+            using (FileStream stream = new FileStream("board.ght", FileMode.Open))
+            {
+                board = (int[,])formatter.Deserialize(stream);
+            }
+            return board;
+        }
+        else
+            return null;
+    }
+
+
+    public void DeleteSerializeBoard()
+    {
+        if (File.Exists("board.ght"))
+            File.Delete("board.ght");
+    }
 }
