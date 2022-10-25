@@ -1,0 +1,160 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2529880990259093667
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2529880990259093665}
+  - component: {fileID: 2529880990259093664}
+  - component: {fileID: 2529880990259093679}
+  - component: {fileID: 2529880990259093678}
+  - component: {fileID: 2529880990259093677}
+  - component: {fileID: 2529880990259093675}
+  - component: {fileID: 2529880990259093674}
+  - component: {fileID: 2529880990259093672}
+  - component: {fileID: 2529880990259093673}
+  - component: {fileID: 2529880990259093686}
+  m_Layer: 0
+  m_Name: CheckerBoard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2529880990259093665
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529880990259093667}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2529880990259093664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529880990259093667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8986a4facbe980642bb649c2dc71a89f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tile: {fileID: 976798401780825216, guid: 763f9d3344d0cfc45aff67b6a5722624, type: 3}
+--- !u!114 &2529880990259093679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529880990259093667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e89baf8a353f75b478e3d8b20826d3eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2529880990259093678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529880990259093667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d32d825a310f3488164f4d89862d00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Pawn: {fileID: 6180183240850365872, guid: 8fc0791d34f8f174e9fa55d5ee4cf165, type: 3}
+  WhiteSprite: {fileID: 0}
+  BlackSprite: {fileID: 0}
+--- !u!114 &2529880990259093677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529880990259093667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1347ea00391fa64882aa50f74337c2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameAudio: {fileID: 0}
+  HorizontalMovementSmoothing: 12
+  VerticalMovementSmoothing: 17
+  PositionDifferenceTolerance: 0.01
+--- !u!114 &2529880990259093675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529880990259093667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6d30c687954454f8c43264ed88525f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2529880990259093674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529880990259093667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fcebab9e608936418f730409d335126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2529880990259093672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529880990259093667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c68ed375e99375f44b179953db1e87ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2529880990259093673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529880990259093667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00e6ce19b1461e6448fe80a08a1bd8e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartingPawnColor: 0
+  GameOverPanel: {fileID: 0}
+--- !u!114 &2529880990259093686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529880990259093667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2836cff797f4e6747a11e831cfbd508e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveTreeBuilder: {fileID: 0}
