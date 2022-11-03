@@ -16,10 +16,9 @@ public class LootboxAnimated : MonoBehaviour, IDamageable
     {
         _animator.enabled = false;
         foreach (GameObject drop in drops)
-            Instantiate(drop, transform.position, new Quaternion(0f, 0f, 0f, 0f));
+            Instantiate(drop, transform.position + new Vector3(0, 0, -0.05f), Quaternion.identity);
         _animator.SetTrigger("Hit");
-        Destroy(transform.GetChild(0));
+        Destroy(gameObject, 0.2f);
         Destroy(this);
     } 
-
 }

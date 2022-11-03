@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4144095353345441074}
-  - component: {fileID: 4144095353345441075}
-  - component: {fileID: 4144095353345441072}
-  - component: {fileID: 4144095353345441086}
   - component: {fileID: 3353392820242434588}
+  - component: {fileID: 7631841025855461163}
+  - component: {fileID: 2587272763960037038}
   m_Layer: 0
   m_Name: barrel
   m_TagString: enemy
@@ -35,26 +34,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &4144095353345441075
-Animator:
-  serializedVersion: 3
+--- !u!136 &3353392820242434588
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4144095353345441087}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 2
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!212 &4144095353345441072
+  m_Radius: 0.74
+  m_Height: 2.17
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.81, z: 0.36}
+--- !u!212 &7631841025855461163
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,7 +56,7 @@ SpriteRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4144095353345441087}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -91,21 +85,21 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1508007563
-  m_SortingLayer: -1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 292255349479754790, guid: 4811630a09a7c0a4bbf9c4a4b8103b97, type: 3}
+  m_Sprite: {fileID: -9082291248603447866, guid: 8c2367e4f4baf4342905c6a9809d172f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.1666665, y: 3.3333333}
+  m_Size: {x: 2.1333334, y: 2.2666667}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 1
---- !u!114 &4144095353345441086
+  m_SpriteSortPoint: 0
+--- !u!114 &2587272763960037038
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,29 +108,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4144095353345441087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7956d00400f2e4e97f8f5cbaae0c8c, type: 3}
+  m_Script: {fileID: 11500000, guid: f482b7530728d2f419b7e3dcc290be67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   drops:
+  - {fileID: 729951761752943511, guid: 9d7dc057229c69345a66127629fb98ae, type: 3}
+  - {fileID: 8417705277535482153, guid: 8eb96999c5fdcd148b3937c52552382b, type: 3}
+  - {fileID: 729951761752943511, guid: 9d7dc057229c69345a66127629fb98ae, type: 3}
   - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
-  - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
-  - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
-  - {fileID: 5580807531388953428, guid: e9457b2992e000640ab34fb01db86836, type: 3}
-  - {fileID: 8941419318213687094, guid: 6d88fb0980ded7242878d1cd2326acfd, type: 3}
---- !u!136 &3353392820242434588
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4144095353345441087}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.74
-  m_Height: 2.17
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.875, z: 0.36}
+  destroyObject: {fileID: -7538735397198048313, guid: 8c2367e4f4baf4342905c6a9809d172f, type: 3}
 --- !u!1 &7453086513082310057
 GameObject:
   m_ObjectHideFlags: 0

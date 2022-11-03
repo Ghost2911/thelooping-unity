@@ -10,14 +10,23 @@ public abstract class Status : MonoBehaviour
     protected Animator statusAnimator;
     protected Animator targetAnimator;
 
+    private void Start()
+    {
+        if (statusData != null)
+            Init(statusData);
+    }
+
     public void Init(StatusData status)
     {
         statusData = status;
-        target = GetComponent<EntityStats>();
+        
         duration = statusData.duration;
         targetAnimator = GetComponent<Animator>();
-        statusAnimator = transform.GetChild(status.layer).GetComponent<Animator>();
-        target.statusEffects.Add(this);
+        if (transform.childCount!=0)
+            statusAnimator = transform.GetChild(status.layer).GetComponent<Animator>();
+        target = GetComponent<EntityStats>();
+        if (target!=null)
+            target.statusEffects.Add(this);
         if (statusAnimator!=null)
         {
             statusAnimator.runtimeAnimatorController = statusData.animator;

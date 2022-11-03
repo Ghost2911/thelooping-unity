@@ -75,9 +75,7 @@ public class PlayerInput : MonoBehaviour
                 hasUseItem = false;
                 Transform handledObject = transform.GetChild(3).GetChild(0);
                 handledObject.SetParent(null);
-                possibleUseItem.position = transform.position + new Vector3(0, 0, -1);
-                possibleUseItem.rotation = new Quaternion(0, 0, 0, 0);
-                handledObject.GetComponentInChildren<Collider>().enabled = true;
+                handledObject.gameObject.AddComponent<ArcFlight>().target = transform.position + stats.direction*5f;
             }
             else
             {

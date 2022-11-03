@@ -15,9 +15,14 @@ public class Lootbox : MonoBehaviour, IDamageable
     public void Damage(int damage, float knockbackPower, Vector3 direction, Color blindColor, EntityStats damageSource = null, bool ignoreArmor = false)
     {
         foreach (GameObject drop in drops)
-            Instantiate(drop, transform.position, Quaternion.identity);
-        _renderer.sprite = destroyObject;
-        Destroy(this);
-    }
+            Instantiate(drop, transform.position + new Vector3(0,0,-0.05f), drop.transform.rotation);
 
+        if (_renderer != null)
+        {
+            _renderer.sprite = destroyObject;
+            Destroy(this);
+        }
+        else
+            Destroy(gameObject);
+    }
 }
