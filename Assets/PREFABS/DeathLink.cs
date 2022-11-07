@@ -24,6 +24,7 @@ public class DeathLink : RadiusLink
     {
         yield return new WaitForSeconds(deathStatus.duration/3);
         EntityStats stats = holder.GetComponent<PlayerInput>().stats;
+        Destroy(gameObject);
         stats.animator.enabled = true;
         yield return new WaitForSeconds(deathStatus.duration/4);
         stats.isDead = false;

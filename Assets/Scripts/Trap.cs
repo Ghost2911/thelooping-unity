@@ -12,7 +12,6 @@ public class Trap : MonoBehaviour
     private Animator _anim;
     private bool isActive = false;
 
-
     void Start()
     {
         _anim = GetComponent<Animator>();
@@ -53,7 +52,7 @@ public class Trap : MonoBehaviour
                     target.transform.position = transform.position;
                     stats.animator.SetBool("isRun", false);
                 }
-                if (trapStatus!=null)
+                if (trapStatus != null)
                     stats.AddStatus(trapStatus);
             }
             else
@@ -65,7 +64,10 @@ public class Trap : MonoBehaviour
     {
         while (true)
         {
-            _anim.SetTrigger("Attack");
+            if (_anim != null)
+                _anim.SetTrigger("Attack");
+            else
+                TakeDamage();
             yield return new WaitForSeconds(cooldown);
             if (trapTargets.Count == 0)
             {

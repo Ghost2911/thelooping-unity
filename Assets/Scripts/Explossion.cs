@@ -7,16 +7,24 @@ public class Explossion : MonoBehaviour
     public StatusData status;
     public Transform owner;
 
-    private void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        Debug.Log("Explossion collider trigger - " + other.gameObject);
-        if (other.transform != owner)
-        {
-            IDamageable damagable = other.GetComponent<IDamageable>();
-            IStatusable statusable = other.GetComponent<IStatusable>();
+        Destroy(gameObject,GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+    }
+    public void TakeDamage()
+    {
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, 1f);
 
-            damagable?.Damage(damage, knockbackForce, new Vector3(Random.Range(-1, 1), 0f, Random.Range(-1, 1)).normalized, Color.red);
-            if (status!=null) statusable?.AddStatus(status);
+        foreach (Collider other in hitEnemies)
+        {
+            if (other.transform != owner)
+            {
+                IDamageable damagable = other.GetComponent<IDamageable>();
+                IStatusable statusable = other.GetComponent<IStatusable>();
+
+                damagable?.Damage(damage, knockbackForce, new Vector3(Random.Range(-1, 1), 0f, Random.Range(-1, 1)).normalized, Color.red);
+                if (status != null) statusable?.AddStatus(status);
+            }
         }
     }
 

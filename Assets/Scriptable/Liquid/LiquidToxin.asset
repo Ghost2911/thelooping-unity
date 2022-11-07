@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ef5914d1592324e83d54ca7e918711, type: 3}
+  m_Name: LiquidToxin
+  m_EditorClassIdentifier: 
+  name: Toxin
+  sprite: {fileID: 21300000, guid: 0f99268e0a0fe2a41920dbdefc8dca5f, type: 3}
+  color: {r: 0.40784314, g: 1, b: 0.34117648, a: 0.54901963}
+  stateTransitionOptions:
+  - {fileID: 11400000, guid: c13bfa72144b15f40a80be02ba85e408, type: 2}
+  - {fileID: 11400000, guid: 3c71fdf168248e746bbfb17a30eca7cf, type: 2}
+  statusTransitionCondition: {fileID: 11400000, guid: 97c5eb6bee777444ca55383beffc4736, type: 2}
+  statusOnStay: {fileID: 11400000, guid: 97c5eb6bee777444ca55383beffc4736, type: 2}
+  statusOnStart: {fileID: 11400000, guid: 45614f36d40ca90478733a06c0a0ad7f, type: 2}

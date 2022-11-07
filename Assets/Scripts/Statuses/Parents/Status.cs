@@ -10,12 +10,6 @@ public abstract class Status : MonoBehaviour
     protected Animator statusAnimator;
     protected Animator targetAnimator;
 
-    private void Start()
-    {
-        if (statusData != null)
-            Init(statusData);
-    }
-
     public void Init(StatusData status)
     {
         statusData = status;
@@ -53,7 +47,8 @@ public abstract class Status : MonoBehaviour
     {
         if (statusAnimator.runtimeAnimatorController == statusData.animator)
             statusAnimator.runtimeAnimatorController = null;
-        target.statusEffects.Remove(this);
+        if (target!=null)
+            target.statusEffects.Remove(this);
     }
 
     public abstract void Tick();

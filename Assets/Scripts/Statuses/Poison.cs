@@ -2,18 +2,19 @@ using UnityEngine;
 
 public class Poison : Status
 {
-    const float slowMultiplier = 2f;
+    public float slowMultiplier;
 
     public override void OnActivate()
     {
-        targetAnimator.speed = targetAnimator.speed / slowMultiplier;
-        target.speedMultiplier = target.speedMultiplier / slowMultiplier;
+        slowMultiplier = target.speedMultiplier / 4f;
+        targetAnimator.speed = targetAnimator.speed - slowMultiplier;
+        target.speedMultiplier = target.speedMultiplier - slowMultiplier;
     }
 
     void OnDisable()
     {
-        targetAnimator.speed = targetAnimator.speed * slowMultiplier;
-        target.speedMultiplier = target.speedMultiplier * slowMultiplier;
+        targetAnimator.speed = targetAnimator.speed + slowMultiplier;
+        target.speedMultiplier = target.speedMultiplier + slowMultiplier;
     }
 
     public override void Tick() 

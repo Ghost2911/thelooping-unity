@@ -31,13 +31,9 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
 
     public int[] resistance = {0,0,0,0};
 
-    [HideInInspector]
     public int regenMultiplier = 1; 
-    [HideInInspector]
     public float speedMultiplier = 1f;
-    [HideInInspector]
     public float attackMultiplier = 1f;
-    [HideInInspector]
     public float armorMultiplier = 1f;
     [HideInInspector]
     public Vector3 direction = Vector3.right;
@@ -72,10 +68,13 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
         {
             if (knockbackPower != 0)
                 StartCoroutine(Knockback(direction, knockbackPower*knockbackMultiplier));
-            StartCoroutine(DamageColor(blindColor));
-            int resultDamage = (ignoreArmor)?damage:System.Convert.ToInt32(damage *(1-armor/20f));
-            DamageTakeEvent.Invoke(damageSource);
-            Health -= resultDamage;
+            if (damage != 0)
+            {
+                StartCoroutine(DamageColor(blindColor));
+                int resultDamage = (ignoreArmor) ? damage : System.Convert.ToInt32(damage * (1 - armor / 20f));
+                DamageTakeEvent.Invoke(damageSource);
+                Health -= resultDamage;
+            }
         }
     }
 
@@ -121,12 +120,9 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
         {
             System.Type statusType = System.Type.GetType(statusData.type.ToString());
             Status statusOnEntity = GetComponent(statusType) as Status;
-
-            if (statusOnEntity != null)
-                statusData.duration = statusData.duration*statusDurationMultiplier;
-            else
-            {
-                statusData.duration = statusData.duration*statusDurationMultiplier;
+            statusData.duration *= statusDurationMultiplier;
+            if (statusOnEntity == null)
+            { 
                 Status status = gameObject.AddComponent(statusType) as Status;
                 status.Init(statusData);
             }
