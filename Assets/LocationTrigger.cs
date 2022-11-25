@@ -1,10 +1,14 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LocationTrigger : MonoBehaviour
 {
     public string locationName = "???";
     public Sprite locationImage;
+    public AudioClip soundtrack;
+    public Transform cameraPosition;
     public bool isBoss = false;
+    public UnityEvent OnLocationEnter;
 
     private void Start()
     {
@@ -16,9 +20,29 @@ public class LocationTrigger : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
             LocationPresentor.instance.ShowLocationName(locationName);
+            Statistic.instance.OnEnterInArea(locationName);
+            OnLocationEnter.Invoke();
+            if (soundtrack != null)
+                GlobalSettings.instance.ChangeBackgroundSoundtrack(soundtrack);
+            if (cameraPosition != null)
+                GlobalSettings.instance.SetCameraTraget(cameraPosition);
+        }
     }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (soundtrack != null)
+                GlobalSettings.instance.ChangeBackgroundSoundtrack(null);
+            if (cameraPosition != null)
+                GlobalSettings.instance.SetCameraTraget(other.transform);
+        }
+    }
+
 }

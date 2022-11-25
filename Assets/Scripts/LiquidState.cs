@@ -5,6 +5,7 @@ public class LiquidState: ScriptableObject
 {
     public string name;
     public Sprite sprite;
+    public RuntimeAnimatorController animator;
     public Color color;
     public LiquidState[] stateTransitionOptions;
     public StatusData statusTransitionCondition;

@@ -8,19 +8,17 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
     public string entityName;
     public bool isDead = false;
     public bool isStunned = false;
-    public bool isInvulnerability = false;
+    public bool ignoreDamage = false;
+    public bool ignoreStatus = false;
     public float attackKnockback = 20f;
 
-    [HideInInspector]
     public UnityEvent<int> HealthChangeEvent;
-    [HideInInspector]
     public UnityEvent DeathEvent;
-    [HideInInspector]
     public UnityEvent MoveEvent;
-    [HideInInspector]
     public UnityEvent AttackEvent;
-    [HideInInspector]
+    public UnityEvent<StatusData> StatusTakeEvent;
     public UnityEvent<EntityStats> DamageTakeEvent;
+    public UnityEvent<EntityStats> LethalDamageEvent;
 
     public int armor = 10;
     public int attack = 10;
@@ -43,10 +41,13 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
     public float knockbackMultiplier = 1f;
     public float statusDurationMultiplier = 1f;
 
+    public IUsable usableItem;
+    public Transform usableItemSlot;
+
     public Animator animator;
     public StatusData[] startStatuses;
     public List<Status> statusEffects;
-    private SpriteRenderer _render;
+    protected SpriteRenderer _render;
 
     public void Awake()
     {
@@ -54,7 +55,6 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
         animator.enabled = !isDead;
         _render = GetComponent<SpriteRenderer>();
         health = maxHealth;
-        knockbackMultiplier = speed / 20f;
         StartCoroutine(HealthRegeneration());
         StartCoroutine(EvasionColor());
 
@@ -64,7 +64,7 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
 
     public void Damage(int damage, float knockbackPower, Vector3 direction, Color blindColor, EntityStats damageSource = null, bool ignoreArmor=false)
     {
-        if (!isInvulnerability)
+        if (!ignoreDamage)
         {
             if (knockbackPower != 0)
                 StartCoroutine(Knockback(direction, knockbackPower*knockbackMultiplier));
@@ -73,7 +73,11 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
                 StartCoroutine(DamageColor(blindColor));
                 int resultDamage = (ignoreArmor) ? damage : System.Convert.ToInt32(damage * (1 - armor / 20f));
                 DamageTakeEvent.Invoke(damageSource);
+                if (Health - resultDamage <= 0)
+                    LethalDamageEvent.Invoke(damageSource);
                 Health -= resultDamage;
+                if (isDead || damageSource != null)
+                    Statistic.instance.OnDestroyObject(damageSource?.name,entityName);
             }
         }
     }
@@ -116,16 +120,20 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
 
     public void AddStatus(StatusData statusData)
     {
-        if (!isInvulnerability)
+        if (!ignoreDamage)
         {
-            System.Type statusType = System.Type.GetType(statusData.type.ToString());
-            Status statusOnEntity = GetComponent(statusType) as Status;
-            statusData.duration *= statusDurationMultiplier;
-            if (statusOnEntity == null)
-            { 
-                Status status = gameObject.AddComponent(statusType) as Status;
-                status.Init(statusData);
+            if (!ignoreStatus)
+            {
+                System.Type statusType = System.Type.GetType(statusData.type.ToString());
+                Status statusOnEntity = GetComponent(statusType) as Status;
+                statusData.duration *= statusDurationMultiplier;
+                if (statusOnEntity == null)
+                {
+                    Status status = gameObject.AddComponent(statusType) as Status;
+                    status.Init(statusData);
+                }
             }
+            StatusTakeEvent.Invoke(statusData);
         }
     }
 
@@ -158,6 +166,7 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
                     foreach (Status status in statusEffects)
                         Destroy(status);
                     animator.SetTrigger("Death");
+                    DeathEvent.Invoke();
                     isStunned = true;
                     isDead = true;
                 }

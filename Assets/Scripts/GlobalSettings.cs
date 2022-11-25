@@ -14,11 +14,16 @@ public class GlobalSettings : MonoBehaviour
     public List<GameObject> characters;
     public static GlobalSettings instance;
     public bool isTutorial = false;
+    public AudioClip defaultSoundtrack;
+    private AudioSource audioSource;
+    private CameraFollow cameraFollow;
 
     private void Awake()
     {
         instance = this;
         FindAllPlayableCharacters();
+        audioSource = GetComponent<AudioSource>();
+        cameraFollow = Camera.main.GetComponent<CameraFollow>();
     }
 
     private void Start()
@@ -26,16 +31,28 @@ public class GlobalSettings : MonoBehaviour
         Invoke("CreateCharacter", 1f);
     }
 
+    public void ChangeBackgroundSoundtrack(AudioClip clip)
+    {
+        if (clip == null)
+            clip = defaultSoundtrack;
+
+        if (audioSource.clip != clip)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();
+        }
+    }
+
     public void CreateCharacter()
     {
         int characterNum = (isTutorial)?0:Random.Range(0, characters.Count);
 
         PlayerInput player = characters[characterNum].GetComponent<PlayerInput>();
-        Camera.main.GetComponent<CameraFollow>().target = player.transform;
+        SetCameraTraget(player.transform);
         player.joystick = joystick;
-        player.btnAttack = btnAttack;
-        player.btnFlip = btnFlip;
-        player.btnUse = btnUse;
+        btnAttack.onClick.AddListener(player.AttackButtonClick);
+        btnFlip.onClick.AddListener(player.FlipButtonClick);
+        btnUse.onClick.AddListener(player.UseButtonClick);
         player.enabled = true;
         player.stats.HealthChangeEvent.AddListener(healthPresentor.ChangeValue);
         healthPresentor.ChangeValue(player.stats.Health);
@@ -49,6 +66,11 @@ public class GlobalSettings : MonoBehaviour
             characters.AddRange(GameObject.FindGameObjectsWithTag("Player"));
         foreach (GameObject playableCharacter in characters)
             playableCharacter.GetComponent<PlayerInput>().enabled = false;
+    }
+
+    public void SetCameraTraget(Transform target)
+    {
+        cameraFollow.target = target;
     }
 
     public void Leave()

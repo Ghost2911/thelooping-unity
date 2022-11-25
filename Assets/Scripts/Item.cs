@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class Item : MonoBehaviour
+public class Item : MonoBehaviour, IUsable
 {
     public ItemStats stats;
     public bool inMarket = false;
@@ -20,7 +20,7 @@ public class Item : MonoBehaviour
             stats.additiveValue.ToString().PadLeft(2,'0'),  stats.type.ToString(), stats.costPrice.ToString().PadLeft(2, '0'), stats.costItem.type.ToString());
     }
 
-    private void OnMouseUp()
+    public void Use(EntityStats entityStats)
     {
         if (isShow)
         {
@@ -33,7 +33,7 @@ public class Item : MonoBehaviour
                 }
                 else
                 {  
-                    //отмена покупки - анимация нехватки ресурса
+                    //buy cancel
                 }
             }
             else

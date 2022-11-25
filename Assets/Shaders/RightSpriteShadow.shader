@@ -9,6 +9,8 @@ Shader "Custom/RightSpriteShadow" {
 		{ 
 			"Queue"="Geometry"
 			"RenderType"="TransparentCutout"
+			"PreviewType"="Plane"
+            "CanUseSpriteAtlas"="True"
 		}
 		LOD 50
 

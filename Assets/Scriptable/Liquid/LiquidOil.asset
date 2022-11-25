@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: LiquidOil
   m_EditorClassIdentifier: 
   name: Oil
-  sprite: {fileID: 21300000, guid: d262888d7b04cac469d32bf40a08e4c5, type: 3}
+  sprite: {fileID: 21300000, guid: 30a32ce4c95d1164d888ed45f4cf1f55, type: 3}
+  animator: {fileID: 0}
   color: {r: 0, g: 0, b: 0, a: 0.9019608}
   stateTransitionOptions:
   - {fileID: 11400000, guid: 3c71fdf168248e746bbfb17a30eca7cf, type: 2}
   - {fileID: 11400000, guid: c13bfa72144b15f40a80be02ba85e408, type: 2}
   statusTransitionCondition: {fileID: 11400000, guid: 9b1c0b5e38ab37b4282258d3ac41cf1d, type: 2}
-  statusOnStay: {fileID: 11400000, guid: c1b6ba9d4c0396242bd56acfabf38343, type: 2}
+  statusOnStay: {fileID: 11400000, guid: 3f660e3464189d04685cbe8e6ab09439, type: 2}
   statusOnStart: {fileID: 0}

@@ -184,10 +184,11 @@ public class Unit : MonoBehaviour
 		foreach (Collider enemy in hitEnemies)
 			if (enemy.tag == enemyTag && enemy.transform.root != transform)
 			{
-				EntityStats entity = enemy.GetComponent<EntityStats>();
-				entity.Damage((int)(stats.attack * stats.attackMultiplier), 0f, Vector3.zero, Color.red, stats);
+				IDamageable damageable = enemy.GetComponent<IDamageable>();
+				IStatusable statusable = enemy.GetComponent<IStatusable>();
+				damageable?.Damage((int)(stats.attack * stats.attackMultiplier), 0f, Vector3.zero, Color.red, stats);
 				if (weaponStatus != null)
-					entity.AddStatus(weaponStatus);
+					statusable?.AddStatus(weaponStatus);
 			}
 	}
 
@@ -204,7 +205,6 @@ public class Unit : MonoBehaviour
 
 	private void CreateDeadBody()
 	{
-		stats.DeathEvent.Invoke();
 		StopAllCoroutines();
 		foreach (GameObject drop in drops)
 			Instantiate(drop, transform.position, new Quaternion(0f, 0f, 0f, 0f));

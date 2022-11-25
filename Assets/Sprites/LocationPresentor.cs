@@ -22,7 +22,7 @@ public class LocationPresentor : MonoBehaviour
     {
         if (_cor == null)
         {
-            _textMesh.text = "~ " + locationName + " ~";
+            _textMesh.text = $"~ {locationName} ~";
             _cor = StartCoroutine(ActivateAnimator());
         }
     }

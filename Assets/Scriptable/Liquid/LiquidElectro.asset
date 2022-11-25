@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ef5914d1592324e83d54ca7e918711, type: 3}
+  m_Name: LiquidElectro
+  m_EditorClassIdentifier: 
+  name: 
+  sprite: {fileID: -2182567828995135426, guid: d262888d7b04cac469d32bf40a08e4c5, type: 3}
+  animator: {fileID: 22100000, guid: bde76890644a647479dbb2f727d47c12, type: 2}
+  color: {r: 0.4862745, g: 0.9137255, b: 1, a: 0.69803923}
+  stateTransitionOptions:
+  - {fileID: 11400000, guid: fffbf3de9af135a4b9c969e6e52e2589, type: 2}
+  statusTransitionCondition: {fileID: 11400000, guid: 9b1c0b5e38ab37b4282258d3ac41cf1d, type: 2}
+  statusOnStay: {fileID: 11400000, guid: 9b1c0b5e38ab37b4282258d3ac41cf1d, type: 2}
+  statusOnStart: {fileID: 0}

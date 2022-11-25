@@ -45,8 +45,13 @@ public abstract class Status : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (statusAnimator.runtimeAnimatorController == statusData.animator)
-            statusAnimator.runtimeAnimatorController = null;
+        if (statusAnimator != null)
+        {
+            if (statusAnimator.runtimeAnimatorController == statusData.animator)
+            {
+                statusAnimator.runtimeAnimatorController = null;
+            }
+        }
         if (target!=null)
             target.statusEffects.Remove(this);
     }

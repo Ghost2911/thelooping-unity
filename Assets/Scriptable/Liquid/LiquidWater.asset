@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: LiquidWater
   m_EditorClassIdentifier: 
   name: Water
-  sprite: {fileID: 21300000, guid: d262888d7b04cac469d32bf40a08e4c5, type: 3}
-  color: {r: 0, g: 0.57254905, b: 0.68235296, a: 0.7058824}
+  sprite: {fileID: 21300000, guid: 30a32ce4c95d1164d888ed45f4cf1f55, type: 3}
+  animator: {fileID: 0}
+  color: {r: 0.29803923, g: 0.8, b: 1, a: 0.8}
   stateTransitionOptions:
   - {fileID: 11400000, guid: c13bfa72144b15f40a80be02ba85e408, type: 2}
+  - {fileID: 11400000, guid: 1d70b2763105efe4386dbeb77694731b, type: 2}
+  - {fileID: 11400000, guid: 1a48ce206eb44284288e32abc64e4490, type: 2}
   statusTransitionCondition: {fileID: 11400000, guid: 0d59f08cf3ec96746a998ab4b1423d40, type: 2}
   statusOnStay: {fileID: 0}
   statusOnStart: {fileID: 0}

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 5936679865047590874}
   - component: {fileID: 5936679865047590879}
   - component: {fileID: 5936679865047590876}
+  - component: {fileID: 1173839850140362304}
+  - component: {fileID: 644009560866522099}
   - component: {fileID: 5936679865047590877}
   m_Layer: 0
   m_Name: barmaid
@@ -103,6 +105,86 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1173839850140362304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5936679865047590875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d3d6b164764ad4f871507abfc97c6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageBubble: {fileID: 0}
+  messageOnTakeDamage: "\u0434\u044F\u0434\u044F \u043D\u0435 \u043D\u0430\u0434\u043E"
+--- !u!114 &644009560866522099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5936679865047590875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5191b31c34c584fa1198a17c0f6f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityName: 
+  isDead: 0
+  isStunned: 0
+  isInvulnerability: 0
+  attackKnockback: 20
+  HealthChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  DeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  MoveEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AttackEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  DamageTakeEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1173839850140362304}
+        m_TargetAssemblyTypeName: NPC, Assembly-CSharp
+        m_MethodName: MessageOnTakeDamage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  LethalDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  armor: 10
+  attack: 10
+  attackCooldown: 1
+  speed: 10
+  regenValue: 1
+  regenRefreshTime: 5
+  resistance: 00000000000000000000000000000000
+  regenMultiplier: 1
+  speedMultiplier: 1
+  attackMultiplier: 1
+  armorMultiplier: 1
+  direction: {x: 1, y: 0, z: 0}
+  maxHealth: 12
+  knockbackMultiplier: 1
+  statusDurationMultiplier: 1
+  usableItemSlot: {fileID: 0}
+  animator: {fileID: 0}
+  startStatuses: []
+  statusEffects: []
 --- !u!65 &5936679865047590877
 BoxCollider:
   m_ObjectHideFlags: 0

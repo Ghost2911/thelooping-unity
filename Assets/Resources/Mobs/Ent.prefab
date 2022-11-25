@@ -281,6 +281,9 @@ MonoBehaviour:
   DamageTakeEvent:
     m_PersistentCalls:
       m_Calls: []
+  LethalDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
   armor: 2
   attack: 8
   attackCooldown: 1.5
@@ -296,6 +299,7 @@ MonoBehaviour:
   maxHealth: 10
   knockbackMultiplier: 1
   statusDurationMultiplier: 1
+  usableItemSlot: {fileID: 0}
   animator: {fileID: 0}
   startStatuses: []
   statusEffects: []

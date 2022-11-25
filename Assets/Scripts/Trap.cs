@@ -17,11 +17,10 @@ public class Trap : MonoBehaviour
         _anim = GetComponent<Animator>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") || other.CompareTag("enemy"))
         {
-            Debug.Log("Trap - enter");
             trapTargets.Add(other.gameObject);
             if (!isActive)
             {
@@ -31,7 +30,7 @@ public class Trap : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player") || other.CompareTag("enemy"))
         {
