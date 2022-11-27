@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 838895365}
   m_Layer: 0
   m_Name: LiquidToxin
-  m_TagString: Untagged
+  m_TagString: liquid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 8529053206586530202}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 32.84, y: 0.01, z: 95.14}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 4228339564776338952, guid: d262888d7b04cac469d32bf40a08e4c5, type: 3}
-  m_Color: {r: 0.48584908, g: 0.91464955, b: 1, a: 0.69803923}
+  m_Color: {r: 0.14108609, g: 0.3018868, b: 0.035599854, a: 0.92941177}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 0
@@ -114,10 +114,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 1.08
-  m_Height: 4.06
+  m_Radius: 0.88722193
+  m_Height: 2.692192
   m_Direction: 0
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0.059906006, y: 0.100277066, z: -3.513336e-16}
 --- !u!54 &838895370
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -128,7 +128,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 0.0000001
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0

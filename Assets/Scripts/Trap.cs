@@ -45,14 +45,17 @@ public class Trap : MonoBehaviour
             if (target != null)
             {
                 EntityStats stats = target.GetComponent<EntityStats>();
-                stats.Damage(trapDamage, 0f, Vector3.zero, Color.red);
-                if (isHold)
+                if (stats != null)
                 {
-                    target.transform.position = transform.position;
-                    stats.animator.SetBool("isRun", false);
+                    stats.Damage(trapDamage, 0f, Vector3.zero, Color.red);
+                    if (isHold)
+                    {
+                        target.transform.position = transform.position;
+                        stats.animator.SetBool("isRun", false);
+                    }
+                    if (trapStatus != null)
+                        stats.AddStatus(trapStatus);
                 }
-                if (trapStatus != null)
-                    stats.AddStatus(trapStatus);
             }
             else
                 trapTargets.Remove(target);

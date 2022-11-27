@@ -13,12 +13,18 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
     public float attackKnockback = 20f;
 
     public UnityEvent<int> HealthChangeEvent;
+    [HideInInspector]
     public UnityEvent DeathEvent;
+    [HideInInspector]
     public UnityEvent MoveEvent;
+    [HideInInspector]
     public UnityEvent AttackEvent;
+    [HideInInspector]
     public UnityEvent<StatusData> StatusTakeEvent;
+    [HideInInspector]
     public UnityEvent<EntityStats> DamageTakeEvent;
-    public UnityEvent<EntityStats> LethalDamageEvent;
+    [HideInInspector]
+    public UnityEvent<EntityStats> LethalDamageEvent; 
 
     public int armor = 10;
     public int attack = 10;

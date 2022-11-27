@@ -7,14 +7,16 @@ public class Liquid : Trap, IStatusable
     public LiquidState state;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+    private Vector3 maxSize;
     private List<Liquid> contactLiquids = new List<Liquid>();
 
     void Start()
     {
+        maxSize = transform.localScale;
         transform.localScale = Vector3.zero;
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        StartCoroutine(LiquidResizeTo(new Vector3(2, 2, 2)));
+        StartCoroutine(LiquidResizeTo(maxSize));
         ChangeState(state);
     }
 
