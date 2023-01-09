@@ -3,9 +3,12 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 
 public class GlobalSettings : MonoBehaviour
 {
+    public PlayerInput player;
+    public ColorChanger playerColor;
     public FloatingJoystick joystick;
     public Button btnAttack;
     public Button btnFlip;
@@ -16,7 +19,8 @@ public class GlobalSettings : MonoBehaviour
     public bool isTutorial = false;
     public AudioClip defaultSoundtrack;
     private AudioSource audioSource;
-    private CameraFollow cameraFollow;
+    private CameraFollow cameraFollow; 
+    public ItemPool itemPool;
 
     private void Awake()
     {
@@ -24,6 +28,7 @@ public class GlobalSettings : MonoBehaviour
         FindAllPlayableCharacters();
         audioSource = GetComponent<AudioSource>();
         cameraFollow = Camera.main.GetComponent<CameraFollow>();
+        itemPool = new ItemPool();
     }
 
     private void Start()
@@ -47,7 +52,8 @@ public class GlobalSettings : MonoBehaviour
     {
         int characterNum = (isTutorial)?0:Random.Range(0, characters.Count);
 
-        PlayerInput player = characters[characterNum].GetComponent<PlayerInput>();
+        player = characters[characterNum].GetComponent<PlayerInput>();
+        playerColor = characters[characterNum].GetComponent<ColorChanger>();
         SetCameraTraget(player.transform);
         player.joystick = joystick;
         btnAttack.onClick.AddListener(player.AttackButtonClick);
@@ -79,3 +85,4 @@ public class GlobalSettings : MonoBehaviour
     }
 
 }
+

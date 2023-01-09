@@ -498,6 +498,7 @@ GameObject:
   - component: {fileID: 4535074620412050727}
   - component: {fileID: 4535074620412050726}
   - component: {fileID: 4535074620412050721}
+  - component: {fileID: -2438497851002049065}
   m_Layer: 0
   m_Name: _DEADICEWAR
   m_TagString: Player
@@ -543,7 +544,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 644dbed82d2ba4f0f9aa330b3b984eab, type: 2}
+  - {fileID: 2100000, guid: cdd995c0e6f670642b472819806c3578, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -607,7 +608,8 @@ MonoBehaviour:
   entityName: ???
   isDead: 1
   isStunned: 0
-  isInvulnerability: 1
+  ignoreDamage: 0
+  ignoreStatus: 0
   attackKnockback: 10
   HealthChangeEvent:
     m_PersistentCalls:
@@ -619,6 +621,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   AttackEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  StatusTakeEvent:
     m_PersistentCalls:
       m_Calls: []
   DamageTakeEvent:
@@ -683,6 +688,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-2438497851002049065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4535074620412050720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d2c1087b8c03654e94f87600d1e7bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 0}
+  paintColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &4535074620442170162
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,13 +1,14 @@
 using UnityEngine;
 
-public class Lootbox : MonoBehaviour, IDamageable, IUsable
+public class Lootbox : MonoBehaviour, IDamageable
 {
     public int Health { get; set; }
     public GameObject[] drops;
     public Sprite destroyObject;
+    public int hitCount = 1;
+    public bool randomizeDrop = false;
     private SpriteRenderer _renderer;
-    private Collider _collider;
-    private bool isUse = false;
+    protected Collider _collider;
     private bool dropRecieved = false;
 
     void Start()
@@ -20,37 +21,23 @@ public class Lootbox : MonoBehaviour, IDamageable, IUsable
     {
         if (!dropRecieved)
         {
-            foreach (GameObject drop in drops)
-                Instantiate(drop, new Vector3(transform.position.x, 0.05f, transform.position.z), drop.transform.rotation);
-
-            if (destroyObject != null)
+            hitCount--;
+            for (int i=0;i<drops.Length;i++)
             {
-                Statistic.instance?.OnDestroyObject(damageSource?.name,gameObject.name);
-                _renderer.sprite = destroyObject;
+                if (Random.Range(0,2)>0 || !randomizeDrop)
+                    Instantiate(drops[i], new Vector3(transform.position.x, 0.05f, transform.position.z), drops[i].transform.rotation);
             }
 
-            dropRecieved = true;
-        }
-    }
+            if (hitCount <= 0)
+            {
+                Statistic.instance?.OnDestroyObject(damageSource?.name,gameObject.name);
+                if (destroyObject != null)
+                    _renderer.sprite = destroyObject;
+                else
+                    Destroy(gameObject);
 
-    public void Use(EntityStats entity)
-    {
-        if (!isUse)
-        {
-            entity.usableItem = this;
-            _collider.enabled = false;
-            transform.SetParent(entity.usableItemSlot);
-            transform.localPosition = new Vector3(0, 0, 0);
-            transform.rotation = entity.usableItemSlot.rotation;
-            transform.GetComponentInChildren<Collider>().enabled = false;
+                dropRecieved = true;
+            } 
         }
-        else
-        {
-            entity.usableItem = null;
-            transform.SetParent(null);
-            _collider.enabled = true;
-            gameObject.AddComponent<ArcFlight>().target = entity.transform.position + entity.direction * 5f;
-        }
-        isUse = !isUse;
     }
 }

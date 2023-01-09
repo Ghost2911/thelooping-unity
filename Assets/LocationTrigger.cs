@@ -9,6 +9,7 @@ public class LocationTrigger : MonoBehaviour
     public Transform cameraPosition;
     public bool isBoss = false;
     public UnityEvent OnLocationEnter;
+    public UnityEvent OnLocationExit;
 
     private void Start()
     {
@@ -38,6 +39,7 @@ public class LocationTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            OnLocationExit.Invoke();
             if (soundtrack != null)
                 GlobalSettings.instance.ChangeBackgroundSoundtrack(null);
             if (cameraPosition != null)

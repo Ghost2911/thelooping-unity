@@ -1198,9 +1198,9 @@ GameObject:
   - component: {fileID: 7470829751136829994}
   - component: {fileID: 7470829751136829993}
   - component: {fileID: 7954129182971974363}
-  - component: {fileID: 7470829751136829997}
   - component: {fileID: 7470829751136829992}
   - component: {fileID: 7470829751136829999}
+  - component: {fileID: 817841925081102848}
   m_Layer: 0
   m_Name: _DARKCHAR
   m_TagString: Player
@@ -1246,7 +1246,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 644dbed82d2ba4f0f9aa330b3b984eab, type: 2}
+  - {fileID: 2100000, guid: cdd995c0e6f670642b472819806c3578, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1310,7 +1310,8 @@ MonoBehaviour:
   entityName: ???
   isDead: 0
   isStunned: 0
-  isInvulnerability: 0
+  ignoreDamage: 0
+  ignoreStatus: 0
   attackKnockback: 10
   HealthChangeEvent:
     m_PersistentCalls:
@@ -1322,6 +1323,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   AttackEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  StatusTakeEvent:
     m_PersistentCalls:
       m_Calls: []
   DamageTakeEvent:
@@ -1349,22 +1353,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   startStatuses: []
   statusEffects: []
---- !u!114 &7470829751136829997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7470829751136829998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d2c1087b8c03654e94f87600d1e7bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterTexture2D: {fileID: 0}
-  replaceColor: {r: 1, g: 1, b: 1, a: 1}
-  updateColor: {r: 1, g: 0, b: 0, a: 1}
-  swapColor: 0
 --- !u!143 &7470829751136829992
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1402,6 +1390,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &817841925081102848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7470829751136829998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d2c1087b8c03654e94f87600d1e7bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 0}
+  paintColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &9006115447214888206
 GameObject:
   m_ObjectHideFlags: 0

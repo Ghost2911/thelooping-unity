@@ -8,14 +8,15 @@ public class CollectableItem : MonoBehaviour
 
     private Vector3 targetPosition;
     private BoxCollider _collider;
-    public float lootSpeed = 5f;
-    public float lootRange = 5f;
+    
+    const float lootSpeed = 3f;
+    const float lootRange = 3f;
 
     void Start()
     {
         _collider = GetComponent<BoxCollider>();
         _collider.enabled = false;
-        targetPosition = transform.position + RandomVector(-lootRange, lootRange);
+        targetPosition = new Vector3(transform.position.x,0,transform.position.z) + RandomVector(-lootRange, lootRange);
         GetComponentInChildren<SpriteRenderer>().sprite = icon;
         StartCoroutine(LootMove());
     }
@@ -35,7 +36,7 @@ public class CollectableItem : MonoBehaviour
     private Vector3 RandomVector(float min, float max)
     {
         var x = Random.Range(min, max);
-        var y = Random.Range(min, max);
-        return new Vector3(x, 0, y);
+        var y = Random.Range(1, max);
+        return new Vector3(x, 0.2f, -y);
     }
 }

@@ -50,6 +50,7 @@ Shader "Custom/ColorReplacement"
             fixed4 _Color1out;
             fixed4 _ColorIn2;
             fixed4 _Color2out;
+
             v2f vert(appdata_t IN)
             {
                 v2f OUT;

@@ -4,7 +4,7 @@ public class TotemPuzzle : MonoBehaviour
 {
     public Totem[] totems;
     public GameObject reward;
-    public enum RewardType {Door,Spawn};
+    public enum RewardType {Destroy,Spawn};
     public RewardType rewardType;
 
     public void CheckActivation()
@@ -14,14 +14,8 @@ public class TotemPuzzle : MonoBehaviour
                 return;
 
         if (rewardType == RewardType.Spawn)
-        {
             Instantiate(reward, transform.position, new Quaternion(0, 0, 0, 0));
-        }
         else
-        {
-            Door door = reward.GetComponent<Door>();
-            if (door != null)
-                door.ChangeState();
-        }
+            Destroy(reward);
     }
 }

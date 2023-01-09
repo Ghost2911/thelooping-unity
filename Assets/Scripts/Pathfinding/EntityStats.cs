@@ -13,18 +13,12 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
     public float attackKnockback = 20f;
 
     public UnityEvent<int> HealthChangeEvent;
-    [HideInInspector]
     public UnityEvent DeathEvent;
-    [HideInInspector]
     public UnityEvent MoveEvent;
-    [HideInInspector]
     public UnityEvent AttackEvent;
-    [HideInInspector]
     public UnityEvent<StatusData> StatusTakeEvent;
-    [HideInInspector]
     public UnityEvent<EntityStats> DamageTakeEvent;
-    [HideInInspector]
-    public UnityEvent<EntityStats> LethalDamageEvent; 
+    public UnityEvent<EntityStats> LethalDamageEvent;
 
     public int armor = 10;
     public int attack = 10;
@@ -100,6 +94,7 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
     IEnumerator Knockback(Vector3 direction, float power)
     {
         float timer = 0.2f;
+        direction = new Vector3(direction.x, 0f, direction.z);
         while (timer > 0)
         {
             timer -= Time.deltaTime;

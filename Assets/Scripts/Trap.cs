@@ -38,24 +38,21 @@ public class Trap : MonoBehaviour
         }
     }
 
-    private void TakeDamage()
+    protected virtual void TakeDamage()
     {
         foreach (GameObject target in trapTargets)
         {
             if (target != null)
             {
                 EntityStats stats = target.GetComponent<EntityStats>();
-                if (stats != null)
+                stats.Damage(trapDamage, 0f, Vector3.zero, Color.red);
+                if (isHold)
                 {
-                    stats.Damage(trapDamage, 0f, Vector3.zero, Color.red);
-                    if (isHold)
-                    {
-                        target.transform.position = transform.position;
-                        stats.animator.SetBool("isRun", false);
-                    }
-                    if (trapStatus != null)
-                        stats.AddStatus(trapStatus);
+                    target.transform.position = transform.position;
+                    stats.animator.SetBool("isRun", false);
                 }
+                if (trapStatus != null)
+                    stats.AddStatus(trapStatus);
             }
             else
                 trapTargets.Remove(target);

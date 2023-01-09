@@ -16,7 +16,6 @@ Shader "Custom/RightSpriteShadow" {
 
 		Cull Off
 		Lighting Off
-
 		CGPROGRAM
 
 		#pragma surface surf Lambert vertex:vert

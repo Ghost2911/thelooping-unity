@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4144095353345441074}
   - component: {fileID: 3353392820242434588}
   - component: {fileID: 7631841025855461163}
-  - component: {fileID: 2587272763960037038}
+  - component: {fileID: 7548415043707761336}
   m_Layer: 0
   m_Name: barrel
-  m_TagString: enemy
+  m_TagString: interactive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,9 +28,8 @@ Transform:
   m_GameObject: {fileID: 4144095353345441087}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 597.8, y: 0.05, z: 365.28}
-  m_LocalScale: {x: 0.33333334, y: 0.33333325, z: 0.33333325}
-  m_Children:
-  - {fileID: 3628647093853280397}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -99,7 +98,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2587272763960037038
+--- !u!114 &7548415043707761336
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,57 +107,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4144095353345441087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f482b7530728d2f419b7e3dcc290be67, type: 3}
+  m_Script: {fileID: 11500000, guid: 2cb31b83f76a8c74a90ac116b71f1a19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   drops:
   - {fileID: 729951761752943511, guid: 9d7dc057229c69345a66127629fb98ae, type: 3}
   - {fileID: 8417705277535482153, guid: 8eb96999c5fdcd148b3937c52552382b, type: 3}
-  - {fileID: 729951761752943511, guid: 9d7dc057229c69345a66127629fb98ae, type: 3}
   - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
+  - {fileID: 729951761752943511, guid: 9d7dc057229c69345a66127629fb98ae, type: 3}
   destroyObject: {fileID: -7538735397198048313, guid: 8c2367e4f4baf4342905c6a9809d172f, type: 3}
---- !u!1 &7453086513082310057
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3628647093853280397}
-  - component: {fileID: 4787323561459596887}
-  m_Layer: 0
-  m_Name: trigger
-  m_TagString: interactive
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3628647093853280397
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7453086513082310057}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4144095353345441074}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &4787323561459596887
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7453086513082310057}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 4
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}

@@ -46,6 +46,8 @@ public class Inventory : MonoBehaviour
             if (slot.type == itemStats.slotType)
             {
                 slot.Equip(itemStats);
+                if (itemStats.paintColor != new Color(0,0,0,0))
+                    GlobalSettings.instance.player.GetComponent<ColorChanger>().SwapColor(slot.type, itemStats.paintColor);
                 break;
             }
         }
@@ -79,7 +81,7 @@ public class Inventory : MonoBehaviour
 
     private void StatsPresentorUpdate()
     {
-        textmeshStats.text = String.Format("Attack\t{0}\nArmor\t{1}\nSpeed\t{2}\n", entityStats.attack* entityStats.attackMultiplier, entityStats.armor* entityStats.armorMultiplier, entityStats.speed* entityStats.speedMultiplier);
+        textmeshStats.text = String.Format("Attack\t{0}\nArmor\t{1}\nSpeed\t{2}\n", entityStats.attack*entityStats.attackMultiplier, entityStats.armor* entityStats.armorMultiplier, entityStats.speed* entityStats.speedMultiplier);
     }
 
     private void CollectableItemPresentorUpdate()

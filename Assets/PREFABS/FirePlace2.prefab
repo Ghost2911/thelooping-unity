@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4435106061252238841}
   - component: {fileID: 4435106061252238840}
   - component: {fileID: 4435106061252238823}
+  - component: {fileID: 6260980412524951914}
+  - component: {fileID: 3871829797011583781}
   m_Layer: 0
   m_Name: FirePlace2
   m_TagString: Untagged
@@ -102,3 +104,33 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &6260980412524951914
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4435106061252238822}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.539072, y: 3.0866685, z: 1.0872363}
+  m_Center: {x: 0.1813097, y: 1.5433342, z: 0.6976405}
+--- !u!114 &3871829797011583781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4435106061252238822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78328e86fd8f7f245a93f12450dde4ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 1
+  trapDamage: 1
+  trapStatus: {fileID: 11400000, guid: 0d59f08cf3ec96746a998ab4b1423d40, type: 2}
+  isHold: 0
+  trapTargets: []

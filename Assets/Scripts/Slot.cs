@@ -45,5 +45,6 @@ public class Slot : MonoBehaviour
         StatsChangeEvent.Invoke(itemStats.type, -itemStats.additiveValue);
         itemStats = null;
         Instantiate(dropItem, dropPosition, new Quaternion(0, 0, 0, 0));
+        GlobalSettings.instance.playerColor.SwapColor(type, Color.black);
     }
 }
