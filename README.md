@@ -1,3 +1,3 @@
 # thelooping-unity
 Work in progress...
-![til](gif_animation.gif)
+![](gif_animation.gif)
