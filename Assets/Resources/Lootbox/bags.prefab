@@ -78,7 +78,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.25, y: 1.05}
+  m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -109,10 +109,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f482b7530728d2f419b7e3dcc290be67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drops:
-  - {fileID: 729951761752943511, guid: 9d7dc057229c69345a66127629fb98ae, type: 3}
-  - {fileID: 8417705277535482153, guid: 8eb96999c5fdcd148b3937c52552382b, type: 3}
-  - {fileID: 729951761752943511, guid: 9d7dc057229c69345a66127629fb98ae, type: 3}
-  - {fileID: 8417705277535482153, guid: 8eb96999c5fdcd148b3937c52552382b, type: 3}
+  dropOnHit: []
+  dropOnDestroy:
   - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
+  - {fileID: 8417705277535482153, guid: 8eb96999c5fdcd148b3937c52552382b, type: 3}
+  - {fileID: 729951761752943511, guid: 9d7dc057229c69345a66127629fb98ae, type: 3}
   destroyObject: {fileID: 0}
+  hitCount: 1
+  randomizeDrop: 0
