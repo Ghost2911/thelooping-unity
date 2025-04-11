@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0.99999905, b: 0.99999905, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -214,13 +214,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &215984679 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4349321970078656420, guid: 808392abc88714341b7154f726637a61, type: 3}
-  m_PrefabInstance: {fileID: 4349321970283220355}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &342538971 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4349321970490423128, guid: 808392abc88714341b7154f726637a61, type: 3}
@@ -359,7 +354,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726900025}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -5}
   m_LocalScale: {x: 1.25, y: 1, z: 1.25}
   m_Children:
   - {fileID: 974394143}
@@ -444,7 +439,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &963194229 stripped
 MonoBehaviour:
@@ -520,7 +515,7 @@ PrefabInstance:
     - target: {fileID: 195946255169707019, guid: 140758c41f2a3934481581a41861ca30, type: 3}
       propertyPath: waitPanel
       value: 
-      objectReference: {fileID: 215984679}
+      objectReference: {fileID: 0}
     - target: {fileID: 195946255169707019, guid: 140758c41f2a3934481581a41861ca30, type: 3}
       propertyPath: chessCamera
       value: 

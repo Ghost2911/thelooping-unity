@@ -2,20 +2,25 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Advanced 3D Skew
-  m_Shader: {fileID: 4800000, guid: ad5f26e46f57242478ff08e7f183cc25, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_Shader: {fileID: 4800000, guid: ef0390e89cd02b549b1ea3c921cc8bd2, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 1
+  m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -51,18 +56,31 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - PixelSnap: 0
     - _AlphaClip: 0
     - _Blend: 0
     - _Cutoff: 0.5
+    - _DiffuseIntensity: 1
+    - _DiffusePower: 1.109
     - _DstBlend: 0
     - _EnableExternalAlpha: 0
     - _HorizontalSkew: 0
+    - _Offset: 0
     - _QueueOffset: 0
+    - _RimPower: 2.77
+    - _RotateAngle: 0
     - _SampleGI: 0
     - _ScaleX: 1
     - _ScaleY: 1
+    - _ShadowIntensity: 0.5
+    - _ShadowLength: 0.2
+    - _ShadowOffset: 0
+    - _ShadowOffsetX: 0.1
+    - _ShadowOffsetZ: 0.1
+    - _SpecularIntensity: 0
+    - _SpecularPower: 1
     - _SrcBlend: 1
     - _Surface: 0
     - _VerticalSkew: 0
@@ -71,4 +89,6 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 0, b: 0, a: 1}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1

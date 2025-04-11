@@ -10,6 +10,12 @@ public class CameraFollow : MonoBehaviour
     public Vector3 Offset = new Vector3(0f, 10f, -10f);
     private Vector3 velocity = Vector3.zero;
 
+    private void Start()
+    {
+        Camera.main.transparencySortMode = TransparencySortMode.CustomAxis;
+        Camera.main.transparencySortAxis = new Vector3(0, 0, 1);
+    }
+
     private void LateUpdate()
     {
         if (target != null)
@@ -23,4 +29,5 @@ public class CameraFollow : MonoBehaviour
     {
         camTransform.position = camTransform.position - camTransform.up * shakeMagnitude;
     }
+
 }

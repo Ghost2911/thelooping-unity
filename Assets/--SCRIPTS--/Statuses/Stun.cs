@@ -7,7 +7,7 @@ public class Stun : Status
     public override void OnActivate()
     {
         startScale = target.transform.localScale;
-        StartCoroutine(HitAnimation(target.transform));
+        //StartCoroutine(HitAnimation(target.transform));
         target.isStunned = true;
         targetAnimator.speed -= 1;
     }
@@ -18,9 +18,13 @@ public class Stun : Status
         targetAnimator.speed +=1;
         target.transform.localScale = startScale;
     }
+    
+    public override void Tick() { }
 
+    /*
     IEnumerator HitAnimation(Transform target)
     {
+        
         float startScale = target.localScale.y;
         float time = 0;
 
@@ -29,7 +33,7 @@ public class Stun : Status
             transform.localScale = new Vector3(target.localScale.x, startScale + Mathf.Sin(time)/4, target.localScale.z);
             time += Time.deltaTime * 70;
             yield return null;
-        }
+        }  
     }
-    public override void Tick() { }
+    */
 }

@@ -21,7 +21,7 @@ Shader "Custom/Character" {
 		LOD 50
 
 		Cull Off
-		Lighting Off
+		Lighting On
 		
 		CGPROGRAM
   
@@ -64,10 +64,8 @@ Shader "Custom/Character" {
 			fixed4 texColor = tex2D (_MainTex, IN.uv_MainTex);
 
 			//character painting
-			fixed dist1 = round(distance(texColor,_ColorInHelmet));
-            fixed dist2 = round(distance(texColor,_ColorInBody));
-
-			
+			fixed dist1 = floor(distance(texColor,_ColorInHelmet));
+            fixed dist2 = floor(distance(texColor,_ColorInBody));
 			
 			fixed3 finalColor = texColor.rgb;	
 			

@@ -1,10 +1,10 @@
 public class Chilled : Status
 {
-    const float animatorSlowValue = 2f;
+    const float animatorSlowValue = 4f;
     private float slowMultiplier;
     public override void OnActivate()
     {
-        slowMultiplier = target.speedMultiplier / 2f;
+        slowMultiplier = target.speedMultiplier / 4f;
         targetAnimator.speed /= animatorSlowValue;
         target.speedMultiplier -= slowMultiplier;
     }

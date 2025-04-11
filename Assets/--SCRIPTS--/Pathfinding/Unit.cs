@@ -7,6 +7,8 @@ public class Unit : MonoBehaviour
 	[Header("Enemy settings")]
 	public float[] attackRange = new float[3];
 	public float affectedArea = 3f;
+	public float dashMultiplier = 0.8f;
+	public float dashRange = 10f;
 	public bool followingPath;
 	public GameObject[] drops;
 	public GameObject projectileItem;
@@ -99,7 +101,10 @@ public class Unit : MonoBehaviour
 							if (target != null)
 							{
 								isAttacking = true;
-								StartCoroutine("Attacking");
+								if (Random.Range(0f, 1f) < 0.6f)
+									StartCoroutine("Attacking");
+								else
+									StartCoroutine("Charging");
 							}
 							yield break;
 						}
@@ -120,7 +125,10 @@ public class Unit : MonoBehaviour
 				if (target != null)
 				{
 					isAttacking = true;
-					StartCoroutine("Attacking");
+					if (Random.Range(0f, 1f) < 0.6f)
+						StartCoroutine("Attacking");
+					else
+						StartCoroutine("Charging");
 				}
 			}
 		}
@@ -155,12 +163,6 @@ public class Unit : MonoBehaviour
 						//алгоритм распределения пути
 						//алгоритм распределения пути
 						//алгоритм распределения пути
-						//алгоритм распределения пути
-						//алгоритм распределения пути
-						//алгоритм распределения пути
-						//алгоритм распределения пути
-						
-
 						pathRequestSearched = true;
 						PathRequestManager.RequestPath(GetInstanceID(), transform.position, target.transform.position + pathOffset, OnPathFound);
 					}
@@ -175,10 +177,34 @@ public class Unit : MonoBehaviour
 		SpriteFlip(transform.position - target.transform.position);
 		stats.animator.SetTrigger($"Attack{attackNumber + 1}");
 		yield return new WaitForSeconds(stats.animator.GetCurrentAnimatorStateInfo(0).length + stats.attackCooldown);
-		isAttacking = false;
 		attackNumber = Random.Range(0, 3);
 		pathOffset = new Vector3((Random.Range(0, 2) * 2 - 1) * attackRange[attackNumber], 0f, Random.Range(-attackRange[attackNumber] / 2, attackRange[attackNumber] / 2));
+		isAttacking = false;
 	}
+
+	IEnumerator Charging()
+    {
+		Vector3 startPosition = transform.position;
+		Vector3 directionVector = target.transform.position - transform.position;
+		Vector3 endPosition = transform.position + (directionVector * dashMultiplier);
+		SpriteFlip(transform.position - target.transform.position);
+		stats.animator.SetTrigger($"Charge");
+
+        float journeyLength = Vector3.Distance(startPosition, endPosition);
+        float startTime = Time.time;
+
+        while (transform.position != endPosition)
+        {
+            float distanceCovered = (Time.time - startTime) * stats.dashSpeed;
+            float fractionOfJourney = distanceCovered / journeyLength;
+            transform.position = Vector3.Lerp(startPosition, endPosition, fractionOfJourney);
+            yield return null;
+        }
+		stats.animator.SetTrigger($"Idle");
+		pathOffset = new Vector3((Random.Range(0, 2) * 2 - 1) * dashRange, 0f, Random.Range(-dashRange / 2, dashRange / 2));
+		yield return new WaitForSeconds(stats.attackCooldown);
+		isAttacking = false;
+    }
 
 	private void SpriteFlip(Vector3 movement)
 	{
@@ -229,6 +255,9 @@ public class Unit : MonoBehaviour
 
 	public void OnDrawGizmos()
 	{
+        Vector3 textPosition = transform.position + Vector3.up + Vector3.forward;
+        /*UnityEditor.Handles.Label(textPosition, transform.name);*/
+
 		if (path != null)
 		{
 			for (int i = targetIndex; i < path.Length; i++)

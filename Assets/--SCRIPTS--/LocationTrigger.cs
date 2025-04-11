@@ -25,7 +25,7 @@ public class LocationTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            LocationPresentor.instance.ShowLocationName(locationName);
+            LocationPresentor.instance?.ShowLocationName(locationName);
             Statistic.instance?.OnEnterInArea(locationName);
             OnLocationEnter.Invoke();
             if (soundtrack != null)

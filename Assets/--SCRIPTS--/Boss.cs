@@ -1,48 +1,46 @@
 using System.Collections;
 using UnityEngine;
 
-public class Boss : Unit
+public class Boss: MonoBehaviour
 {
-    private Animator _animator;
     public Transform[] movePoints;
     public Turret[] turrets;
+	public EntityStats target;
+    private Vector3 targetPosition = Vector3.zero;
     public int health = 50;
     public bool isDead = false;
     public GameObject projectilePrefab;
     public GameObject splashAttack;
-    
     public Transform _target;
-    public int Health
-    {
-        get
-        {
-            return health;
-        }
-        set
-        {
-            if (health > 0)
-            {
-                health = value;
-                StartCoroutine("DamageColor");
-                if (health <= 0)
-                {
-                    isDead = true;
-                    StopAllCoroutines();
-                    _animator.SetTrigger("isDead");
-                }
-            }
-        }
-    }
-    public void Damage(int damage, float knockbackPower, Vector3 direction, Color blindColor, EntityStats damageSource = null, bool ignoreArmor = false)
-    {
-        Health -= damage;
-        if (!_animator.GetBool("isRun"))
-            StartCoroutine(Move());
-    }
+    public string enemyTag;
+    private SpriteRenderer _renderer;
+    private Animator _animator;
+
+    [HideInInspector]
+	public EntityStats stats;
+    private Vector3 startPosition;
+
+	void Awake()
+	{
+		startPosition = transform.position;
+        _renderer = GetComponent<SpriteRenderer>();
+		stats = GetComponent<EntityStats>();
+		stats.speedMultiplier = Random.Range(stats.speedMultiplier - 0.4f, stats.speedMultiplier);
+	}
+
+    public void SetTarget(EntityStats targetStats)
+	{
+        _animator = GetComponent<Animator>();
+		enemyTag = targetStats.tag;
+		this.target = targetStats;
+		targetPosition = targetStats.transform.position;
+		StopAllCoroutines();
+		StartCoroutine(Move());
+	}
 
     IEnumerator Move()
     {
-        int moveCount = 10;
+        int moveCount = 3;
         while (moveCount-- != 0)
         {
             _animator.SetBool("isRun", true);
@@ -50,11 +48,13 @@ public class Boss : Unit
 
             while (Vector3.Distance(newPosition, transform.position) > 0.1f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, newPosition, Time.deltaTime * 15f);
+                SpriteFlip(newPosition-transform.position);
+                transform.position = Vector3.MoveTowards(transform.position, newPosition, Time.deltaTime * stats.speed);
                 yield return null;
             }
             _animator.SetBool("isRun", false);
         }
+        SpriteFlip(_target.position-transform.position);
         yield return new WaitForSeconds(2f);
         StartCoroutine("Attack" + Random.Range(1, 4));
     }
@@ -75,9 +75,10 @@ public class Boss : Unit
                 break;
             GameObject bullet = Instantiate(projectilePrefab, transform.position, new Quaternion(0, 0, 0, 0));
             bullet.transform.LookAt(_target.position, Vector3.up);
-            bullet.transform.Rotate(new Vector3(90, -90, 0));
-            yield return new WaitForSeconds(0.5f);
+            bullet.transform.Rotate(new Vector3(90, -90, 0)); 
             bullet.GetComponent<Projectile>().speed = 25;
+            yield return new WaitForSeconds(0.5f);
+           
         }
         yield return new WaitForSeconds(1f);
         StartCoroutine(Move());
@@ -93,4 +94,12 @@ public class Boss : Unit
             }
         StartCoroutine(Move());
     }
+    
+    private void SpriteFlip(Vector3 movement)
+	{
+		if (movement.x < 0)
+			_renderer.flipX = false;
+		else if (movement.x > 0)
+			_renderer.flipX = true;
+	}
 }

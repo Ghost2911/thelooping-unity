@@ -39,6 +39,8 @@ public class Projectile : MonoBehaviour, IThrowable
         {
             if (other.GetComponent<IDamageable>()!=null) 
                 other.GetComponent<IDamageable>().Damage(new HitInfo(damageType, damage, 0f, Vector3.zero, Color.red));
+            if (other.GetComponent<IStatusable>()!=null) 
+                other.GetComponent<IStatusable>().AddStatus(status);
             Destroy(this.gameObject);
         }
     }

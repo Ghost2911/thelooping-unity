@@ -25,6 +25,7 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
     public DamageType damageType = DamageType.Impact;
     public float attackCooldown = 1f;
     public int speed = 10;
+    public int dashSpeed = 12;
     public int regenValue = 1;   
     public float regenRefreshTime = 5f;
 

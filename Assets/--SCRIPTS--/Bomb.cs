@@ -8,6 +8,9 @@ public class Bomb : MonoBehaviour, IThrowable
     public float speed;
     public float affectedArea;
     public StatusData status;
+    public GameObject createdObject;
+    public Vector3 startOffset;
+    public Animator animator;
 
     public Vector3 target;
     private Transform owner;
@@ -16,6 +19,8 @@ public class Bomb : MonoBehaviour, IThrowable
     {
         this.target = target;
         this.owner = owner;
+        transform.parent.position = owner.position + startOffset;
+        animator = GetComponent<Animator>();
         StartCoroutine(Move());
     }
 
@@ -26,6 +31,8 @@ public class Bomb : MonoBehaviour, IThrowable
             transform.parent.position = Vector3.MoveTowards(transform.parent.position, target, Time.deltaTime * speed);
             yield return null;
         }
+        animator.SetTrigger("bombExplode");
+        Explode();
         yield return 0;
     }
 
@@ -35,11 +42,14 @@ public class Bomb : MonoBehaviour, IThrowable
         Collider[] hitEnemies = Physics.OverlapSphere(transform.parent.position, affectedArea);
         foreach (Collider enemy in hitEnemies)
         {
-            enemy.GetComponent<IDamageable>()?.Damage(new HitInfo(damageType,damage, 0f, Vector3.zero, Color.red));
-            if (status!=null)
-                enemy.GetComponent<IStatusable>()?.AddStatus(status);
+            if (enemy.transform!=owner)
+            {
+                enemy.GetComponent<IDamageable>()?.Damage(new HitInfo(damageType,damage, 0f, Vector3.zero, Color.red));
+                if (status!=null)
+                    enemy.GetComponent<IStatusable>()?.AddStatus(status);
+            }
         }
-        Destroy(transform.parent.gameObject,0.3f);
+        Destroy(transform.parent.gameObject,0.5f);
     }
 
     void OnDrawGizmosSelected()
