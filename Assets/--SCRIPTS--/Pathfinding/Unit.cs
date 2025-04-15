@@ -7,7 +7,7 @@ public class Unit : MonoBehaviour
 	[Header("Enemy settings")]
 	public float[] attackRange = new float[3];
 	public float affectedArea = 3f;
-	public float dashMultiplier = 0.8f;
+	public Vector2 dashUseRange = new Vector2(10,999);
 	public float dashRange = 10f;
 	public bool followingPath;
 	public GameObject[] drops;
@@ -27,17 +27,18 @@ public class Unit : MonoBehaviour
 	private Vector3[] path;
 	private int targetIndex;
 	private bool isAttacking = false;
-	private Vector3 pathOffset;
+	private Vector3 pathDestination;
 	private bool pathRequestSearched = false;
 	private float startSpriteDirection;
 	public string enemyTag;
+
+	private Vector3[] circlePoints;
 
 	void Awake()
 	{
 		startPosition = transform.position;
 		startSpriteDirection = transform.localScale.x;
 		attackNumber = Random.Range(0, 3);
-		pathOffset = new Vector3((Random.Range(0, 2) * 2 - 1) * attackRange[attackNumber], 0f, Random.Range(-attackRange[attackNumber] / 2, attackRange[attackNumber] / 2));
 		stats = GetComponent<EntityStats>();
 		stats.speedMultiplier = Random.Range(stats.speedMultiplier - 0.4f, stats.speedMultiplier);
 		if (target != null)
@@ -75,6 +76,7 @@ public class Unit : MonoBehaviour
 
 	IEnumerator FollowPath()
 	{
+		float distance = 0f; 
 		if (!stats.isStunned && !isAttacking)
 		{
 			if (path.Length != 0)
@@ -84,27 +86,30 @@ public class Unit : MonoBehaviour
 
 				while (!stats.isStunned)
 				{
-					if (Vector3.Distance(transform.position, targetPosition) > 50f)
-					{
-						target = null;
-						transform.position = startPosition;
-						stats.animator.SetBool("isRun", false);
-						yield break;
-					}
+					distance = Vector3.Distance(transform.position, target.transform.position);
 
+					//если достиг текущей точки обхода (тут можно проверять атаки на ренж)
 					if (transform.position == currentWaypoint)
 					{
 						targetIndex++;
+
+
+						if (dashUseRange.x < distance && dashUseRange.y > distance)
+						{	
+							stats.animator.SetBool("isRun", false);
+							isAttacking = true; //чтобы не запускало поиск пути
+							StartCoroutine("Charging"); 
+							yield break;
+						}
+
+						//достиг конца пути
 						if (targetIndex >= path.Length)
 						{
 							stats.animator.SetBool("isRun", false);
 							if (target != null)
 							{
 								isAttacking = true;
-								if (Random.Range(0f, 1f) < 0.6f)
-									StartCoroutine("Attacking");
-								else
-									StartCoroutine("Charging");
+								StartCoroutine("Attacking");
 							}
 							yield break;
 						}
@@ -125,10 +130,8 @@ public class Unit : MonoBehaviour
 				if (target != null)
 				{
 					isAttacking = true;
-					if (Random.Range(0f, 1f) < 0.6f)
-						StartCoroutine("Attacking");
-					else
-						StartCoroutine("Charging");
+					distance = Vector3.Distance(transform.position, target.transform.position);
+					StartCoroutine("Attacking");
 				}
 			}
 		}
@@ -163,8 +166,11 @@ public class Unit : MonoBehaviour
 						//алгоритм распределения пути
 						//алгоритм распределения пути
 						//алгоритм распределения пути
+						Debug.Log("PathUpdate");
 						pathRequestSearched = true;
-						PathRequestManager.RequestPath(GetInstanceID(), transform.position, target.transform.position + pathOffset, OnPathFound);
+
+						pathDestination = GetPathDestination(attackNumber);
+						PathRequestManager.RequestPath(GetInstanceID(), transform.position, pathDestination, OnPathFound);
 					}
 				}
 			}
@@ -178,31 +184,50 @@ public class Unit : MonoBehaviour
 		stats.animator.SetTrigger($"Attack{attackNumber + 1}");
 		yield return new WaitForSeconds(stats.animator.GetCurrentAnimatorStateInfo(0).length + stats.attackCooldown);
 		attackNumber = Random.Range(0, 3);
-		pathOffset = new Vector3((Random.Range(0, 2) * 2 - 1) * attackRange[attackNumber], 0f, Random.Range(-attackRange[attackNumber] / 2, attackRange[attackNumber] / 2));
 		isAttacking = false;
 	}
 
+
+	private Vector3 GetPathDestination(int attackNumber)
+	{
+		int pointCount = 5; 
+		float radius = attackRange[attackNumber];
+		circlePoints = new Vector3[pointCount];
+
+        Vector3 dirToTarget = (transform.position - target.transform.position).normalized;
+        float startAngle = Mathf.Atan2(dirToTarget.z, dirToTarget.x);
+
+        float angleRange = Mathf.PI / 2f; 
+
+        for (int i = 0; i < pointCount; i++)
+        {
+            float t = (float)i / (pointCount - 1) - 0.5f;
+            float angle = startAngle + t * angleRange;
+
+            float x = target.transform.position.x + radius * Mathf.Cos(angle);
+            float z = target.transform.position.z + radius * Mathf.Sin(angle);
+            Vector3 point = new Vector3(x, target.transform.position.y, z);
+
+            circlePoints[i] = point;
+		}
+		return circlePoints[Random.Range(0, circlePoints.Length)];
+	}
+
 	IEnumerator Charging()
-    {
+	{
 		Vector3 startPosition = transform.position;
 		Vector3 directionVector = target.transform.position - transform.position;
-		Vector3 endPosition = transform.position + (directionVector * dashMultiplier);
+		Vector3 endPosition = transform.position + directionVector.normalized*dashRange;
 		SpriteFlip(transform.position - target.transform.position);
 		stats.animator.SetTrigger($"Charge");
 
-        float journeyLength = Vector3.Distance(startPosition, endPosition);
-        float startTime = Time.time;
-
-        while (transform.position != endPosition)
+		while (Vector3.Distance(transform.position, endPosition) > 0.01f)
         {
-            float distanceCovered = (Time.time - startTime) * stats.dashSpeed;
-            float fractionOfJourney = distanceCovered / journeyLength;
-            transform.position = Vector3.Lerp(startPosition, endPosition, fractionOfJourney);
-            yield return null;
+            transform.position = Vector3.MoveTowards(transform.position, endPosition,stats.speed * Time.deltaTime);
+            yield return null; 
         }
 		stats.animator.SetTrigger($"Idle");
-		pathOffset = new Vector3((Random.Range(0, 2) * 2 - 1) * dashRange, 0f, Random.Range(-dashRange / 2, dashRange / 2));
-		yield return new WaitForSeconds(stats.attackCooldown);
+		yield return new WaitForSeconds(0.2f);
 		isAttacking = false;
     }
 
@@ -271,5 +296,14 @@ public class Unit : MonoBehaviour
 					Gizmos.DrawLine(path[i - 1], path[i]);
 			}
 		}
+
+		if (circlePoints == null)
+            return;
+
+        Gizmos.color = Color.cyan;
+        foreach (Vector3 point in circlePoints)
+        {
+            Gizmos.DrawSphere(point, 0.2f);
+        }
 	}
 }
