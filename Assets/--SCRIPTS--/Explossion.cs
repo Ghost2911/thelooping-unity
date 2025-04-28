@@ -12,6 +12,7 @@ public class Explossion : MonoBehaviour
     {
         Destroy(gameObject,GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
     }
+    
     public void TakeDamage()
     {
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, 1f);

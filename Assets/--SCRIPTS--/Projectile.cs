@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour, IThrowable
     public Transform owner;
     public float scatter;
     public StatusData status;
+    public bool isLookAtTarget = true;
 
     void Start()
     {
@@ -19,8 +20,11 @@ public class Projectile : MonoBehaviour, IThrowable
 
     public void InitialSetup(Vector3 target, Transform owner)
     {
-        transform.LookAt(target,Vector3.up);
-        transform.Rotate(new Vector3(90f, -90f, 0f), Space.Self);
+        if (isLookAtTarget)
+        {
+            transform.LookAt(target,Vector3.up);
+            transform.Rotate(new Vector3(90f, -90f, 0f), Space.Self);
+        }
         destination = target;
         this.owner = owner;
     }

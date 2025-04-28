@@ -166,7 +166,6 @@ public class Unit : MonoBehaviour
 						//алгоритм распределения пути
 						//алгоритм распределения пути
 						//алгоритм распределения пути
-						Debug.Log("PathUpdate");
 						pathRequestSearched = true;
 
 						pathDestination = GetPathDestination(attackNumber);
@@ -227,7 +226,7 @@ public class Unit : MonoBehaviour
             yield return null; 
         }
 		stats.animator.SetTrigger($"Idle");
-		yield return new WaitForSeconds(0.2f);
+		yield return new WaitForSeconds(0.1f);
 		isAttacking = false;
     }
 

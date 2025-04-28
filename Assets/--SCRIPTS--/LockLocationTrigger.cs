@@ -1,0 +1,71 @@
+using UnityEngine;
+using UnityEngine.Events;
+using System.Collections;
+
+public class LockLocationTrigger : LocationTrigger
+{
+    public GameObject lockSphere;
+    public Color colorMaterial;
+    public Color color2Material;
+    public float dissolveDuration = 2f;
+    public AnimationCurve dissolveCurve = AnimationCurve.EaseInOut(0, 1, 1, 0); 
+    public float sphereRadius = 26f;
+
+    public void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);
+
+        if (other.CompareTag("Player"))
+        {
+            if (lockSphere != null)
+                StartCoroutine(ShowSphere());
+        }
+    }
+
+    void Update()
+    {
+        if (lockSphere != null)
+        {
+            if (player != null)
+            {
+                float distanceToCenter = Vector3.Distance(transform.position, player.transform.position);
+                
+                if (distanceToCenter > sphereRadius)
+                {
+                    Vector3 directionToCenter = (transform.position - player.transform.position).normalized;
+                    player.transform.position = transform.position + directionToCenter * sphereRadius;
+                }
+            }
+        }
+    }
+
+    IEnumerator ShowSphere()
+    {
+        Renderer renderer = lockSphere.GetComponent<Renderer>();
+        Material targetMaterial = null;
+       
+        if (renderer != null)
+            targetMaterial = renderer.material;
+        
+        if (targetMaterial == null) yield break;
+
+        float elapsedTime = 0f;
+
+        targetMaterial.SetColor(Shader.PropertyToID("_Color"), colorMaterial);
+        targetMaterial.SetColor(Shader.PropertyToID("_Color2"), color2Material);
+        while (elapsedTime < dissolveDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float normalizedTime = Mathf.Clamp01(elapsedTime / dissolveDuration);
+            float curveValue = dissolveCurve.Evaluate(normalizedTime);
+            
+            float currentValue = Mathf.Lerp(1f, 0f, curveValue);
+            targetMaterial.SetFloat(Shader.PropertyToID("_DissolveAmount"), currentValue);
+
+            yield return null;
+        }
+
+        targetMaterial.SetFloat(Shader.PropertyToID("_DissolveAmount"), 0f);
+    }
+
+}

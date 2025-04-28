@@ -3,16 +3,19 @@ using UnityEngine;
 
 public class Boss: MonoBehaviour
 {
-    public Transform[] movePoints;
-    public Turret[] turrets;
+    public MoonObelisk[] moonObelisk;
 	public EntityStats target;
+    public CircularMovement skulls;
     private Vector3 targetPosition = Vector3.zero;
     public int health = 50;
     public bool isDead = false;
     public GameObject projectilePrefab;
+    public GameObject projectilePrefab2;
     public GameObject splashAttack;
     public Transform _target;
     public string enemyTag;
+
+    private int currentMoonObelisk;
     private SpriteRenderer _renderer;
     private Animator _animator;
 
@@ -41,10 +44,15 @@ public class Boss: MonoBehaviour
     IEnumerator Move()
     {
         int moveCount = 3;
+        Vector3 newPosition = Vector3.zero; 
+
         while (moveCount-- != 0)
         {
             _animator.SetBool("isRun", true);
-            Vector3 newPosition = movePoints[Random.Range(0, movePoints.Length)].position;
+            currentMoonObelisk = Random.Range(0, moonObelisk.Length);
+
+            if (moonObelisk[currentMoonObelisk]!=null)
+                newPosition = moonObelisk[currentMoonObelisk].transform.position;
 
             while (Vector3.Distance(newPosition, transform.position) > 0.1f)
             {
@@ -52,46 +60,90 @@ public class Boss: MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, newPosition, Time.deltaTime * stats.speed);
                 yield return null;
             }
+            if (moonObelisk[currentMoonObelisk].GiveSkull())
+                skulls.AddSkull();
             _animator.SetBool("isRun", false);
         }
         SpriteFlip(_target.position-transform.position);
+        moonObelisk[currentMoonObelisk].GiveSkull();
         yield return new WaitForSeconds(2f);
         StartCoroutine("Attack" + Random.Range(1, 4));
     }
 
     IEnumerator Attack1()
     {
-        splashAttack.SetActive(true);
-        yield return new WaitForSeconds(4f);
-        splashAttack.SetActive(false);
+        skulls.RemoveSkull();
+        if (_target == null)
+            yield return null;
+        
+        
+        Vector3 direction = target.transform.position - transform.position;
+
+        Vector3 perpendicularLeft = new Vector3(-direction.z, direction.y, direction.x); 
+        Vector3 perpendicularRight = new Vector3(direction.z, direction.y, -direction.x); 
+
+        Vector3 pointLeft = transform.position + perpendicularLeft*0.5f;
+        Vector3 pointRight = transform.position + perpendicularRight*0.5f;
+
+        GameObject bullet = Instantiate(projectilePrefab, pointLeft, new Quaternion(0, 0, 0, 0));
+        bullet.GetComponent<ProjectilePuncture>().InitialSetup(target.transform.position + direction, transform);
+
+        bullet = Instantiate(projectilePrefab, pointRight, new Quaternion(0, 0, 0, 0));
+        bullet.GetComponent<ProjectilePuncture>().InitialSetup(target.transform.position + direction, transform);
+
+        bullet = Instantiate(projectilePrefab, transform.position, new Quaternion(0, 0, 0, 0));
+        bullet.GetComponent<ProjectilePuncture>().InitialSetup(target.transform.position + direction, transform);
+
+        yield return new WaitForSeconds(1f);
         StartCoroutine(Move());
     }
 
     IEnumerator Attack2()
     {
-        for (int i = 0; i < 3; i++)
-        {
-            if (_target == null)
-                break;
-            GameObject bullet = Instantiate(projectilePrefab, transform.position, new Quaternion(0, 0, 0, 0));
-            bullet.transform.LookAt(_target.position, Vector3.up);
-            bullet.transform.Rotate(new Vector3(90, -90, 0)); 
-            bullet.GetComponent<Projectile>().speed = 25;
-            yield return new WaitForSeconds(0.5f);
-           
-        }
+        skulls.RemoveSkull();
+        if (_target == null)
+            yield return null;
+        
+        
+        Vector3 direction = target.transform.position - transform.position;
+
+        Vector3 perpendicularLeft = new Vector3(-direction.z, direction.y, direction.x); 
+        Vector3 perpendicularRight = new Vector3(direction.z, direction.y, -direction.x); 
+
+        Vector3 pointLeft = transform.position + perpendicularLeft*0.5f;
+        Vector3 pointRight = transform.position + perpendicularRight*0.5f;
+
+        GameObject bullet = Instantiate(projectilePrefab, pointLeft, new Quaternion(0, 0, 0, 0));
+        bullet.GetComponent<ProjectilePuncture>().InitialSetup(target.transform.position + direction + perpendicularLeft*0.8f, transform);
+
+        bullet = Instantiate(projectilePrefab, pointRight, new Quaternion(0, 0, 0, 0));
+        bullet.GetComponent<ProjectilePuncture>().InitialSetup(target.transform.position + direction + perpendicularRight*0.8f , transform);
+
+        bullet = Instantiate(projectilePrefab, transform.position, new Quaternion(0, 0, 0, 0));
+        bullet.GetComponent<ProjectilePuncture>().InitialSetup(target.transform.position + direction, transform);
+
         yield return new WaitForSeconds(1f);
         StartCoroutine(Move());
     }
+
     IEnumerator Attack3()
     {
-        foreach (Turret tur in turrets)
-            if (!tur.enabled)
-            {
-                tur.enabled = true;
-                yield return null;
-                break;
-            }
+        if (_target == null)
+            yield return null;
+
+        skulls.RemoveSkull();
+        GameObject bullet = Instantiate(projectilePrefab2, transform.position + Vector3.up, new Quaternion(0, 0, 0, 0));
+        bullet.GetComponent<ProjectilePuncture>().InitialSetup(target.transform.position, transform);
+        yield return new WaitForSeconds(1f);
+
+        bullet = Instantiate(projectilePrefab2, transform.position + Vector3.up, new Quaternion(0, 0, 0, 0));
+        bullet.GetComponent<ProjectilePuncture>().InitialSetup(target.transform.position, transform);
+        yield return new WaitForSeconds(1f);
+
+        bullet = Instantiate(projectilePrefab2, transform.position + Vector3.up, new Quaternion(0, 0, 0, 0));
+        bullet.GetComponent<ProjectilePuncture>().InitialSetup(target.transform.position, transform);
+        yield return new WaitForSeconds(1f);
+
         StartCoroutine(Move());
     }
     

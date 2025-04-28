@@ -9,8 +9,8 @@ public class ProjectilePuncture : MonoBehaviour, IThrowable
     public StatusData status;
     public Vector3 offset;
     public bool spriteFlip = false;
-    public Transform owner; 
-    
+    public GameObject createdObject;
+    private Transform owner; 
     private Vector3 target;
 
     public void InitialSetup(Vector3 target, Transform owner)
@@ -29,6 +29,8 @@ public class ProjectilePuncture : MonoBehaviour, IThrowable
             transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * speed);
             yield return null;
         }
+        if (createdObject!=null)
+            Instantiate(createdObject, transform.position,  createdObject.transform.rotation);
         Destroy(gameObject);
     }
 

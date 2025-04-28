@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
 
 public class LocationTrigger : MonoBehaviour
 {
@@ -10,8 +11,9 @@ public class LocationTrigger : MonoBehaviour
     public bool isBoss = false;
     public UnityEvent OnLocationEnter;
     public UnityEvent OnLocationExit;
+    protected GameObject player;
 
-    private void Start()
+    public void Start()
     {
         if (isBoss)
         {
@@ -25,6 +27,7 @@ public class LocationTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            player = other.gameObject;
             LocationPresentor.instance?.ShowLocationName(locationName);
             Statistic.instance?.OnEnterInArea(locationName);
             OnLocationEnter.Invoke();
@@ -39,6 +42,7 @@ public class LocationTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            player = null;
             OnLocationExit.Invoke();
             if (soundtrack != null)
                 GlobalSettings.instance.ChangeBackgroundSoundtrack(null);
@@ -46,5 +50,4 @@ public class LocationTrigger : MonoBehaviour
                 GlobalSettings.instance.SetCameraTraget(other.transform);
         }
     }
-
 }
