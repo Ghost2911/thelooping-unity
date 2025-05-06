@@ -5,10 +5,11 @@ using UnityEngine;
 public class Liquid : Trap, IStatusable
 {
     public LiquidState state;
+    public float timeDestroy = 0f;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private List<Liquid> contactLiquids = new List<Liquid>();
-
+    
     void Start()
     {
         transform.localScale = Vector3.zero;
@@ -16,6 +17,9 @@ public class Liquid : Trap, IStatusable
         animator = GetComponent<Animator>();
         StartCoroutine(LiquidResizeTo(new Vector3(2, 2, 2)));
         ChangeState(state);
+
+        if (timeDestroy > 0f)
+            Destroy(gameObject, timeDestroy);
     }
 
     private void ChangeState(LiquidState liquidState)

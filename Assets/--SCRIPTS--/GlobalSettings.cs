@@ -22,6 +22,7 @@ public class GlobalSettings : MonoBehaviour
     public ItemPool itemPool;
     public Item itemPrefab;
     public PostProcessVolume postProcessVolume;
+    public EntityStats playerEntity = null;
 
     private void Awake()
     {
@@ -54,6 +55,7 @@ public class GlobalSettings : MonoBehaviour
         int characterNum = (isTutorial)?0:Random.Range(0, characters.Count);
 
         player = characters[characterNum].GetComponent<PlayerInput>();
+        playerEntity = characters[characterNum].GetComponent<EntityStats>();
         playerColor = characters[characterNum].GetComponent<ColorChanger>();
         SetCameraTraget(player.transform);
         player.joystick = joystick;
@@ -65,6 +67,11 @@ public class GlobalSettings : MonoBehaviour
         healthPresentor.ChangeValue(player.stats.Health);
 
         characters.RemoveAt(characterNum);
+    }
+
+    public EntityStats GetCurrentPlayer()
+    {
+        return playerEntity;
     }
 
     public void FindAllPlayableCharacters()

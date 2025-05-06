@@ -7,7 +7,7 @@ public class Unit : MonoBehaviour
 	[Header("Enemy settings")]
 	public float[] attackRange = new float[3];
 	public float affectedArea = 3f;
-	public Vector2 dashUseRange = new Vector2(10,999);
+	public Vector2 dashUseRange = new Vector2(999,999);
 	public float dashRange = 10f;
 	public bool followingPath;
 	public GameObject[] drops;
@@ -62,6 +62,12 @@ public class Unit : MonoBehaviour
 		StartCoroutine(UpdatePath());
 	}
 
+	public void SetTarget()
+	{
+		EntityStats targetStats = GlobalSettings.instance.GetCurrentPlayer();
+		SetTarget(targetStats);
+	}
+
 	public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
 	{
 		if (pathSuccessful)
@@ -92,7 +98,6 @@ public class Unit : MonoBehaviour
 					if (transform.position == currentWaypoint)
 					{
 						targetIndex++;
-
 
 						if (dashUseRange.x < distance && dashUseRange.y > distance)
 						{	
@@ -181,7 +186,18 @@ public class Unit : MonoBehaviour
 		targetPositionBeforeAttack = target.transform.position;
 		SpriteFlip(transform.position - target.transform.position);
 		stats.animator.SetTrigger($"Attack{attackNumber + 1}");
-		yield return new WaitForSeconds(stats.animator.GetCurrentAnimatorStateInfo(0).length + stats.attackCooldown);
+		
+		// Ждём, пока анимация начнётся (на случай, если есть переходы)
+		yield return null;
+		
+		AnimationClip clip = stats.animator.GetCurrentAnimatorClipInfo(0)[0].clip;
+		float length = clip.length;
+		
+		// Ждём окончания с учётом скорости
+		yield return new WaitForSeconds(length / stats.animator.speed + stats.attackCooldown);
+
+
+		//yield return new WaitForSeconds(stats.animator.GetCurrentAnimatorStateInfo(0).length + stats.attackCooldown);
 		attackNumber = Random.Range(0, 3);
 		isAttacking = false;
 	}
@@ -222,11 +238,11 @@ public class Unit : MonoBehaviour
 
 		while (Vector3.Distance(transform.position, endPosition) > 0.01f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, endPosition,stats.speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, endPosition,stats.dashSpeed * Time.deltaTime);
             yield return null; 
         }
 		stats.animator.SetTrigger($"Idle");
-		yield return new WaitForSeconds(0.1f);
+		yield return new WaitForSeconds(0.2f);
 		isAttacking = false;
     }
 

@@ -31,8 +31,9 @@ public class Boss: MonoBehaviour
 		stats.speedMultiplier = Random.Range(stats.speedMultiplier - 0.4f, stats.speedMultiplier);
 	}
 
-    public void SetTarget(EntityStats targetStats)
+    public void SetTarget()
 	{
+        EntityStats targetStats = GlobalSettings.instance.GetCurrentPlayer();
         _animator = GetComponent<Animator>();
 		enemyTag = targetStats.tag;
 		this.target = targetStats;

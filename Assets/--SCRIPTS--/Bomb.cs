@@ -8,7 +8,7 @@ public class Bomb : MonoBehaviour, IThrowable
     public float speed;
     public float affectedArea;
     public StatusData status;
-    public GameObject createdObject;
+    public GameObject createdObject = null;
     public Vector3 startOffset;
     public Animator animator;
 
@@ -32,7 +32,6 @@ public class Bomb : MonoBehaviour, IThrowable
             yield return null;
         }
         animator.SetTrigger("bombExplode");
-        Explode();
         yield return 0;
     }
 
@@ -49,6 +48,10 @@ public class Bomb : MonoBehaviour, IThrowable
                     enemy.GetComponent<IStatusable>()?.AddStatus(status);
             }
         }
+
+        if (createdObject!=null)
+            Instantiate(createdObject, new Vector3(transform.position.x, 0f, transform.position.z), Quaternion.identity);
+
         Destroy(transform.parent.gameObject,0.5f);
     }
 

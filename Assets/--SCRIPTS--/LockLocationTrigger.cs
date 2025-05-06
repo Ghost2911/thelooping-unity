@@ -13,12 +13,31 @@ public class LockLocationTrigger : LocationTrigger
 
     public void OnTriggerEnter(Collider other)
     {
-        base.OnTriggerEnter(other);
-
         if (other.CompareTag("Player"))
         {
+            player = other.gameObject;
+            LocationPresentor.instance?.ShowLocationName(locationName);
+            Statistic.instance?.OnEnterInArea(locationName);
+            OnLocationEnter.Invoke();
+            if (soundtrack != null)
+                GlobalSettings.instance.ChangeBackgroundSoundtrack(soundtrack);
+            if (cameraPosition != null)
+                GlobalSettings.instance.SetCameraTraget(cameraPosition);
             if (lockSphere != null)
                 StartCoroutine(ShowSphere());
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            player = null;
+            OnLocationExit.Invoke();
+            if (soundtrack != null)
+                GlobalSettings.instance.ChangeBackgroundSoundtrack(null);
+            if (cameraPosition != null)
+                GlobalSettings.instance.SetCameraTraget(other.transform);
         }
     }
 

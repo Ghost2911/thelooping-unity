@@ -24,8 +24,6 @@ public class ArcFlight : MonoBehaviour
     {
         initialPosition = transform.position; // Запоминаем начальную позицию
         targetPosition = target; // Получаем позицию цели
-
-        // Рассчитываем начальную скорость, чтобы попасть в цель
         CalculateLaunchVelocity();
         transform.Rotate(new Vector3(0, 0, 15));
         renderer = transform.GetComponentInChildren<Renderer>();

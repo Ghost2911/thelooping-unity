@@ -4,5 +4,6 @@ public enum StatusType
     ElectricShield, KnockbackPower, Blademail, FrogRain, WoodenShield,FrozenArmor, FireArmor, Evasion, 
     Regeneration, ToxicArmor, SnakeAcceleration, DoubleDamage, ReduceResistance, StatusResistance,
     FireHand, NoArmor, Cursed, Toxin, TornadoAttack, HammerAttack, Armored, DeathDamage, SummonSkelet,
-    SummonEnt, SummonAssasin, WindSpeed, ExplossionCreator, ChromaticVision, LensVision
+    SummonEnt, SummonAssasin, WindSpeed, ExplossionCreator, ChromaticVision, LensVision, AoeAttack,
+    BoneCageAura,
 };
