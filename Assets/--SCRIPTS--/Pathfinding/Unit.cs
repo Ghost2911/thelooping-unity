@@ -31,7 +31,6 @@ public class Unit : MonoBehaviour
 	private bool pathRequestSearched = false;
 	private float startSpriteDirection;
 	public string enemyTag;
-
 	private Vector3[] circlePoints;
 
 	void Awake()
@@ -47,8 +46,8 @@ public class Unit : MonoBehaviour
 
     public void SetTarget(EntityStats targetStats)
 	{
-		enemyTag = targetStats.tag;
 		this.target = targetStats;
+		target.DeathEvent.AddListener(this.ReturnOnSpawn);
 		targetPosition = targetStats.transform.position;
 		StopCoroutine(UpdatePath());
 		StartCoroutine(UpdatePath());
@@ -66,6 +65,12 @@ public class Unit : MonoBehaviour
 	{
 		EntityStats targetStats = GlobalSettings.instance.GetCurrentPlayer();
 		SetTarget(targetStats);
+	}
+
+	public void ReturnOnSpawn()
+	{
+		target.DeathEvent.RemoveListener(this.ReturnOnSpawn);
+		SetTarget(startPosition);
 	}
 
 	public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
@@ -92,9 +97,7 @@ public class Unit : MonoBehaviour
 
 				while (!stats.isStunned)
 				{
-					distance = Vector3.Distance(transform.position, target.transform.position);
-
-					//если достиг текущей точки обхода (тут можно проверять атаки на ренж)
+					distance = Vector3.Distance(transform.position, targetPosition);
 					if (transform.position == currentWaypoint)
 					{
 						targetIndex++;
@@ -135,7 +138,7 @@ public class Unit : MonoBehaviour
 				if (target != null)
 				{
 					isAttacking = true;
-					distance = Vector3.Distance(transform.position, target.transform.position);
+					distance = Vector3.Distance(transform.position, targetPosition);
 					StartCoroutine("Attacking");
 				}
 			}
@@ -209,41 +212,49 @@ public class Unit : MonoBehaviour
 		float radius = attackRange[attackNumber];
 		circlePoints = new Vector3[pointCount];
 
-        Vector3 dirToTarget = (transform.position - target.transform.position).normalized;
-        float startAngle = Mathf.Atan2(dirToTarget.z, dirToTarget.x);
+		if (target!=null)
+		{
+			Vector3 dirToTarget = (transform.position - target.transform.position).normalized;
+			float startAngle = Mathf.Atan2(dirToTarget.z, dirToTarget.x);
 
-        float angleRange = Mathf.PI / 2f; 
+			float angleRange = Mathf.PI / 2f; 
 
-        for (int i = 0; i < pointCount; i++)
-        {
-            float t = (float)i / (pointCount - 1) - 0.5f;
-            float angle = startAngle + t * angleRange;
+			for (int i = 0; i < pointCount; i++)
+			{
+				float t = (float)i / (pointCount - 1) - 0.5f;
+				float angle = startAngle + t * angleRange;
 
-            float x = target.transform.position.x + radius * Mathf.Cos(angle);
-            float z = target.transform.position.z + radius * Mathf.Sin(angle);
-            Vector3 point = new Vector3(x, target.transform.position.y, z);
+				float x = target.transform.position.x + radius * Mathf.Cos(angle);
+				float z = target.transform.position.z + radius * Mathf.Sin(angle);
+				Vector3 point = new Vector3(x, target.transform.position.y, z);
 
-            circlePoints[i] = point;
+				circlePoints[i] = point;
+			}
+			return circlePoints[Random.Range(0, circlePoints.Length)];
 		}
-		return circlePoints[Random.Range(0, circlePoints.Length)];
+		else
+			return targetPosition;
 	}
 
 	IEnumerator Charging()
 	{
-		Vector3 startPosition = transform.position;
-		Vector3 directionVector = target.transform.position - transform.position;
-		Vector3 endPosition = transform.position + directionVector.normalized*dashRange;
-		SpriteFlip(transform.position - target.transform.position);
-		stats.animator.SetTrigger($"Charge");
+		if (target!=null)
+		{
+			Vector3 startPosition = transform.position;
+			Vector3 directionVector = target.transform.position - transform.position;
+			Vector3 endPosition = transform.position + directionVector.normalized*dashRange;
+			SpriteFlip(transform.position - target.transform.position);
+			stats.animator.SetTrigger($"Charge");
 
-		while (Vector3.Distance(transform.position, endPosition) > 0.01f)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, endPosition,stats.dashSpeed * Time.deltaTime);
-            yield return null; 
-        }
-		stats.animator.SetTrigger($"Idle");
-		yield return new WaitForSeconds(0.2f);
-		isAttacking = false;
+			while (Vector3.Distance(transform.position, endPosition) > 0.01f)
+			{
+				transform.position = Vector3.MoveTowards(transform.position, endPosition,stats.dashSpeed * Time.deltaTime);
+				yield return null; 
+			}
+			stats.animator.SetTrigger($"Idle");
+			yield return new WaitForSeconds(0.2f);
+			isAttacking = false;
+		}
     }
 
 	private void SpriteFlip(Vector3 movement)

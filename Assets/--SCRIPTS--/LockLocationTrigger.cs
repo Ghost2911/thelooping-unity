@@ -24,7 +24,10 @@ public class LockLocationTrigger : LocationTrigger
             if (cameraPosition != null)
                 GlobalSettings.instance.SetCameraTraget(cameraPosition);
             if (lockSphere != null)
+            {
+                player.GetComponent<EntityStats>().DeathEvent.AddListener(this.HideSphere);
                 StartCoroutine(ShowSphere());
+            }
         }
     }
 
@@ -87,4 +90,38 @@ public class LockLocationTrigger : LocationTrigger
         targetMaterial.SetFloat(Shader.PropertyToID("_DissolveAmount"), 0f);
     }
 
+    public void HideSphere()
+    {
+        StartCoroutine(HideSphereCoroutine()); 
+        player.GetComponent<EntityStats>().DeathEvent.RemoveListener(this.HideSphere);
+    }
+
+    IEnumerator HideSphereCoroutine()
+    {
+        Renderer renderer = lockSphere.GetComponent<Renderer>();
+        Material targetMaterial = null;
+       
+        if (renderer != null)
+            targetMaterial = renderer.material;
+        
+        if (targetMaterial == null) yield break;
+
+        float elapsedTime = 0f;
+
+        targetMaterial.SetColor(Shader.PropertyToID("_Color"), colorMaterial);
+        targetMaterial.SetColor(Shader.PropertyToID("_Color2"), color2Material);
+        while (elapsedTime < dissolveDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float normalizedTime = Mathf.Clamp01(elapsedTime / dissolveDuration);
+            float curveValue = dissolveCurve.Evaluate(normalizedTime);
+            
+            float currentValue = Mathf.Lerp(0f, 1f, curveValue);
+            targetMaterial.SetFloat(Shader.PropertyToID("_DissolveAmount"), currentValue);
+
+            yield return null;
+        }
+
+        targetMaterial.SetFloat(Shader.PropertyToID("_DissolveAmount"), 1f);
+    }
 }

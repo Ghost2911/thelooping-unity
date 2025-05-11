@@ -35,6 +35,7 @@ public class LocationPresentor : MonoBehaviour
         yield return new WaitForSeconds(4f);
         _animator.enabled = false;
         _textMesh.enabled = false;
+        yield return new WaitForSeconds(60f);
         _cor = null;
     }
 }

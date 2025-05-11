@@ -50,7 +50,7 @@ public class Bomb : MonoBehaviour, IThrowable
         }
 
         if (createdObject!=null)
-            Instantiate(createdObject, new Vector3(transform.position.x, 0f, transform.position.z), Quaternion.identity);
+            Instantiate(createdObject, new Vector3(transform.position.x, 0f, transform.position.z), createdObject.transform.rotation);
 
         Destroy(transform.parent.gameObject,0.5f);
     }
