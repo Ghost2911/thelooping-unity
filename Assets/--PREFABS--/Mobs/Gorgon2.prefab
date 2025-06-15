@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4743983630240915199}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -43.47, y: -0.08849287, z: 96.76852}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
   attackRange:
   - 2
   - 2
-  - 2
+  - 5
   affectedArea: 3
   dashUseRange: {x: 999, y: 999}
   dashRange: 10
@@ -116,7 +116,7 @@ MonoBehaviour:
   - {fileID: 8941419318213687094, guid: 6d88fb0980ded7242878d1cd2326acfd, type: 3}
   - {fileID: 5580807531388953428, guid: e9457b2992e000640ab34fb01db86836, type: 3}
   - {fileID: 2479447145657248852, guid: 1b978bad2d7a9484686cfdb04df68071, type: 3}
-  projectileItem: {fileID: 0}
+  projectileItem: {fileID: 6969551767399365514, guid: 723e86fa5c5748b478f5dd14df13856f, type: 3}
   damageType: 0
   weaponStatus: {fileID: 0}
   stats: {fileID: 0}
@@ -209,7 +209,7 @@ MonoBehaviour:
   armor: 2
   attack: 8
   damageType: 0
-  attackCooldown: 1.5
+  attackCooldown: 0.5
   speed: 8
   dashSpeed: 12
   regenValue: 0

@@ -139,7 +139,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6810976194709410237}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -52.07, y: -0.08849287, z: 103.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -215,18 +215,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRange:
-  - 2
-  - 2
-  - 2
-  affectedArea: 3
-  dashUseRange: {x: 5, y: 15}
-  dashRange: 2
+  - 4
+  - 4
+  - 4
+  affectedArea: 2
+  dashUseRange: {x: 3, y: 20}
+  dashRange: 5
   followingPath: 0
   drops:
   - {fileID: 8941419318213687094, guid: 6d88fb0980ded7242878d1cd2326acfd, type: 3}
   - {fileID: 5580807531388953428, guid: e9457b2992e000640ab34fb01db86836, type: 3}
   - {fileID: 2479447145657248852, guid: 1b978bad2d7a9484686cfdb04df68071, type: 3}
-  projectileItem: {fileID: 0}
+  projectileItem: {fileID: 8047981959361837183, guid: 823a3d2100c233c40be98fd814ee0687, type: 3}
   damageType: 0
   weaponStatus: {fileID: 0}
   stats: {fileID: 0}
@@ -251,10 +251,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.84375906
+  m_Radius: 1.74
   m_Height: 3.7248013
   m_Direction: 1
-  m_Center: {x: -0.19342613, y: 1.9012347, z: 0}
+  m_Center: {x: -0.19342613, y: 1.9012347, z: 0.93}
 --- !u!95 &5322171052438056668
 Animator:
   serializedVersion: 7
@@ -320,7 +320,7 @@ MonoBehaviour:
   attack: 8
   damageType: 0
   attackCooldown: 1.5
-  speed: 8
+  speed: 0
   dashSpeed: 12
   regenValue: 0
   regenRefreshTime: 5

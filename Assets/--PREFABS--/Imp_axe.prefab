@@ -27,12 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6677499488698444465}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -13.13, y: 0, z: -3.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6677499488698444471
 SpriteRenderer:
@@ -45,15 +46,19 @@ SpriteRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 644dbed82d2ba4f0f9aa330b3b984eab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -93,15 +98,24 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6677499488698444465}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
+  serializedVersion: 2
   m_Radius: 0.84375906
   m_Height: 3.7248013
   m_Direction: 1
   m_Center: {x: -0.19342613, y: 1.9012347, z: 0}
 --- !u!95 &4343356368763855894
 Animator:
-  serializedVersion: 3
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -114,10 +128,13 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &2011205331746627952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,8 +147,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc442766580b93c4e8297af95fc2b52e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 1
+  attackRange: []
   affectedArea: 3
+  dashUseRange: {x: 999, y: 999}
+  dashRange: 10
   followingPath: 0
   drops:
   - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
@@ -139,5 +158,9 @@ MonoBehaviour:
   - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
   - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
   - {fileID: 4102794825403137460, guid: 48cd40324628d1447a5d50ffb51432ce, type: 3}
+  projectileItem: {fileID: 0}
+  damageType: 0
+  weaponStatus: {fileID: 0}
   stats: {fileID: 0}
-  projectileBullet: {fileID: 0}
+  target: {fileID: 0}
+  enemyTag: 

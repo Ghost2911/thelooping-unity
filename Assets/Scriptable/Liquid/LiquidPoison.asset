@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   sprite: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  stateTransitionOptions: []
-  statusTransitionCondition: {fileID: 0}
-  statusOnStay: {fileID: 0}
+  animator: {fileID: 22100000, guid: ac3705ab1ac0b3d499b70c7bbeb9ed89, type: 2}
+  color: {r: 0.5511458, g: 0, b: 0.82641506, a: 0.87058824}
+  stateTransitionOptions:
+  - {fileID: 11400000, guid: c13bfa72144b15f40a80be02ba85e408, type: 2}
+  - {fileID: 11400000, guid: 3c71fdf168248e746bbfb17a30eca7cf, type: 2}
+  statusTransitionCondition: {fileID: 11400000, guid: c1b6ba9d4c0396242bd56acfabf38343, type: 2}
+  statusOnStay: {fileID: 11400000, guid: c1b6ba9d4c0396242bd56acfabf38343, type: 2}
   statusOnStart: {fileID: 0}

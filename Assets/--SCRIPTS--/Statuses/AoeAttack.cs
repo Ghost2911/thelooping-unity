@@ -11,8 +11,7 @@ public class AoeAttack : Status
 
     void CreateAOE()
     {
-        GameObject bullet = Instantiate(Resources.Load("Projectile/LiquidTimeToxin")
-                    as GameObject, transform.position,Quaternion.Euler(90f, 0f, 0f));
+        GameObject bullet = Instantiate(statusData.additiveObject, transform.position, statusData.additiveObject.transform.rotation);
     }
 
     private void OnDisable()

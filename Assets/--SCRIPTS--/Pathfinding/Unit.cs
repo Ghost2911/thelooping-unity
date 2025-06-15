@@ -29,14 +29,14 @@ public class Unit : MonoBehaviour
 	private bool isAttacking = false;
 	private Vector3 pathDestination;
 	private bool pathRequestSearched = false;
-	private float startSpriteDirection;
+	private Vector3 startScale;
 	public string enemyTag;
 	private Vector3[] circlePoints;
 
 	void Awake()
 	{
 		startPosition = transform.position;
-		startSpriteDirection = transform.localScale.x;
+		startScale = transform.localScale;
 		attackNumber = Random.Range(0, 3);
 		stats = GetComponent<EntityStats>();
 		stats.speedMultiplier = Random.Range(stats.speedMultiplier - 0.4f, stats.speedMultiplier);
@@ -208,16 +208,19 @@ public class Unit : MonoBehaviour
 
 	private Vector3 GetPathDestination(int attackNumber)
 	{
-		int pointCount = 5; 
-		float radius = attackRange[attackNumber];
-		circlePoints = new Vector3[pointCount];
 
-		if (target!=null)
+		float radius = attackRange[attackNumber];
+
+
+		//normal forward circle-range attack
+		int pointCount = 5;
+		circlePoints = new Vector3[pointCount];
+		if (target != null)
 		{
 			Vector3 dirToTarget = (transform.position - target.transform.position).normalized;
 			float startAngle = Mathf.Atan2(dirToTarget.z, dirToTarget.x);
 
-			float angleRange = Mathf.PI / 2f; 
+			float angleRange = Mathf.PI / 2f;
 
 			for (int i = 0; i < pointCount; i++)
 			{
@@ -234,6 +237,21 @@ public class Unit : MonoBehaviour
 		}
 		else
 			return targetPosition;
+
+
+		//в спину
+		//enemy.x-target.x   левее-правее 0  
+		//enemy.z-target.z   ниже-выше 0 
+
+		// собираем вектор Vector3(X,0,Z)
+		//если выше то -1 X
+		//если правее то -1 Z    
+
+		//для получения промежуточного waypoint отразить по X
+		//добавить 2-3 вектора new Vector3(0,0,Z) 
+
+
+
 	}
 
 	IEnumerator Charging()
@@ -260,9 +278,9 @@ public class Unit : MonoBehaviour
 	private void SpriteFlip(Vector3 movement)
 	{
 		if (movement.x < 0)
-			transform.localScale = new Vector3(1f * startSpriteDirection, 1f, 1f);
+			transform.localScale = new Vector3(1f * startScale.x, startScale.y, startScale.z);
 		else if (movement.x > 0)
-			transform.localScale = new Vector3(-1f * startSpriteDirection, 1f, 1f);
+			transform.localScale = new Vector3(-1f * startScale.x, startScale.y, startScale.z);
 	}
 
 	private void Attack()
@@ -294,7 +312,15 @@ public class Unit : MonoBehaviour
 	{
 		StopAllCoroutines();
 		foreach (GameObject drop in drops)
-			Instantiate(drop, transform.position, new Quaternion(0f, 0f, 0f, 0f));
+		{
+			if (drop.GetComponent<Unit>() != null)
+			{
+				drop.GetComponent<Unit>().SetTarget(target);
+				Instantiate(drop, transform.position + new Vector3(Random.Range(-1,1),0f,Random.Range(-1,1)), drop.transform.rotation);
+			}
+			else
+				Instantiate(drop, transform.position, drop.transform.rotation);
+		}
 		Destroy(this.gameObject);
 	}
 
