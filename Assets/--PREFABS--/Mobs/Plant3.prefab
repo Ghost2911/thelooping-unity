@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4615907900767550245}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -32.559998, y: -0.08849287, z: 96.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -106,22 +106,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange:
   - 2
+  - 8
   - 2
-  - 2
-  affectedArea: 3
+  affectedArea: 2
   dashUseRange: {x: 999, y: 999}
   dashRange: 10
   followingPath: 0
   drops:
-  - {fileID: 8941419318213687094, guid: 6d88fb0980ded7242878d1cd2326acfd, type: 3}
+  - {fileID: 2729961411217432890, guid: ca6805d9b2e443845b58a34db9bcfc63, type: 3}
   - {fileID: 5580807531388953428, guid: e9457b2992e000640ab34fb01db86836, type: 3}
   - {fileID: 2479447145657248852, guid: 1b978bad2d7a9484686cfdb04df68071, type: 3}
-  projectileItem: {fileID: 0}
+  projectileItem: {fileID: 5196881195830796142, guid: e441996cf0ed90849a2d1bcd7b59a78b, type: 3}
   damageType: 0
   weaponStatus: {fileID: 0}
   stats: {fileID: 0}
   target: {fileID: 0}
-  enemyTag: 
+  enemyTag: Player
 --- !u!136 &8811875306160525766
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -206,7 +206,7 @@ MonoBehaviour:
   LethalDamageEvent:
     m_PersistentCalls:
       m_Calls: []
-  armor: 2
+  armor: 10
   attack: 8
   damageType: 0
   attackCooldown: 1.5
