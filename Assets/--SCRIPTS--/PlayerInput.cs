@@ -29,7 +29,7 @@ public class PlayerInput : MonoBehaviour
             return;
 
         //Vector3 movement = new Vector3(joystick.Horizontal, 0.0f, joystick.Vertical);
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
+        Vector3 movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
         if (attackTime > 0)
             attackTime -= Time.deltaTime;
         else

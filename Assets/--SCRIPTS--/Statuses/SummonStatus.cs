@@ -3,7 +3,6 @@ using UnityEngine;
 public class SummonStatus : Status
 {
     public int maxUnitCount = 3;
-    public string unitPrefabPath = "Mobs/Skelet";
     private Unit[] summonUnits;
     private Vector3[] offsets;
     private float rotateAngle = 0;
@@ -17,7 +16,7 @@ public class SummonStatus : Status
         summonUnits = new Unit[maxUnitCount];
         offsets = new Vector3[maxUnitCount];
         rotateAngle = Mathf.PI * 2 / maxUnitCount;
-        summonPrefab = Resources.Load(unitPrefabPath) as GameObject;
+        summonPrefab = statusData.additiveObject;
         summonPrefab.tag = target.tag;
         attackingTag = target.CompareTag("enemy") ? "Player":"enemy";
 
