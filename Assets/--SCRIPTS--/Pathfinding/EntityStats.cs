@@ -73,7 +73,7 @@ public class EntityStats : MonoBehaviour, IDamageable, IStatusable
             if (hitInfo.damageValue != 0)
             {
                 StartCoroutine(DamageColor(hitInfo.blindColor));
-                int resultDamage = (hitInfo.ignoreArmor) ? hitInfo.damageValue : System.Convert.ToInt32(hitInfo.damageValue * (1 - armor / 20f));
+                int resultDamage = (hitInfo.ignoreArmor) ? hitInfo.damageValue : System.Convert.ToInt32(hitInfo.damageValue * (1 - armor / 40f));
                 DamageTakeEvent?.Invoke(hitInfo.damageSource);
                 if (Health - resultDamage <= 0)
                     LethalDamageEvent.Invoke(hitInfo.damageSource);

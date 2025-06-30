@@ -17,9 +17,18 @@ public class LocationTrigger : MonoBehaviour
     {
         if (isBoss)
         {
-            TargetPresentor targetMark = Inventory.instance.GetNextTargetPresentor();
-            targetMark.SetSprite(locationImage);
-            GetComponentInParent<EntityStats>().DeathEvent.AddListener(targetMark.SetCompleted);
+            if (PlayerPrefs.GetInt(GetComponentInChildren<EntityStats>().name, 0) == 0)
+            {
+                //TargetPresentor targetMark = Inventory.instance.GetNextTargetPresentor();
+                //targetMark.SetSprite(locationImage);
+                //GetComponentInParent<EntityStats>().DeathEvent.AddListener(targetMark.SetCompleted);
+                GetComponentInChildren<EntityStats>().DeathEvent.AddListener(this.SaveBossDeath);
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
+            Debug.Log("Загружен босс " + GetComponentInChildren<EntityStats>().name + " | Состояние: " + PlayerPrefs.GetInt(GetComponentInChildren<EntityStats>().name, 0));
         }
     }
 
@@ -49,5 +58,12 @@ public class LocationTrigger : MonoBehaviour
             if (cameraPosition != null)
                 GlobalSettings.instance.SetCameraTraget(other.transform);
         }
+    }
+
+    public void SaveBossDeath()
+    {
+        Debug.Log("Сохранен босс "+GetComponentInChildren<EntityStats>().name);
+        PlayerPrefs.SetInt(GetComponentInChildren<EntityStats>().name, 1);
+        PlayerPrefs.Save();
     }
 }

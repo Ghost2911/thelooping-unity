@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using UnityEngine.Rendering.PostProcessing;
+using System;
 
 public class GlobalSettings : MonoBehaviour
 {
@@ -50,9 +51,15 @@ public class GlobalSettings : MonoBehaviour
         }
     }
 
+    public void SaveBossDeath(GameObject boss)
+    {
+        PlayerPrefs.SetInt(boss.name, 1);
+        PlayerPrefs.Save();
+    }
+
     public void CreateCharacter()
     {
-        int characterNum = (isTutorial)?0:Random.Range(0, characters.Count);
+        int characterNum = (isTutorial) ? 0 : UnityEngine.Random.Range(0, characters.Count);
 
         player = characters[characterNum].GetComponent<PlayerInput>();
         playerEntity = characters[characterNum].GetComponent<EntityStats>();
